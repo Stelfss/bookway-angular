@@ -1,0 +1,100 @@
+<form class="formulario" (ngSubmit)="onSubmit()">
+  <h1>Log in</h1>
+
+  <div class="input-group">
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" [(ngModel)]="email" required>
+  </div>
+
+  <div class="input-group">
+    <label for="password">Senha:</label>
+    <input type="password" id="password" name="password" [(ngModel)]="password" required>
+  </div>
+
+  <p [style.color]="corMensagem" style="font-weight: bold; margin-top: 10px;">{{ mensagemStatus }}</p>
+
+  <div class="action-group">
+    <input type="submit" value="Login" id="bttn-cad">
+  </div>
+</form>
+<!doctype html>
+<html lang="pt-br">
+  <body>
+    <header class="main-header">
+      <div class="header-container">
+        <div class="logo">
+            <a href="./index.html" id="logo">
+              <img
+                src="/Site/imagens/Vetores/logovetorizada2.svg"
+                alt="Logo"
+                height="55px"
+                id="imglogo"
+              />
+            </a>
+          </div>
+
+        <nav class="center-nav">
+          <ul>
+            <li><a href="../index.html">Início</a></li>
+            <li><a href="#recursos">Recursos</a></li>
+            <li><a href="#comunidades">Comunidades</a></li>
+            <li><a href="#destaques">Destaques</a></li>
+          </ul>
+        </nav>
+
+        <div class="auth-buttons">
+          <a href="#" class="btn-login">Entrar</a>
+          <a href="./singin.html" class="btn-register">Criar</a>
+        </div>
+      </div>
+    </header>
+    <main>
+    <section class="imagemlogo">
+        <img src="imagens/Vetores/MiniLogoVetor.svg" alt="Logo" width="300" height="300">
+    </section>
+    <form class="formulario" id="form-cadastro" onsubmit="event.preventDefault();">
+        <h1>Log in</h1>
+
+    <div class="input-group">
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+    </div>
+
+    <div class="input-group">
+        <label for="password">Senha:</label>
+        <input type="password" id="password" name="password" required>
+    </div>
+<p id="mensagem-status" style="font-weight: bold; margin-top: 10px;"></p>
+    <div class="action-group">
+    <input type="submit" value="Login" id="bttn-cad">
+</div>
+
+<div class="divider">
+    <span>ou</span>
+</div>
+
+<div class="link">
+    <p>Não tem uma conta? 
+    <a href="singin.html">Cadastre-se</a></p>
+</div>
+       
+    </form>
+    
+    </main> 
+    <footer class="main-footer">
+      <div class="footer-container">
+        <p>
+          &copy; 2026 Bookway. Desenvolvido para conectar mentes literárias.
+        </p>
+        <ul class="footer-links">
+          <li><a href="./about-login.html">Sobre</a></li>
+          <li><a href="./faq-home.html">Central de Ajuda</a></li>
+          <li><a href="./contacts-home.html">Contato</a></li>
+        </ul>
+      </div>
+    </footer>
+    <!-- Mantenha o script.js se ele tiver coisas de layout, mas adicione o login.js como module -->
+<script type="module" src="./JS/login.js"></script>
+<script src="https://cdn.userway.org/widget.js" data-account="1ouXwoNvar"></script>
+</body>
+</html>
