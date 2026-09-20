@@ -1,72 +1,42 @@
-# Lote 2: Intro (página inicial) + conserto do Login
+# Lote 3: conserto do login e do rodapé
 
-Este lote resolve o login quebrado E adiciona a página que vem antes do
-login (era o `index.html` do projeto original).
+## 1) Substituir: `src/app/pages/login/login.html`
 
-## O que mudou de arquitetura
+Troque pelo deste arquivo — a diferença é que agora tudo está envolvido
+numa tag `<main>`, que é o que faltava (o CSS `main { display: flex; ... }`
+do index.css é o que posiciona a logo e o formulário lado a lado).
 
-Descobrimos que seu site tem, na verdade, DOIS "moldes" de página:
+## 2) Substituir: `src/app/pages/login/login.css`
 
-1. **PublicLayoutComponent** (novo) — cabeçalho com "Início/Recursos/
-   Comunidades/Destaques/Entrar/Criar" + rodapé. Usado nas páginas antes de
-   logar: intro, login, e futuramente singin, about, etc.
-2. **MainLayoutComponent** (já existia) — a barra lateral + cabeçalho do
-   app. Usado nas páginas depois de logar: home, bookshelf, chat, etc.
+Troque pelo deste arquivo — ele vem **vazio de propósito**. Descobri que
+o `login-signin.css` que colamos aí no início nunca foi usado pelo site
+original de verdade (o `login.html` real só carrega o `index.css`). Então
+esse conteúdo antigo estava causando estilos errados. Pode apagar tudo que
+tem lá agora e deixar vazio.
 
-## Passo a passo
+## 3) Adicionar ao FINAL de `src/styles.css`
 
-### 1) Pasta nova: `layout/public-layout`
+Não precisa trocar o arquivo inteiro dessa vez — só copie o conteúdo do
+`footer-fix.css` (desse zip) e cole no final do seu `styles.css` atual.
 
-Copie a pasta `src/app/layout/public-layout` (com `.ts`, `.html`, `.css`)
-pra dentro de `src/app/layout/` no seu projeto — ela fica do lado da
-`main-layout` que já existe.
+Isso resolve uma colisão real que existe entre `base.css` e `index.css`:
+os dois têm uma regra `footer { ... }` (a tag pura, não a classe
+`.main-footer`) com propriedades diferentes. No site original isso nunca
+dava problema porque cada página só carregava um dos dois arquivos — mas
+agora que os dois estão juntos no mesmo `styles.css`, a regra do `base.css`
+(pensada pro rodapé interno do app) estava vazando pro rodapé do site
+público e bagunçando o layout.
 
-### 2) Pasta nova: `pages/intro`
+## Depois de aplicar
 
-Copie a pasta `src/app/pages/intro` pra dentro de `src/app/pages/` — essa é
-a página inicial (era o `index.html`).
+1. Salve os 3 arquivos
+2. Acesse `localhost:4200/login` — a logo pequena e o formulário devem
+   aparecer lado a lado, do tamanho certo
+3. Veja o rodapé (tanto na intro quanto no login) — o texto e os links
+   devem aparecer espaçados corretamente, um de cada lado
 
-### 3) Substituir: `src/app/pages/login/login.html`
-
-Troque o conteúdo pelo deste arquivo. Removi o cabeçalho e rodapé que
-estavam duplicados sem estilo (causa do login quebrado) — agora eles vêm
-do `PublicLayoutComponent` automaticamente.
-
-### 4) Substituir: `src/app/pages/login/login.ts`
-
-Troque pelo deste arquivo — só mudou o import do `RouterLink` (usado no
-link "Cadastre-se").
-
-**NÃO mexa no `login.css`** — ele continua igual, só com os estilos
-específicos do formulário.
-
-### 5) Substituir: `src/app/app.routes.ts`
-
-Troque pelo deste arquivo. Agora tem os dois layouts organizados: um bloco
-pra páginas públicas (intro, login) e outro pro app (home).
-
-### 6) Substituir: `src/styles.css`
-
-Troque pelo deste arquivo — é o `base.css` de antes + o `index.css`
-somados (com os caminhos de imagem já corrigidos). Ele é grande (uns 3200
-linhas) porque agora carrega o CSS de TODAS as páginas públicas e do app
-de uma vez só — é assim mesmo, é intencional.
-
-## Depois de aplicar tudo
-
-1. Salve todos os arquivos
-2. Acesse `localhost:4200/` (raiz, sem `/login`) — deve aparecer a página
-   inicial (intro) com cabeçalho, seções e rodapé
-3. Clique em "Entrar" no cabeçalho — deve ir pro login, agora com cabeçalho
-   e rodapé estilizados corretamente
-4. Teste o login de verdade — deve continuar funcionando e te levar pra
-   `/home`
-
-## Simplificação que fiz (de propósito)
-
-No `index.js` original, o menu "Início/Recursos/..." destacava o link
-ativo conforme você rolava a página (scroll-spy). Como o cabeçalho agora é
-compartilhado entre várias páginas (não só a intro), essa animação de
-destaque ficou simplificada por enquanto — o menu funciona pra navegar,
-só não destaca mais sozinho qual seção está na tela. Dá pra recuperar isso
-depois com um serviço compartilhado, se você quiser — é só avisar.
+Sobre a "intro": é só o nome que dei pro componente que veio do seu
+`index.html` original (a página que abre antes do login, com o menu
+Início/Recursos/Comunidades/Destaques). Não é algo novo que eu inventei —
+é exatamente a página que você mesmo me descreveu. Se preferir outro nome
+pra pasta/componente, é só me falar que eu ajusto nos próximos lotes.

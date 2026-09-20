@@ -1,34 +1,36 @@
-<section class="imagemlogo">
-  <img src="/imagens/Vetores/MiniLogoVetor.svg" alt="Logo" width="300" height="300" />
-</section>
+<main>
+  <section class="imagemlogo">
+    <img src="/imagens/Vetores/MiniLogoVetor.svg" alt="Logo" width="300" height="300" />
+  </section>
 
-<form class="formulario" (ngSubmit)="onSubmit()">
-  <h1>Log in</h1>
+  <form class="formulario" (ngSubmit)="onSubmit()">
+    <h1>Log in</h1>
 
-  <div class="input-group">
-    <label for="email">Email:</label>
-    <input type="email" id="email" name="email" [(ngModel)]="email" required />
-  </div>
+    <div class="input-group">
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" [(ngModel)]="email" required />
+    </div>
 
-  <div class="input-group">
-    <label for="password">Senha:</label>
-    <input type="password" id="password" name="password" [(ngModel)]="password" required />
-  </div>
+    <div class="input-group">
+      <label for="password">Senha:</label>
+      <input type="password" id="password" name="password" [(ngModel)]="password" required />
+    </div>
 
-  <p [style.color]="corMensagem" style="font-weight: bold; margin-top: 10px;">{{ mensagemStatus }}</p>
+    <p [style.color]="corMensagem" style="font-weight: bold; margin-top: 10px;">{{ mensagemStatus }}</p>
 
-  <div class="action-group">
-    <input type="submit" value="Login" id="bttn-cad" />
-  </div>
+    <div class="action-group">
+      <input type="submit" value="Login" id="bttn-cad" />
+    </div>
 
-  <div class="divider">
-    <span>ou</span>
-  </div>
+    <div class="divider">
+      <span>ou</span>
+    </div>
 
-  <div class="link">
-    <p>
-      Não tem uma conta?
-      <a routerLink="/singin">Cadastre-se</a>
-    </p>
-  </div>
-</form>
+    <div class="link">
+      <p>
+        Não tem uma conta?
+        <a routerLink="/singin">Cadastre-se</a>
+      </p>
+    </div>
+  </form>
+</main>
