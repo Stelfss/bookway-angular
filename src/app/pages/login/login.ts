@@ -1,13 +1,12 @@
-
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { SupabaseService } from '../../core/supabase';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, RouterLink],
   templateUrl: './login.html',
   styleUrl: './login.css'
 })
@@ -17,7 +16,10 @@ export class LoginComponent {
   mensagemStatus = '';
   corMensagem = '';
 
-  constructor(private supabaseService: SupabaseService, private router: Router) {}
+  constructor(
+    private supabaseService: SupabaseService,
+    private router: Router
+  ) {}
 
   async onSubmit() {
     this.mensagemStatus = '';

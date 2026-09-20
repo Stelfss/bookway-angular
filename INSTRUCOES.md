@@ -1,54 +1,72 @@
-# Como aplicar isso no seu projeto bookway-angular
+# Lote 2: Intro (página inicial) + conserto do Login
 
-Este zip tem 4 arquivos. Cada um vai num lugar diferente do seu projeto real
-(o que está aberto no VS Code). Copie um por um.
+Este lote resolve o login quebrado E adiciona a página que vem antes do
+login (era o `index.html` do projeto original).
 
-## 1) Arquivo novo: pasta `layout/main-layout`
+## O que mudou de arquitetura
 
-Copie a pasta inteira `src/app/layout` (com `main-layout.ts`, `main-layout.html`
-e `main-layout.css` dentro) para dentro de `src/app/` no seu projeto.
-Fica assim: `src/app/layout/main-layout/main-layout.ts` etc.
+Descobrimos que seu site tem, na verdade, DOIS "moldes" de página:
 
-Esse componente é a "moldura" com a barra lateral (menu) e o cabeçalho de
-cima, baseados no `home.html` original. As rotas internas (home, bookshelf,
-chat...) vão aparecer dentro dele, no lugar do `<router-outlet>`.
+1. **PublicLayoutComponent** (novo) — cabeçalho com "Início/Recursos/
+   Comunidades/Destaques/Entrar/Criar" + rodapé. Usado nas páginas antes de
+   logar: intro, login, e futuramente singin, about, etc.
+2. **MainLayoutComponent** (já existia) — a barra lateral + cabeçalho do
+   app. Usado nas páginas depois de logar: home, bookshelf, chat, etc.
 
-## 2) Substituir: `src/app/app.routes.ts`
+## Passo a passo
 
-Abra o `app.routes.ts` do seu projeto e troque o conteúdo inteiro pelo deste
-arquivo. Ele:
-- Mantém a rota `/login` separada (sem sidebar/header, como deve ser)
-- Coloca `/home` DENTRO do `MainLayoutComponent`, então quando você acessar
-  `/home` agora vai aparecer com a barra lateral e o cabeçalho
-- Já deixa um comentário mostrando onde adicionar as próximas páginas
-  conforme forem convertidas
+### 1) Pasta nova: `layout/public-layout`
 
-## 3) Substituir: `src/styles.css`
+Copie a pasta `src/app/layout/public-layout` (com `.ts`, `.html`, `.css`)
+pra dentro de `src/app/layout/` no seu projeto — ela fica do lado da
+`main-layout` que já existe.
 
-Esse é o arquivo de estilos GLOBAL do projeto (fora de qualquer componente).
-Troque o conteúdo pelo deste arquivo — é o seu `base.css` original completo,
-só com os caminhos de imagem corrigidos (de `../imagens/...` para
-`/imagens/...`, que é como o Angular serve a pasta `public/`).
+### 2) Pasta nova: `pages/intro`
 
-Isso é o que dá estilo pra sidebar, ao cabeçalho, aos botões etc. Sem isso,
-o layout vai aparecer sem formatação nenhuma.
+Copie a pasta `src/app/pages/intro` pra dentro de `src/app/pages/` — essa é
+a página inicial (era o `index.html`).
 
-## Depois de aplicar os 3 pontos
+### 3) Substituir: `src/app/pages/login/login.html`
 
-1. Salve tudo
-2. Se o `ng serve` estiver rodando, ele deve recarregar sozinho
-3. Acesse `localhost:4200/home` — agora deve aparecer com a barra lateral e o
-   cabeçalho de verdade, do jeito que era no site original
+Troque o conteúdo pelo deste arquivo. Removi o cabeçalho e rodapé que
+estavam duplicados sem estilo (causa do login quebrado) — agora eles vêm
+do `PublicLayoutComponent` automaticamente.
 
-## Coisas que ainda ficaram como "TODO" (de propósito, pra próxima etapa)
+### 4) Substituir: `src/app/pages/login/login.ts`
 
-- O botão "Criar Comunidade" e a barra de pesquisa do cabeçalho não fazem
-  nada ainda (só estão visuais) — a lógica completa deles depende de outras
-  páginas/modais que ainda não foram convertidas
-- O número de "streak" (sequência) está fixo em 0 — no original ele vem do
-  banco de dados; isso pode ser conectado depois, buscando do Supabase no
-  `main-layout.ts`
-- Cada nova página (bookshelf, chat, etc.) que você converter deve entrar
-  como "filha" dentro do array `children` do `app.routes.ts`, do jeito que
-  a `home` está agora — assim ela automaticamente ganha a sidebar/header sem
-  precisar copiar esse código de novo
+Troque pelo deste arquivo — só mudou o import do `RouterLink` (usado no
+link "Cadastre-se").
+
+**NÃO mexa no `login.css`** — ele continua igual, só com os estilos
+específicos do formulário.
+
+### 5) Substituir: `src/app/app.routes.ts`
+
+Troque pelo deste arquivo. Agora tem os dois layouts organizados: um bloco
+pra páginas públicas (intro, login) e outro pro app (home).
+
+### 6) Substituir: `src/styles.css`
+
+Troque pelo deste arquivo — é o `base.css` de antes + o `index.css`
+somados (com os caminhos de imagem já corrigidos). Ele é grande (uns 3200
+linhas) porque agora carrega o CSS de TODAS as páginas públicas e do app
+de uma vez só — é assim mesmo, é intencional.
+
+## Depois de aplicar tudo
+
+1. Salve todos os arquivos
+2. Acesse `localhost:4200/` (raiz, sem `/login`) — deve aparecer a página
+   inicial (intro) com cabeçalho, seções e rodapé
+3. Clique em "Entrar" no cabeçalho — deve ir pro login, agora com cabeçalho
+   e rodapé estilizados corretamente
+4. Teste o login de verdade — deve continuar funcionando e te levar pra
+   `/home`
+
+## Simplificação que fiz (de propósito)
+
+No `index.js` original, o menu "Início/Recursos/..." destacava o link
+ativo conforme você rolava a página (scroll-spy). Como o cabeçalho agora é
+compartilhado entre várias páginas (não só a intro), essa animação de
+destaque ficou simplificada por enquanto — o menu funciona pra navegar,
+só não destaca mais sozinho qual seção está na tela. Dá pra recuperar isso
+depois com um serviço compartilhado, se você quiser — é só avisar.
