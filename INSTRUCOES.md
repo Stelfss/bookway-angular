@@ -1,42 +1,40 @@
-# Lote 3: conserto do login e do rodapé
+# Lote 3 (atualizado): rodapé definitivo + página Singin (cadastro)
 
-## 1) Substituir: `src/app/pages/login/login.html`
+## 1) Substituir: `src/styles.css` (arquivo inteiro dessa vez)
 
-Troque pelo deste arquivo — a diferença é que agora tudo está envolvido
-numa tag `<main>`, que é o que faltava (o CSS `main { display: flex; ... }`
-do index.css é o que posiciona a logo e o formulário lado a lado).
+Da última vez pedi pra você só colar um trecho no final do arquivo — isso é
+fácil de esquecer ou colar no lugar errado. Dessa vez troque o `styles.css`
+inteiro pelo `styles.css` deste zip: ele já é o `base.css` + `index.css` +
+a correção do rodapé, tudo junto, sem passo manual de "adicionar ao final".
 
-## 2) Substituir: `src/app/pages/login/login.css`
+## 2) Pasta nova: `pages/singin`
 
-Troque pelo deste arquivo — ele vem **vazio de propósito**. Descobri que
-o `login-signin.css` que colamos aí no início nunca foi usado pelo site
-original de verdade (o `login.html` real só carrega o `index.css`). Então
-esse conteúdo antigo estava causando estilos errados. Pode apagar tudo que
-tem lá agora e deixar vazio.
+Copie a pasta `src/app/pages/singin` (com `.ts`, `.html`, `.css`) pra
+dentro de `src/app/pages/` no seu projeto. É a página de cadastro (era o
+`singin.html` + `singin.js` original) — já com as mesmas validações
+(usuário com 3+ caracteres, senha com 6+ caracteres, confirmação de senha,
+checagem de username duplicado via `rpc('check_username_exists')`, e
+cadastro real via `supabase.auth.signUp`).
 
-## 3) Adicionar ao FINAL de `src/styles.css`
+## 3) Substituir: `src/app/app.routes.ts`
 
-Não precisa trocar o arquivo inteiro dessa vez — só copie o conteúdo do
-`footer-fix.css` (desse zip) e cole no final do seu `styles.css` atual.
-
-Isso resolve uma colisão real que existe entre `base.css` e `index.css`:
-os dois têm uma regra `footer { ... }` (a tag pura, não a classe
-`.main-footer`) com propriedades diferentes. No site original isso nunca
-dava problema porque cada página só carregava um dos dois arquivos — mas
-agora que os dois estão juntos no mesmo `styles.css`, a regra do `base.css`
-(pensada pro rodapé interno do app) estava vazando pro rodapé do site
-público e bagunçando o layout.
+Troque pelo deste arquivo — só adicionei a rota `singin` dentro do mesmo
+grupo do `PublicLayoutComponent` (junto com intro e login).
 
 ## Depois de aplicar
 
-1. Salve os 3 arquivos
-2. Acesse `localhost:4200/login` — a logo pequena e o formulário devem
-   aparecer lado a lado, do tamanho certo
-3. Veja o rodapé (tanto na intro quanto no login) — o texto e os links
-   devem aparecer espaçados corretamente, um de cada lado
+1. Acesse `localhost:4200/singin` — deve aparecer com cabeçalho, logo,
+   formulário completo (usuário/email/senha/repetir senha) e rodapé, tudo
+   estilizado igual ao login
+2. O rodapé deve estar correto agora em TODAS as páginas públicas
+   (intro, login, singin)
+3. Teste criar uma conta de verdade, se quiser — ele deve validar os
+   campos e criar o usuário no Supabase
 
-Sobre a "intro": é só o nome que dei pro componente que veio do seu
-`index.html` original (a página que abre antes do login, com o menu
-Início/Recursos/Comunidades/Destaques). Não é algo novo que eu inventei —
-é exatamente a página que você mesmo me descreveu. Se preferir outro nome
-pra pasta/componente, é só me falar que eu ajusto nos próximos lotes.
+## Sobre a página Home com o "hero slide"
+
+Essa eu vou te mandar no próximo lote — o `home.html` é bem mais extenso
+que login/singin (tem carrossel de destaques, seções de estante, etc.) e
+prefiro examinar o código completo dele com calma antes de converter, pra
+não repetir os erros de pressa que já tivemos. Só confirma esse lote 3
+primeiro.
