@@ -128,8 +128,8 @@
         </form>
       </div>
       <div id="seq">
-        <a href="#" id="txt-user">
-          <p id="streak-user">{{ streak }}</p>
+        <a href="#" id="txt-user" (click)="$event.preventDefault(); streakService.abrirModal()">
+          <p id="streak-user">{{ streakService.sequenciaAtual }}</p>
           <img
             src="/imagens/Vetores/FireVetor.svg"
             alt="Fogo"
@@ -142,7 +142,7 @@
       </div>
       <div id="g-icon-user">
         <a routerLink="/user">
-          <img src="/imagens/padrao.jpg" class="user-avatar" alt="Meu Perfil" />
+          <img [src]="avatarUrl" class="user-avatar" alt="Meu Perfil" />
         </a>
       </div>
     </div>
@@ -150,3 +150,70 @@
 
   <router-outlet></router-outlet>
 </main>
+
+<!-- Rodapé compartilhado por todas as páginas logadas (era idêntico em
+     home.html, bookshelf.html, comunity.html, etc. no projeto original) -->
+<footer>
+  <div class="footerbusca">
+    <div class="footer-links">
+      <button type="button" id="backtop" class="negrito" (click)="voltarAoTopo()">
+        Voltar ao Topo
+      </button>
+    </div>
+    <div class="footer-links"><a routerLink="/home">Audiobooks</a></div>
+    <div class="footer-links"><a routerLink="/home">HQ's</a></div>
+    <div class="footer-links"><a routerLink="/home">Mangás</a></div>
+  </div>
+  <div class="footerbusca">
+    <div class="footer-links"><a routerLink="/home" class="negrito">Institucional</a></div>
+    <div class="footer-links"><a routerLink="/about">Quem somos</a></div>
+    <div class="footer-links"><a routerLink="/home">Direitos autorais</a></div>
+    <div class="footer-links"><a routerLink="/home">Programa de integridade</a></div>
+    <div class="footer-links"><a routerLink="/home">Imprensa</a></div>
+  </div>
+  <div class="footerbusca">
+    <div class="footer-links"><a routerLink="/home" class="negrito">Ajuda</a></div>
+    <div class="footer-links"><a routerLink="/helpcenterhome">Central de ajuda</a></div>
+    <div class="footer-links"><a routerLink="/home">Segurança e Privacidade</a></div>
+    <div class="footer-links"><a routerLink="/home">Política de Privacidade</a></div>
+    <div class="footer-links"><a routerLink="/home">Termos de uso do comprador</a></div>
+    <div class="footer-links"><a routerLink="/home">Acessibilidade</a></div>
+  </div>
+  <div class="redes">
+    <div class="imagem">
+      <img src="/imagens/Vetores/logovetorizada2.svg" alt="Logo" height="55px" id="imglogo" />
+    </div>
+    <p class="txt-redes">E-mail: contato.bookway&#64;gmail.com</p>
+    <p class="txt-redes">Siga-nos nas redes sociais</p>
+    <div class="redes-sociais">
+      <a href="https://www.facebook.com/bookway" target="_blank" rel="noopener noreferrer">
+        <img src="/imagens/Vetores/FacebookLogo.svg" alt="Facebook" width="28px" class="trocarcor" />
+      </a>
+      <a href="https://www.instagram.com/bookway" target="_blank" rel="noopener noreferrer">
+        <img src="/imagens/Vetores/InstagramLogo.svg" alt="Instagram" width="28px" class="trocarcor" />
+      </a>
+      <a href="https://www.linkedin.com/company/bookway" target="_blank" rel="noopener noreferrer">
+        <img src="/imagens/Vetores/LinkedinLogo.svg" alt="LinkedIn" width="28px" class="trocarcor" />
+      </a>
+    </div>
+    <div class="redes-sociais">
+      <a href="https://www.threads.net/@bookway" target="_blank" rel="noopener noreferrer">
+        <img src="/imagens/Vetores/ThreadsLogo.svg" alt="Threads" width="28px" class="trocarcor" />
+      </a>
+      <a href="https://www.tiktok.com/@bookway" target="_blank" rel="noopener noreferrer">
+        <img src="/imagens/Vetores/TiktokLogo.svg" alt="TikTok" width="28px" class="trocarcor" />
+      </a>
+      <a href="https://www.x.com/bookway" target="_blank" rel="noopener noreferrer">
+        <img src="/imagens/Vetores/XLogo.svg" alt="X" width="28px" class="trocarcor" />
+      </a>
+    </div>
+    <div class="redes-sociais">
+      <a href="https://www.discord.com/invite/bookway" target="_blank" rel="noopener noreferrer">
+        <img src="/imagens/Vetores/DiscordLogo.svg" alt="Discord" width="28px" class="trocarcor" />
+      </a>
+      <a href="https://www.youtube.com/c/BookWay" target="_blank" rel="noopener noreferrer">
+        <img src="/imagens/Vetores/YoutubeLogo.svg" alt="YouTube" width="28px" class="trocarcor" />
+      </a>
+    </div>
+  </div>
+</footer>

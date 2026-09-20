@@ -1,1 +1,277 @@
-<p>home works!</p>
+<section class="conteudo">
+  <!-- HERO CAROUSEL -->
+  <div class="hero-carousel" id="hero-carousel" (mouseenter)="stopAutoPlay()" (mouseleave)="startAutoPlay()">
+    <div class="hero-carousel-track" id="hero-track">
+      @for (slide of heroSlides; track slide.titulo; let i = $index) {
+        <div
+          class="hero-slide"
+          [class.active]="i === heroIndex"
+          [class.prev]="i === (heroIndex - 1 + heroSlides.length) % heroSlides.length"
+          [class.next]="i === (heroIndex + 1) % heroSlides.length"
+          (click)="i === (heroIndex - 1 + heroSlides.length) % heroSlides.length ? prevSlide() : (i === (heroIndex + 1) % heroSlides.length ? nextSlide() : null)"
+        >
+          <img [src]="slide.img" [alt]="slide.titulo" />
+          <div class="hero-content">
+            <span class="hero-badge">{{ slide.badge }}</span>
+            <h2>{{ slide.titulo }}</h2>
+            <p>{{ slide.texto }}</p>
+          </div>
+        </div>
+      }
+    </div>
+
+    <div class="hero-controls">
+      <button class="hero-arrow" (click)="prevSlide()">
+        <img src="/imagens/Vetores/SetaEsquerdaVetor.svg" alt="Anterior" class="sidebar-icon" />
+      </button>
+
+      <div class="hero-indicators" id="hero-indicators">
+        @for (slide of heroSlides; track slide.titulo; let i = $index) {
+          <div class="hero-dot" [class.active]="i === heroIndex" (click)="goToSlide(i)"></div>
+        }
+      </div>
+
+      <button class="hero-arrow" (click)="nextSlide()">
+        <img src="/imagens/Vetores/SetaDireitaVetor.svg" alt="Próximo" class="sidebar-icon" />
+      </button>
+    </div>
+  </div>
+
+  <!-- VISTOS RECENTEMENTE -->
+  <div class="row">
+    <h1>Vistos Recentemente</h1>
+    <section class="secao-horizontal">
+      <button class="btn-scroll-left" [class.btn-oculto]="temScrollOculto(vistosRecentemente.length)" (click)="scrollRow(vistosRow, -1)">
+        <img src="/imagens/Vetores/SetaEsquerdaVetor.svg" alt="Esquerda" class="sidebar-icon" />
+      </button>
+      <div class="book-row" #vistosRow>
+        @for (livro of vistosRecentemente; track livro.id) {
+          <div class="book" (click)="abrirLivroModal(livro)">
+            <img class="card-top" [src]="livro.capa" alt="imagem do livro" />
+            <div class="card-overlay">
+              <div class="user-book-progress">
+                <p class="card-text text-pages">{{ livro.lidas }}/{{ livro.total }} páginas</p>
+                <div class="book-progress">
+                  <div class="progress-bar fill-bar" [style.width.%]="progresso(livro.lidas, livro.total)"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+      <button class="btn-scroll-right" [class.btn-oculto]="temScrollOculto(vistosRecentemente.length)" (click)="scrollRow(vistosRow, 1)">
+        <img src="/imagens/Vetores/SetaDireitaVetor.svg" alt="Direita" class="sidebar-icon" />
+      </button>
+    </section>
+  </div>
+
+  <!-- COMUNIDADES FAMOSAS -->
+  <div class="row">
+    <div class="titulocomunidade">
+      <h1>Comunidades famosas</h1>
+    </div>
+    <div class="comunidade-row" id="comunidades-container">
+      @for (comunidade of comunidades; track comunidade.id) {
+        <div class="comunidade" (click)="abrirComunidadeModal(comunidade)">
+          <img [src]="comunidade.capa" [alt]="'Foto da comunidade ' + comunidade.titulo" />
+          <div class="comunidade-overlay">
+            <h2 class="comunidade-text">{{ comunidade.titulo }}</h2>
+            <p class="comunidade-text">{{ comunidade.membros }} membros</p>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+
+  <!-- MANGÁS -->
+  <div class="row">
+    <h1>Mangás</h1>
+    <section class="secao-horizontal">
+      <button class="btn-scroll-left" [class.btn-oculto]="temScrollOculto(mangas.length)" (click)="scrollRow(mangasRow, -1)">
+        <img src="/imagens/Vetores/SetaEsquerdaVetor.svg" alt="Esquerda" class="sidebar-icon" />
+      </button>
+      <div class="book-row" id="mangas-container" #mangasRow>
+        @for (livro of mangas; track livro.id) {
+          <div class="book" (click)="abrirLivroModal(livro)">
+            <img class="card-top" [src]="livro.capa" alt="imagem do livro" />
+          </div>
+        }
+      </div>
+      <button class="btn-scroll-right" [class.btn-oculto]="temScrollOculto(mangas.length)" (click)="scrollRow(mangasRow, 1)">
+        <img src="/imagens/Vetores/SetaDireitaVetor.svg" alt="Direita" class="sidebar-icon" />
+      </button>
+    </section>
+  </div>
+
+  <!-- RECOMENDAÇÕES -->
+  <div class="row">
+    <h1>Recomendações</h1>
+    <section class="secao-horizontal">
+      <button class="btn-scroll-left" [class.btn-oculto]="temScrollOculto(recomendacoes.length)" (click)="scrollRow(recRow, -1)">
+        <img src="/imagens/Vetores/SetaEsquerdaVetor.svg" alt="Esquerda" class="sidebar-icon" />
+      </button>
+      <div class="book-row" id="recomendacoes-container" #recRow>
+        @for (livro of recomendacoes; track livro.id) {
+          <div class="book" (click)="abrirLivroModal(livro)">
+            <img class="card-top" [src]="livro.capa" alt="imagem do livro" />
+          </div>
+        }
+      </div>
+      <button class="btn-scroll-right" [class.btn-oculto]="temScrollOculto(recomendacoes.length)" (click)="scrollRow(recRow, 1)">
+        <img src="/imagens/Vetores/SetaDireitaVetor.svg" alt="Direita" class="sidebar-icon" />
+      </button>
+    </section>
+  </div>
+
+  <!-- MODAL DO LIVRO -->
+  <div class="modal-overlay" [class.active]="bookModalAberto" (click)="$event.target === $event.currentTarget && fecharModais()">
+    <div class="modal-container">
+      <button class="modal-close-btn" (click)="fecharModais()">&times;</button>
+
+      @if (livroSelecionado) {
+        <div class="modal-left-col">
+          <div class="book-cover-wrapper">
+            <img [src]="livroSelecionado.capa" alt="Capa do Livro" class="modal-book-cover" />
+          </div>
+        </div>
+
+        <div class="modal-right-col">
+          <h2 class="modal-book-title">{{ livroSelecionado.titulo }}</h2>
+          <p class="modal-book-author">{{ livroSelecionado.autor }}</p>
+
+          <div class="modal-rating">
+            <span class="rating-number">4.6</span>
+            <div class="stars">
+              <span class="star">&#9733;</span>
+              <span class="star">&#9733;</span>
+              <span class="star">&#9733;</span>
+              <span class="star">&#9733;</span>
+              <span class="star">&#9734;</span>
+            </div>
+          </div>
+
+          <p class="modal-synopsis">{{ livroSelecionado.descricao }}</p>
+          <div class="div-bttns">
+            <button class="modal-btn-read">LER</button>
+            <button class="modal-btn-bs">
+              <img class="estante" src="/imagens/Vetores/EstanteVetor.svg" alt="Estante" />
+            </button>
+          </div>
+          <hr class="modal-divider" />
+
+          <div class="modal-comments-section">
+            <h3>Comentários e recomendações</h3>
+            <!-- TODO: próximo passo -- carregar/enviar comentários reais
+                 (era carregarComentariosModal / box-comment no base.js) -->
+            <div id="lista-comentarios">
+              <p style="color: #64748b; font-size: 13px">Seja o primeiro a comentar!</p>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+
+  <!-- MODAL DA COMUNIDADE -->
+  <div class="comm-modal-overlay" [class.active]="commModalAberto" (click)="$event.target === $event.currentTarget && fecharModais()">
+    <div class="comm-modal-container">
+      <button type="button" class="comm-close-btn" (click)="fecharModais()">&times;</button>
+
+      @if (comunidadeSelecionada) {
+        <div class="comm-modal-scrollable-content">
+          <div class="comm-modal-banner">
+            <img [src]="comunidadeSelecionada.capa" [alt]="'Capa da comunidade ' + comunidadeSelecionada.titulo" />
+          </div>
+
+          <div class="comm-modal-body">
+            <h2 class="comm-title">{{ comunidadeSelecionada.titulo }}</h2>
+            <div class="comm-members-count">
+              <span>{{ comunidadeSelecionada.membros }} membros</span>
+            </div>
+
+            <p class="comm-description">{{ comunidadeSelecionada.descricao }}</p>
+
+            <div class="comm-actions">
+              <button type="button" class="btn-visit"><span>&rarr;</span> Visitar Comunidade</button>
+              <!-- TODO: próximo passo -- ligar Inscrever-se/Sair de verdade
+                   (era gerenciarEstadoInscricao no home.js original) -->
+              <button type="button" class="btn-subscribe"><span class="icon-sub">+</span> Inscrever-se</button>
+            </div>
+
+            <div class="comm-comments-section">
+              <h3>Comentários da comunidade</h3>
+              <!-- TODO: próximo passo -- comentários reais da comunidade -->
+              <div id="lista-comentarios-comunidade">
+                <p style="color: #64748b; font-size: 13px">Seja o primeiro a comentar nesta comunidade!</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- MODAL DE STREAK (aberto pelo ícone de fogo no header, ver StreakService) -->
+<div
+  class="streak-modal-overlay"
+  [class.active]="streakService.modalAberto"
+  [class.seqFeita]="streakService.estadoModal === 'seqFeita'"
+  [class.seqNaoFeita]="streakService.estadoModal === 'seqNaoFeita'"
+  [class.seqPerdida]="streakService.estadoModal === 'seqPerdida'"
+  (click)="$event.target === $event.currentTarget && streakService.fecharModal()"
+>
+  <div class="streak-modal-card">
+    <div class="streak-modal-header">
+      <div class="streak-badge">
+        <span class="streak-text-day">{{ streakService.sequenciaAtual }}</span>
+        <img src="/imagens/Vetores/FireVetor2.svg" class="streak-badge-icon" />
+      </div>
+      <div class="streak-close" style="cursor: pointer" (click)="streakService.fecharModal()">
+        <img src="/imagens/Vetores/FecharVetor.svg" class="streak-close-icon" />
+      </div>
+    </div>
+
+    <div class="streak-modal-content">
+      <section class="streak-today-section">
+        <p class="streak-today-label streak-espaco">Lido Hoje:</p>
+        <div class="streak-espaco"></div>
+        <div class="streak-today-value">
+          <div class="streak-number-wrapper">
+            <span class="streak-big-number">{{ streakService.paginasLidasDia }}</span>
+          </div>
+          <span class="streak-unit">PÁGINAS</span>
+        </div>
+      </section>
+
+      <hr class="streak-separator-max" />
+
+      <section class="streak-milestones-bar">
+        @for (limite of streakMilestones; track limite; let last = $last) {
+          <div class="streak-milestone">
+            <span class="streak-text">{{ limite }}</span>
+            <img
+              src="/imagens/Vetores/FireVetor.svg"
+              class="streak-icon"
+              [class.streak-close-icon]="streakService.sequenciaAtual >= limite"
+            />
+          </div>
+          @if (!last) {
+            <hr class="streak-separator" />
+          }
+        }
+      </section>
+
+      <hr class="streak-separator-max" />
+
+      <p class="streak-text" style="color: #f8f8f8">Objetivos:</p>
+      <div class="streak-modal-footer">
+        <img
+          [src]="streakService.paginasLidasDia >= 20 ? '/imagens/Vetores/CheckMarcadoVetor.svg' : '/imagens/Vetores/CheckVazioVetor.svg'"
+          [class]="streakService.paginasLidasDia >= 20 ? 'sidebar-icon5 check-streak' : 'streak-icon check-streak'"
+        />
+        <span class="streak-text3" [style.color]="streakService.paginasLidasDia >= 20 ? '#f8f8f8' : ''">Ler 20 páginas</span>
+      </div>
+    </div>
+  </div>
+</div>
