@@ -1,0 +1,152 @@
+<aside class="blateral">
+  <div class="side-bttns">
+    <ul>
+      <li routerLinkActive="active">
+        <a routerLink="/home">
+          <img src="/imagens/Vetores/PaginaInicialVetor.svg" class="sidebar-icon4" alt="Inicial" />
+          <span>Inicial</span>
+        </a>
+      </li>
+      <li class="nav-mobile" routerLinkActive="active">
+        <a routerLink="/quests">
+          <img src="/imagens/Vetores/DesafiosVetor.svg" class="sidebar-icon" alt="Desafios" />
+          <span>Desafios</span>
+        </a>
+      </li>
+      <li routerLinkActive="active">
+        <a routerLink="/chat">
+          <img src="/imagens/Vetores/ChatVetor.svg" class="sidebar-icon" alt="Chat" />
+          <span>Chat</span>
+        </a>
+      </li>
+      <li class="nav-mobile" routerLinkActive="active">
+        <a routerLink="/comunity">
+          <img src="/imagens/Vetores/ComunidadeVetor.svg" class="sidebar-icon" alt="Comunidade" />
+          <span>Comunidade</span>
+        </a>
+      </li>
+      <li routerLinkActive="active">
+        <a routerLink="/user">
+          <img src="/imagens/Vetores/UsuarioVetor.svg" class="sidebar-icon" alt="Meu Perfil" />
+          <span>Perfil</span>
+        </a>
+      </li>
+      <li routerLinkActive="active">
+        <a routerLink="/settings">
+          <img src="/imagens/Vetores/ConfiguracoesVetor.svg" class="sidebar-icon" alt="Configurações" />
+          <span>Configurações</span>
+        </a>
+      </li>
+
+      <li class="expand-only" routerLinkActive="active">
+        <a routerLink="/bookshelf">
+          <img src="/imagens/Vetores/EstanteVetor.svg" class="sidebar-icon" alt="Estante" />
+          <span>Estante</span>
+        </a>
+      </li>
+
+      <li class="nav-mobile" routerLinkActive="active">
+        <a routerLink="/premium">
+          <img src="/imagens/Vetores/CoroaVetor.svg" class="sidebar-icon" alt="Premium" />
+          <span>Premium</span>
+        </a>
+      </li>
+
+      <li class="expand-only" routerLinkActive="active">
+        <a routerLink="/xpway">
+          <img src="/imagens/Vetores/XpWayVetor.png" class="sidebar-icon" alt="XP Way" />
+          <span>XP Way</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+
+  <div class="create-comunity expand-only">
+    <a
+      href="#"
+      (click)="abrirModalComunidade($event)"
+      class="create-comunity"
+      style="position: relative; z-index: 999999"
+    >
+      <img src="/imagens/Vetores/ComunidadeVetor.svg" class="sidebar-icon" alt="Ícone" />
+      <div class="comunity-info">
+        <span class="comunity-title">Criar Comunidade</span>
+        <span class="comunity-subtitle">Crie suas conexões</span>
+      </div>
+    </a>
+  </div>
+
+  <div class="logout">
+    <button class="bttn-logout" (click)="logout()">
+      <img src="/imagens/Vetores/SignOutVetor.svg" alt="Sair" class="sidebar-icon4" />
+    </button>
+  </div>
+</aside>
+
+<main class="container">
+  <header class="header">
+    <div
+      class="btns-logo"
+      style="display: flex; justify-content: space-between; align-items: center"
+    >
+      <div class="open-close">
+        <button id="bttn-oc" class="bttn-oc" (click)="toggleSidebar()">☰</button>
+      </div>
+
+      <div class="logo">
+        <a routerLink="/home" id="logo">
+          <img
+            src="/imagens/Vetores/logovetorizada2.svg"
+            alt="Logo"
+            height="55px"
+            id="imglogo"
+          />
+        </a>
+      </div>
+    </div>
+
+    <div class="ul-nav">
+      <ul>
+        <li><a routerLink="/premium"><span>Premium</span></a></li>
+        <li><a routerLink="/comunity">Comunidades</a></li>
+        <li><a routerLink="/quests">Desafios</a></li>
+        <li><a routerLink="/about"><span>Quem Somos</span></a></li>
+      </ul>
+    </div>
+
+    <div id="sec-user">
+      <div class="barra-pesquisa">
+        <form id="barrapesquisa" (ngSubmit)="pesquisar()">
+          <input
+            type="text"
+            placeholder="Search"
+            id="s-header"
+            name="termoPesquisa"
+            [(ngModel)]="termoPesquisa"
+          />
+          <button type="submit" id="b-header" name="Pesquisar"></button>
+        </form>
+      </div>
+      <div id="seq">
+        <a href="#" id="txt-user">
+          <p id="streak-user">{{ streak }}</p>
+          <img
+            src="/imagens/Vetores/FireVetor.svg"
+            alt="Fogo"
+            width="20"
+            height="20"
+            id="seq-fire"
+            class="fire-icon"
+          />
+        </a>
+      </div>
+      <div id="g-icon-user">
+        <a routerLink="/user">
+          <img src="/imagens/padrao.jpg" class="user-avatar" alt="Meu Perfil" />
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <router-outlet></router-outlet>
+</main>
