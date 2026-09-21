@@ -3908,3 +3908,38 @@ form input {
   left: 0;
   gap: 0;
 }
+
+/* ============================================================
+   CORREÇÃO MANUAL (Angular): elementos <app-xxx> não têm display:block
+   por padrão (diferente de <div>), o que pode confundir layouts flex/grid
+   quando eles entram como filho de um flex/grid container. Forçando aqui.
+   ============================================================ */
+app-root,
+app-main-layout,
+app-public-layout,
+app-home,
+app-header,
+app-footer,
+app-login,
+app-singin,
+app-intro {
+  display: block;
+}
+
+/* ============================================================
+   CORREÇÃO MANUAL: trava de segurança contra "estouro" de largura nas
+   fileiras horizontais de livros. Um item flex com overflow-x:auto já
+   deveria se conter sozinho, mas min-width:0 garante isso mesmo se algum
+   filho (ex: imagem sem width definido) tentar forçar o tamanho do pai.
+   ============================================================ */
+.secao-horizontal,
+.book-row,
+.conteudo,
+.row {
+  min-width: 0;
+  max-width: 100%;
+}
+
+.book-row {
+  flex: 1 1 0%;
+}

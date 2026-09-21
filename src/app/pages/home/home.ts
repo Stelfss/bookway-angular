@@ -1,4 +1,12 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  HostListener,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { SupabaseService } from '../../core/supabase';
 import { StreakService } from '../../core/streak';
 
@@ -39,7 +47,7 @@ interface HeroSlide {
   templateUrl: './home.html',
   styleUrl: './home.css',
 })
-export class Home implements OnInit, OnDestroy {
+export class Home implements OnInit, AfterViewInit, OnDestroy {
   // ---- Hero carousel (era o bloco 3 do home.js) ----
   heroSlides: HeroSlide[] = [
     {
@@ -113,15 +121,49 @@ export class Home implements OnInit, OnDestroy {
 
   streakMilestones = [1, 15, 30, 45, 60, 90];
 
+  // ---- Setas de scroll das fileiras: em vez do heurístico antigo
+  // (quantidade <= 7), agora medimos de verdade se a fileira tem conteúdo
+  // pra rolar (scrollWidth > clientWidth), igual ao espírito do
+  // configurarCarrosseisHorizontais() original, mas recalculado também
+  // quando a janela muda de tamanho/zoom, não só uma vez no load.
+  @ViewChild('vistosRow') private vistosRowRef?: ElementRef<HTMLElement>;
+  @ViewChild('mangasRow') private mangasRowRef?: ElementRef<HTMLElement>;
+  @ViewChild('recRow') private recRowRef?: ElementRef<HTMLElement>;
+
+  scrollOculto = { vistos: true, mangas: true, recomendacoes: true };
+
   constructor(
     private supabaseService: SupabaseService,
     public streakService: StreakService
   ) {}
 
   ngOnInit(): void {
-    this.carregarLivros();
+    this.carregarLivros().then(() => this.recalcularSetasScroll());
     this.carregarComunidades();
     this.startAutoPlay();
+  }
+
+  ngAfterViewInit(): void {
+    // Roda depois do 1º render e de novo a cada leve espera, pra cobrir o
+    // caso das imagens ainda estarem carregando (o que muda o clientWidth).
+    this.recalcularSetasScroll();
+    setTimeout(() => this.recalcularSetasScroll(), 300);
+  }
+
+  @HostListener('window:resize')
+  recalcularSetasScroll(): void {
+    this.scrollOculto = {
+      vistos: this.rowSemOverflow(this.vistosRowRef),
+      mangas: this.rowSemOverflow(this.mangasRowRef),
+      recomendacoes: this.rowSemOverflow(this.recRowRef),
+    };
+  }
+
+  private rowSemOverflow(ref?: ElementRef<HTMLElement>): boolean {
+    const el = ref?.nativeElement;
+    if (!el) return true;
+    // "+1" de folga pra evitar flutuações de sub-pixel escondendo a seta à toa
+    return el.scrollWidth <= el.clientWidth + 1;
   }
 
   ngOnDestroy(): void {
@@ -168,6 +210,9 @@ export class Home implements OnInit, OnDestroy {
 
     this.mangas = (livros ?? []).filter((l: Livro) => l.categoria === 'mangas');
     this.recomendacoes = (livros ?? []).filter((l: Livro) => l.categoria === 'livros');
+    // Depois que os dados chegam, o *ngFor precisa de um instante pra
+    // desenhar os cards antes de medirmos o scrollWidth de verdade.
+    setTimeout(() => this.recalcularSetasScroll(), 0);
   }
 
   private async carregarComunidades(): Promise<void> {
@@ -213,9 +258,5 @@ export class Home implements OnInit, OnDestroy {
   // ==========================================================================
   scrollRow(rowEl: HTMLElement, direction: 1 | -1): void {
     rowEl.scrollLeft += direction * 380;
-  }
-
-  temScrollOculto(quantidade: number): boolean {
-    return quantidade <= 7;
   }
 }

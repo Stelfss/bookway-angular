@@ -41,7 +41,7 @@
   <div class="row">
     <h1>Vistos Recentemente</h1>
     <section class="secao-horizontal">
-      <button class="btn-scroll-left" [class.btn-oculto]="temScrollOculto(vistosRecentemente.length)" (click)="scrollRow(vistosRow, -1)">
+      <button class="btn-scroll-left" [class.btn-oculto]="scrollOculto.vistos" (click)="scrollRow(vistosRow, -1)">
         <img src="/imagens/Vetores/SetaEsquerdaVetor.svg" alt="Esquerda" class="sidebar-icon" />
       </button>
       <div class="book-row" #vistosRow>
@@ -59,7 +59,7 @@
           </div>
         }
       </div>
-      <button class="btn-scroll-right" [class.btn-oculto]="temScrollOculto(vistosRecentemente.length)" (click)="scrollRow(vistosRow, 1)">
+      <button class="btn-scroll-right" [class.btn-oculto]="scrollOculto.vistos" (click)="scrollRow(vistosRow, 1)">
         <img src="/imagens/Vetores/SetaDireitaVetor.svg" alt="Direita" class="sidebar-icon" />
       </button>
     </section>
@@ -87,7 +87,7 @@
   <div class="row">
     <h1>Mangás</h1>
     <section class="secao-horizontal">
-      <button class="btn-scroll-left" [class.btn-oculto]="temScrollOculto(mangas.length)" (click)="scrollRow(mangasRow, -1)">
+      <button class="btn-scroll-left" [class.btn-oculto]="scrollOculto.mangas" (click)="scrollRow(mangasRow, -1)">
         <img src="/imagens/Vetores/SetaEsquerdaVetor.svg" alt="Esquerda" class="sidebar-icon" />
       </button>
       <div class="book-row" id="mangas-container" #mangasRow>
@@ -97,7 +97,7 @@
           </div>
         }
       </div>
-      <button class="btn-scroll-right" [class.btn-oculto]="temScrollOculto(mangas.length)" (click)="scrollRow(mangasRow, 1)">
+      <button class="btn-scroll-right" [class.btn-oculto]="scrollOculto.mangas" (click)="scrollRow(mangasRow, 1)">
         <img src="/imagens/Vetores/SetaDireitaVetor.svg" alt="Direita" class="sidebar-icon" />
       </button>
     </section>
@@ -107,7 +107,7 @@
   <div class="row">
     <h1>Recomendações</h1>
     <section class="secao-horizontal">
-      <button class="btn-scroll-left" [class.btn-oculto]="temScrollOculto(recomendacoes.length)" (click)="scrollRow(recRow, -1)">
+      <button class="btn-scroll-left" [class.btn-oculto]="scrollOculto.recomendacoes" (click)="scrollRow(recRow, -1)">
         <img src="/imagens/Vetores/SetaEsquerdaVetor.svg" alt="Esquerda" class="sidebar-icon" />
       </button>
       <div class="book-row" id="recomendacoes-container" #recRow>
@@ -117,7 +117,7 @@
           </div>
         }
       </div>
-      <button class="btn-scroll-right" [class.btn-oculto]="temScrollOculto(recomendacoes.length)" (click)="scrollRow(recRow, 1)">
+      <button class="btn-scroll-right" [class.btn-oculto]="scrollOculto.recomendacoes" (click)="scrollRow(recRow, 1)">
         <img src="/imagens/Vetores/SetaDireitaVetor.svg" alt="Direita" class="sidebar-icon" />
       </button>
     </section>
