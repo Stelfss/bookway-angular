@@ -1,8 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-// 1. Importa a classe do Serviço
 import { SupabaseService } from '../../../core/supabase';
 
 @Component({
@@ -10,7 +9,8 @@ import { SupabaseService } from '../../../core/supabase';
   standalone: true,
   imports: [CommonModule, RouterLink, FormsModule],
   templateUrl: './login.html',
-  styleUrl: './login.css'
+  styleUrl: './login.css',
+  encapsulation: ViewEncapsulation.None // <-- Adiciona esta linha
 })
 export class Login {
   email: string = '';
@@ -24,7 +24,6 @@ export class Login {
   isLoading: boolean = false;
   private msgTimeoutId: any = null;
 
-  // 2. Injeta o SupabaseService no construtor
   constructor(
     private router: Router,
     private supabaseService: SupabaseService
@@ -35,7 +34,6 @@ export class Login {
     this.isLoading = true;
 
     try {
-      // 3. Usa "this.supabaseService.client" para aceder ao Supabase
       const { data, error } = await this.supabaseService.client.auth.signInWithPassword({
         email: this.email.trim(),
         password: this.password,

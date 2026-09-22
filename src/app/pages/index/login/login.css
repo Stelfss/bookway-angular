@@ -1,177 +1,137 @@
-* { margin: 0; padding: 0; box-sizing: border-box; }
-
-
-header {
-  background: rgba(0, 5, 53, 0.2);
-  backdrop-filter: blur(30px) brightness(0.7);
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 70px;
-}
-
-body {
-    background-image: url('/Site/imagens/fundo.webp');
-    background-attachment: fixed;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    font-family: inter, sans-serif;
-    
-}
-
-.logo {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-left: 80px;
-}
-
 main {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 60px;
+  min-height: calc(100vh - 160px);
+  padding: 40px 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.imagemlogo {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100%;
 }
 
-header ul {
-  list-style-type: none;
-  display: flex;
-  gap: 50px;
-  padding: 50px;
-  margin: 0;
-}
-
-header a {
-  text-decoration: none;
-  color: #f5f5dc;
-}
-
-main {
-  gap: 200px;
+.imagemlogo img {
+  max-width: 300px;
+  height: auto;
 }
 
 .formulario {
-  background-color: #0c213d;
+  background-color: var(--deep-blue);
   width: 100%;
-  max-width: 500px;
-  color: #ffffff;
-  padding: 20px;
-  border-radius: 40px; 
-  box-shadow: 10px 20px 10px rgba(0, 0, 0, 0.5); 
+  max-width: 400px;
+  padding: 40px 35px;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
   display: flex;
   flex-direction: column;
-  align-items: center;
-  margin-bottom: 20px;
-  gap: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.formulario input {
-  background-color: transparent;
-  width: 450px;
-  padding: 13px;
-  margin: 10px 0;
-  border: 2px solid #f5f5dc; 
-  border-radius: 20px;
+.formulario h1 {
+  font-size: 32px;
+  text-align: center;
+  margin-bottom: 25px;
   color: #ffffff;
-}
-
-.formulario input:hover {
-  background-color: #00205c;
-}
-
-.formulario input:focus {
-  outline: none;
-  background-color: #00205c;
 }
 
 .input-group {
-    text-align: left;
-    justify-content: center;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 18px;
+  width: 100%;
+}
+
+.input-group label {
+  font-size: 14px;
+  color: #e2e8f0;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 12px 16px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background-color: rgba(0, 0, 0, 0.25);
+  color: #ffffff;
+  font-size: 15px;
+  box-sizing: border-box;
+}
+
+.input-group input:focus {
+  outline: none;
+  border-color: var(--laranja-primario);
+}
+
+.action-group {
+  margin-top: 10px;
+  width: 100%;
 }
 
 #bttn-cad {
-  justify-content: center;
-  text-align: center;
-  width: 250px;
-  font-size: 15px;
-  background-color: rgb(0, 81, 255);
-  color: #ffffff;
-  border: none;
-}
-
-form {
   width: 100%;
-  align-items: center;
-  text-align: center;
-}
-
-form h1 {
-  font-size: 50px;
+  padding: 12px;
+  border-radius: 20px;
+  border: none;
+  background-color: #0066ff;
+  color: #ffffff;
   font-weight: bold;
-  font-family: chonburi-semi-bold;
-  padding: 0;
-}
-
-form a {
-  text-decoration: none;
-  color: #0059ff;
-}
-
-form input {
-  text-align: left;
-  justify-content: left;
+  font-size: 16px;
   cursor: pointer;
+  transition: transform 0.2s, background-color 0.2s;
 }
-/* ==========================================================================
-   ESTILOS DO BOTÃO OAUTH (GOOGLE)
-   ========================================================================== */
+
+#bttn-cad:hover {
+  background-color: #0052cc;
+  transform: translateY(-2px);
+}
+
 .divider {
   display: flex;
   align-items: center;
   text-align: center;
-  width: 100%;
-  max-width: 450px; /* Alinhado com o tamanho dos seus inputs */
-  margin: 15px 0 5px 0;
+  margin: 20px 0;
+  color: rgba(255, 255, 255, 0.5);
 }
 
-.divider::before, 
+.divider::before,
 .divider::after {
   content: '';
   flex: 1;
-  border-bottom: 1px solid rgba(245, 245, 220, 0.3); /* Linha sutil na cor bege do seu tema */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
 }
 
 .divider span {
   padding: 0 10px;
-  color: #f5f5dc;
-  font-size: 14px;
+  font-size: 13px;
 }
 
-.btn-oauth {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
+.btn-google {
+  width: 100%;
+  padding: 11px;
   background-color: #ffffff;
   color: #000000;
-  width: 100%;
-  max-width: 450px; /* Alinhado com o tamanho dos seus inputs */
-  padding: 13px;
   border: none;
   border-radius: 20px;
-  font-family: inter, sans-serif;
-  font-size: 15px;
-  font-weight: bold;
+  font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.2s ease, transform 0.1s ease;
   margin-bottom: 15px;
 }
 
-.btn-oauth:hover {
-  background-color: #e6e6e6;
-  transform: scale(1.01);
+.link {
+  text-align: center;
+  margin-top: 15px;
+  font-size: 14px;
 }
 
-.btn-oauth active {
-  transform: scale(0.99);
+.link a {
+  color: var(--cool-sky);
+  font-weight: 600;
+  text-decoration: none;
 }
