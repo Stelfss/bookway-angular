@@ -1,0 +1,114 @@
+<header class="main-header">
+  <div class="header-container">
+    <div class="logo">
+      <a routerLink="/" id="logo">
+        <img
+          src="assets/imagens/Vetores/logovetorizada2.svg"
+          alt="Logo Bookway"
+          height="55px"
+          id="imglogo"
+        />
+      </a>
+    </div>
+
+    <nav class="center-nav">
+      <ul>
+        <li><a href="#inicio" [class.active]="currentSection === 'inicio'">Início</a></li>
+        <li><a href="#recursos" [class.active]="currentSection === 'recursos'">Recursos</a></li>
+        <li><a href="#comunidades" [class.active]="currentSection === 'comunidades'">Comunidades</a></li>
+        <li><a href="#destaques" [class.active]="currentSection === 'destaques'">Destaques</a></li>
+      </ul>
+    </nav>
+
+    <div class="auth-buttons">
+      <a routerLink="/login" class="btn-login">Entrar</a>
+      <a routerLink="/singin" class="btn-register">Criar</a>
+    </div>
+  </div>
+</header>
+
+<section id="inicio" class="hero-section">
+  <div class="hero-container">
+    <div class="hero-text-content">
+      <span class="badge-news">Descubra o Bookway</span>
+      <h1>Milhares de histórias e conexões em um só lugar</h1>
+      <p>
+        Explore um catálogo repleto de livros, gerencie suas leituras
+        diárias, participe de desafios literários e conecte-se com leitores
+        apaixonados do mundo todo.
+      </p>
+      <div class="hero-actions">
+        <a href="#destaques" class="btn-primary">Explorar Livros</a>
+        <a href="#recursos" class="btn-secondary">Saber Mais</a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <img
+        src="assets/imagens/LendoLuzQuente.webp"
+        alt="Ilustração de leitura"
+        class="hero-banner-img"
+      />
+    </div>
+  </div>
+</section>
+
+<section id="recursos" class="features-section">
+  <div class="section-title">
+    <h2>Tudo o que você precisa para ler melhor</h2>
+  </div>
+
+  <div class="features-grid">
+    <div class="feature-card" *ngFor="let item of recursos">
+      <div class="feature-icon">
+        <img [src]="item.icon" class="index-icon" [alt]="item.titulo">
+      </div>
+      <h3>{{ item.titulo }}</h3>
+      <p>{{ item.descricao }}</p>
+    </div>
+  </div>
+</section>
+
+<section id="comunidades" class="showcase-section">
+  <div class="section-header-row">
+    <h2>Comunidades em Alta</h2>
+  </div>
+
+  <div class="grid-comunidades">
+    <div class="card-comunidade" *ngFor="let com of comunidades">
+      <img [src]="com.imagem" [alt]="com.nome" />
+      <div class="comunidade-info-box">
+        <h3>{{ com.nome }}</h3>
+        <span class="members-count">{{ com.membros }}</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="destaques" class="showcase-section">
+  <div class="section-header-row">
+    <h2>Últimos Lançamentos & Destaques</h2>
+  </div>
+
+  <div class="grid-livros" #booksWrapper>
+    <div class="card-livro" *ngFor="let livro of livros">
+      <div class="capa-wrapper">
+        <img [src]="livro.imagem" [alt]="livro.titulo" />
+      </div>
+      <div class="livro-detalhes">
+        <h4>{{ livro.titulo }}</h4>
+        <p>{{ livro.genero }}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="main-footer">
+  <div class="footer-container">
+    <p>&copy; 2026 Bookway. Desenvolvido para conectar mentes literárias.</p>
+    <ul class="footer-links">
+      <li><a routerLink="/about">Sobre</a></li>
+      <li><a routerLink="/faq">Central de Ajuda</a></li>
+      <li><a routerLink="/contacts">Contato</a></li>
+    </ul>
+  </div>
+</footer>
