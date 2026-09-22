@@ -1,0 +1,100 @@
+<header class="main-header">
+  <div class="header-container">
+    <div class="logo">
+      <a routerLink="/" id="logo">
+        <img
+          src="/imagens/Vetores/logovetorizada2.svg"
+          alt="Logo"
+          height="55px"
+          id="imglogo"
+        />
+      </a>
+    </div>
+
+    <nav class="center-nav">
+      <ul>
+        <li><a routerLink="/">Início</a></li>
+        <li><a routerLink="/" fragment="recursos">Recursos</a></li>
+        <li><a routerLink="/" fragment="comunidades">Comunidades</a></li>
+        <li><a routerLink="/" fragment="destaques">Destaques</a></li>
+      </ul>
+    </nav>
+
+    <div class="auth-buttons">
+      <a routerLink="/login" class="btn-login">Entrar</a>
+      <a routerLink="/singin" class="btn-register">Criar</a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="imagemlogo">
+    <img src="/imagens/Vetores/MiniLogoVetor.svg" alt="Logo" width="300" height="300">
+  </section>
+
+  <form class="formulario" id="form-cadastro" (ngSubmit)="onLogin()">
+    <h1>Log in</h1>
+
+    <div class="input-group">
+      <label for="email">Email:</label>
+      <input 
+        type="email" 
+        id="email" 
+        name="email" 
+        [(ngModel)]="email" 
+        required 
+      />
+    </div>
+
+    <div class="input-group">
+      <label for="password">Senha:</label>
+      <input 
+        type="password" 
+        id="password" 
+        name="password" 
+        [(ngModel)]="password" 
+        required 
+      />
+    </div>
+
+    <p id="mensagem-status" [style.color]="corMensagem" *ngIf="mensagemStatus" style="font-weight: bold; margin-top: 10px;">
+      {{ mensagemStatus }}
+      <a *ngIf="mostrarReenvio" (click)="reenviarEmail()" style="text-decoration: underline; cursor: pointer; display: inline-block; margin-left: 5px;">
+        {{ textoReenvio }}
+      </a>
+    </p>
+
+    <div class="action-group">
+      <input 
+        type="submit" 
+        [value]="isLoading ? 'Entrando...' : 'Login'" 
+        id="bttn-cad" 
+        [disabled]="isLoading"
+      />
+    </div>
+
+    <div class="divider">
+      <span>ou</span>
+    </div>
+
+    <!-- Botão opcional para login Google -->
+    <button type="button" id="btn-google" class="btn-google" (click)="onGoogleLogin()">
+      Entrar com o Google
+    </button>
+
+    <div class="link">
+      <p>Não tem uma conta? <a routerLink="/singin">Cadastre-se</a></p>
+    </div>
+  </form>
+</main>
+
+<footer class="main-footer">
+  <div class="footer-container">
+    <p>&copy; 2026 Bookway. Desenvolvido para conectar mentes literárias.</p>
+    <ul class="footer-links">
+      <li><a routerLink="/about">Sobre</a></li>
+      <li><a routerLink="/faq">Central de Ajuda</a></li>
+      <li><a routerLink="/contacts">Contato</a></li>
+    </ul>
+  </div>
+</footer>

@@ -1,7 +1,8 @@
-import { Component, ElementRef, HostListener, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, ElementRef, ViewChild, HostListener, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 
+// Interfaces declaradas fora da classe
 interface Recurso {
   icon: string;
   titulo: string;
@@ -27,42 +28,46 @@ interface Livro {
   templateUrl: './index.html',
   styleUrl: './index.css'
 })
-export class IndexComponent implements AfterViewInit {
+export class Index implements AfterViewInit {
   currentSection: string = 'inicio';
 
   recursos: Recurso[] = [
     {
-      icon: 'assets/imagens/Vetores/EstanteVetor.svg',
+      icon: '/imagens/Vetores/EstanteVetor.svg',
       titulo: 'Estante Inteligente',
       descricao: 'Organize suas leituras atuais, livros desejados e gerencie o progresso de páginas lidas de forma visual e simples.'
     },
     {
-      icon: 'assets/imagens/Vetores/ComunidadeVetor.svg',
+      icon: '/imagens/Vetores/ComunidadeVetor.svg',
       titulo: 'Comunidades Engajadas',
       descricao: 'Crie ou participe de círculos de leitores focados nos seus gêneros, mangás e universos favoritos.'
     },
     {
-      icon: 'assets/imagens/Vetores/DesafiosVetor.svg',
+      icon: '/imagens/Vetores/DesafiosVetor.svg',
       titulo: 'Desafios e Quests',
       descricao: 'Mantenha sua rotina de leitura activa completando desafios saudáveis e acumulando dias de ofensiva premiados.'
     }
   ];
 
   comunidades: Comunidade[] = [
-    { nome: 'Comunidade Hellsing', membros: '5k membros', imagem: 'assets/imagens/hellsingcomunidade.webp' },
-    { nome: 'Percy Jackson Brasil', membros: '15k membros', imagem: 'assets/imagens/percyjackson.webp' },
-    { nome: 'Jujutsu Kaisen Club', membros: '3.2k membros', imagem: 'assets/imagens/jujutsu.webp' }
+    { nome: 'Comunidade Hellsing', membros: '5k membros', imagem: '/imagens/hellsingcomunidade.webp' },
+    { nome: 'Percy Jackson Brasil', membros: '15k membros', imagem: '/imagens/percyjackson.webp' },
+    { nome: 'Jujutsu Kaisen Club', membros: '3.2k membros', imagem: '/imagens/jujutsu.webp' }
   ];
 
   livros: Livro[] = [
-    { titulo: 'Frieren e a Jornada Para o Além', genero: 'Mangá / Fantasia', imagem: 'assets/imagens/Frieren.webp' },
-    { titulo: 'Hellsing Especial Vol. 01', genero: 'Mangá / Sobrenatural', imagem: 'assets/imagens/Hellsing.webp' },
-    { titulo: 'Dandadan 01', genero: 'Mangá / Ação', imagem: 'assets/imagens/DanDaDan.webp' },
-    { titulo: 'Death Note Black Edition', genero: 'Mangá / Suspense', imagem: 'assets/imagens/DeathNote.webp' },
-    { titulo: 'Attack on Titan Vol. 1', genero: 'Mangá / Distopia', imagem: 'assets/imagens/AttackOnTitan.webp' }
+    { titulo: 'Frieren e a Jornada Para o Além', genero: 'Mangá / Fantasia', imagem: '/imagens/Frieren.webp' },
+    { titulo: 'Hellsing Especial Vol. 01', genero: 'Mangá / Sobrenatural', imagem: '/imagens/Hellsing.webp' },
+    { titulo: 'Dandadan 01', genero: 'Mangá / Ação', imagem: '/imagens/DanDaDan.webp' },
+    { titulo: 'Death Note Black Edition', genero: 'Mangá / Suspense', imagem: '/imagens/DeathNote.webp' },
+    { titulo: 'Attack on Titan Vol. 1', genero: 'Mangá / Distopia', imagem: '/imagens/AttackOnTitan.webp' }
   ];
 
   @ViewChild('booksWrapper') booksWrapper!: ElementRef;
+
+  setSection(section: string): void {
+    this.currentSection = section;
+  }
 
   slideLeft(): void {
     if (this.booksWrapper) {
@@ -80,7 +85,7 @@ export class IndexComponent implements AfterViewInit {
   onWindowScroll(): void {
     const sections = document.querySelectorAll('section');
     sections.forEach((section) => {
-      const sectionTop = section.offsetTop;
+      const sectionTop = (section as HTMLElement).offsetTop;
       if (window.scrollY >= sectionTop - 120) {
         this.currentSection = section.getAttribute('id') || '';
       }
