@@ -1,4 +1,4 @@
-<div class="app-layout" [class.sidebar-expanded]="isSidebarExpanded">
+<div class="app-layout">
   <!-- BARRA LATERAL (ASIDE) -->
   <aside class="blateral">
     <div class="side-bttns">
@@ -51,7 +51,7 @@
             <span>Premium</span>
           </a>
         </li>
-        <li class="expand-only">          
+        <li class="expand-only">           
           <a routerLink="/xpway">
             <img src="./imagens/Vetores/XpWayVetor.png" class="sidebar-icon" alt="XP Way" />
             <span>XP Way</span>
@@ -59,10 +59,8 @@
         </li>
       </ul>
     </div>
-
-    <!-- CRIAR COMUNIDADE -->
     <div class="create-comunity expand-only">
-      <a href="#" (click)="abrirModalCriarComunidade($event)" class="create-comunity">
+      <a href="#" id="btn-abrir-meu-modal" class="create-comunity">
         <img src="./imagens/Vetores/ComunidadeVetor.svg" class="sidebar-icon" alt="Ícone" />
         <div class="comunity-info">
           <span class="comunity-title">Criar Comunidade</span>
@@ -70,10 +68,8 @@
         </div>
       </a>
     </div>
-
-    <!-- LOGOUT -->
     <div class="logout">
-      <button type="button" class="bttn-logout" (click)="logout()">
+      <button class="bttn-logout" id="btn-logout">
         <img src="./imagens/Vetores/SignOutVetor.svg" alt="Sair" class="sidebar-icon4" />
       </button>
     </div>
@@ -84,7 +80,7 @@
     <header class="header">
       <div class="btns-logo">
         <div class="open-close">
-          <button type="button" class="bttn-oc" (click)="toggleSidebar()">☰</button>
+          <button id="bttn-oc" class="bttn-oc">☰</button>
         </div>
         <div class="logo">
           <a routerLink="/home" id="logo">
@@ -103,39 +99,36 @@
       </div>
 
       <div id="sec-user">
-        <!-- BARRA DE PESQUISA -->
         <div class="barra-pesquisa">
-          <form (ngSubmit)="pesquisar()">
-            <input type="text" placeholder="Search" [(ngModel)]="termoPesquisa" name="termoPesquisa" id="s-header" />
+          <form id="barrapesquisa">
+            <input type="text" placeholder="Search" id="s-header" />
             <button type="submit" id="b-header" name="Pesquisar"></button>
           </form>
         </div>
-
-        <!-- STREAK / SEQUÊNCIA -->
         <div id="seq">
-          <a href="#" (click)="abrirModalStreak($event)" id="txt-user">
-            <p id="streak-user">{{ sequencia }}</p>
+          <a href="#" id="txt-user" data-open-modal="streak-modal">
+            <p id="streak-user">0</p>
             <img src="./imagens/Vetores/FireVetor.svg" alt="Fogo" width="20" height="20" id="seq-fire" class="fire-icon" />
           </a>
         </div>
-
-        <!-- AVATAR DO UTILIZADOR -->
         <div id="g-icon-user">
           <a routerLink="/user">
-            <img [src]="avatarUrl" class="user-avatar" alt="Meu Perfil" />
+            <img src="./imagens/padrao.jpg" class="user-avatar" alt="Meu Perfil" />
           </a>
         </div>
       </div>
     </header>
 
     <!-- PONTO ONDE AS PÁGINAS (HOME, CHAT, PERFIL) SERÃO INJETADAS -->
-    <router-outlet></router-outlet>
+   
+      <router-outlet></router-outlet>
+   
 
     <!-- RODAPÉ (FOOTER) -->
     <footer>
       <div class="footerbusca">
         <div class="footer-links">
-          <button type="button" (click)="voltarAoTopo()" class="negrito">Voltar ao Topo</button>
+          <button type="button" id="backtop" class="negrito">Voltar ao Topo</button>
         </div>
         <div class="footer-links"><a routerLink="/home">Audiobooks</a></div>
         <div class="footer-links"><a routerLink="/home">HQ's</a></div>
@@ -160,7 +153,7 @@
         <div class="imagem">
           <img src="./imagens/Vetores/logovetorizada2.svg" alt="Logo" height="55px" id="imglogo" />
         </div>
-        <p class="txt-redes">E-mail: contato.bookway&#64;gmail.com</p>
+        <p class="txt-redes">E-mail: contato.bookway@gmail.com</p>
         <p class="txt-redes">Siga-nos nas redes sociais</p>
         <div class="redes-sociais">
           <a href="https://www.facebook.com/bookway" target="_blank"><img src="imagens/Vetores/FacebookLogo.svg" alt="Facebook" width="28px" class="trocarcor" /></a>

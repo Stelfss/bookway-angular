@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ElementRef, ViewChild, inject } from '@angular/core';
+import { Component, OnInit, OnDestroy, ElementRef, ViewChild, inject, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
@@ -35,20 +35,18 @@ interface Comunidade {
   membros: number;
   descricao: string;
 }
+
 @Component({
   selector: 'app-home',
   standalone: true,
   imports: [CommonModule, RouterLink, FormsModule],
   templateUrl: './home.html',
-  styleUrls: ['./home.css'] 
+  styleUrls: ['./home.css']
 })
 export class Home implements OnInit, OnDestroy {
- 
-
- 
   private supabaseService = inject(SupabaseService);
+  private cdr = inject(ChangeDetectorRef);
 
- 
   heroSlides: HeroSlide[] = [
     {
       imagem: './imagens/LendoLivro.webp',
@@ -75,8 +73,9 @@ export class Home implements OnInit, OnDestroy {
       descricao: 'Descubra livros incríveis, salve seus favoritos e encontre sua próxima leitura em poucos cliques. Tudo o que você precisa para ler mais e melhor. Experimente 30 dias grátis.'
     }
   ];
+
   currentHeroIndex = 0;
-  private autoPlayTimer: any;
+  private autoPlayTimer: ReturnType<typeof setInterval> | null = null;
 
   // Listas de dados do Supabase
   livrosEmAndamento: ItemProgresso[] = [];
@@ -122,6 +121,7 @@ export class Home implements OnInit, OnDestroy {
       this.carregarComunidades(),
       this.carregarRecomendacoes()
     ]);
+    this.cdr.detectChanges();
   }
 
   async carregarRecomendacoes(): Promise<void> {
@@ -290,7 +290,25 @@ export class Home implements OnInit, OnDestroy {
     this.showStreakModal = true;
   }
 
-  criarComunidade(): void {
+  async criarComunidade(): Promise<void> {
+    if (!this.newComm.name.trim()) return;
+
+    const { error } = await this.supabaseService.client
+      .from('comunidades')
+      .insert({
+        titulo: this.newComm.name,
+        descricao: this.newComm.desc,
+        capa: this.newComm.image || './imagens/default-community.png',
+        membros: 1
+      });
+
+    if (error) {
+      console.error('Erro ao criar comunidade:', error.message);
+      return;
+    }
+
+    this.newComm = { name: '', desc: '', color: '#3b82f6', image: '' };
     this.closeAllModals();
+    await this.carregarComunidades();
   }
 }

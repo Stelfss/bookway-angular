@@ -34,7 +34,6 @@ export const routes: Routes = [
     ]
   },
 
-  // Fallback para caminhos desconhecidos
   {
     path: '**',
     redirectTo: ''
