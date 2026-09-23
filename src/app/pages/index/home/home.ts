@@ -35,24 +35,20 @@ interface Comunidade {
   membros: number;
   descricao: string;
 }
-
 @Component({
   selector: 'app-home',
   standalone: true,
   imports: [CommonModule, RouterLink, FormsModule],
   templateUrl: './home.html',
-  styleUrls: [
-    './home.css',
-    './base.css',
-    './modal.css'
-  ] 
+  styleUrls: ['./home.css'] 
 })
 export class Home implements OnInit, OnDestroy {
+ 
 
-  // Injeção do SupabaseService
+ 
   private supabaseService = inject(SupabaseService);
 
-  // Slides do Carrossel Hero
+ 
   heroSlides: HeroSlide[] = [
     {
       imagem: './imagens/LendoLivro.webp',

@@ -1,11 +1,79 @@
-import { Component } from '@angular/core';
-import { RouterOutlet, RouterLink } from '@angular/router';
+import { Component, OnInit, inject, ViewEncapsulation } from '@angular/core'; // 1. Importe ViewEncapsulation
+import { Router, RouterOutlet, RouterLink } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { ModalService } from '../../core/services/modal.service';
+import { BaseService } from '../../core/services/base.service';
+import { SupabaseService } from '../../core/supabase';
 
 @Component({
   selector: 'app-main-layout',
   standalone: true,
-  imports: [RouterOutlet, RouterLink],
+  imports: [CommonModule, RouterOutlet, RouterLink, FormsModule],
   templateUrl: './main-layout.html',
-  styleUrls: ['./main-layout.css'] 
+  styleUrls: ['./main-layout.css'],
+  encapsulation: ViewEncapsulation.None 
 })
-export class MainLayout {}
+export class MainLayout implements OnInit {
+
+  private modalService = inject(ModalService);
+  private baseService = inject(BaseService);
+  private supabaseService = inject(SupabaseService);
+  private router = inject(Router);
+
+  isSidebarExpanded = false;
+  termoPesquisa = '';
+  sequencia = 0;
+  avatarUrl = './imagens/padrao.jpg';
+
+  async ngOnInit() {
+    await this.carregarDadosUsuario();
+  }
+
+  async carregarDadosUsuario() {
+    const foto = await this.baseService.carregarFotoGlobal();
+    if (foto) {
+      this.avatarUrl = foto;
+    }
+
+    const res = await this.baseService.atualizarSequencia();
+    this.sequencia = res.sequencia;
+  }
+
+ toggleSidebar() {
+  this.isSidebarExpanded = !this.isSidebarExpanded;
+  document.body.classList.toggle('sidebar-expanded', this.isSidebarExpanded);
+}
+
+  pesquisar() {
+    if (this.termoPesquisa.trim()) {
+      this.router.navigate(['/search'], { queryParams: { q: this.termoPesquisa } });
+    }
+  }
+
+  abrirModalCriarComunidade(event: Event) {
+    event.preventDefault();
+    this.modalService.openModal('criar-comunidade');
+  }
+
+  abrirModalStreak(event: Event) {
+    event.preventDefault();
+    this.modalService.openModal('streak-modal');
+  }
+
+  async logout() {
+    // Utiliza a instância do SupabaseService para realizar o logout
+    const client = (this.supabaseService as any).client || (this.supabaseService as any).supabaseClient || this.supabaseService;
+    if (client.auth) {
+      await client.auth.signOut();
+    } else if (typeof (this.supabaseService as any).signOut === 'function') {
+      await (this.supabaseService as any).signOut();
+    }
+    
+    this.router.navigate(['/login']);
+  }
+
+  voltarAoTopo() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+}
