@@ -1,3 +1,70 @@
+/* ==================== CABEÇALHO (HEADER) ==================== */
+header, .main-header {
+  width: 100%;
+  padding: 15px 40px;
+  background-color: #12334a !important;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+
+.header-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo img {
+  display: block;
+}
+
+.center-nav ul {
+  display: flex;
+  list-style: none;
+  gap: 30px;
+  margin: 0;
+  padding: 0;
+}
+
+.center-nav a {
+  color: #ffffff;
+  font-weight: 500;
+  font-size: 15px;
+  text-decoration: none;
+}
+
+.center-nav a:hover {
+  color: var(--laranja-primario, #fe9920);
+}
+
+.auth-buttons {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.btn-login {
+  color: #ffffff;
+  font-weight: 600;
+  padding: 8px 16px;
+  text-decoration: none;
+}
+
+.btn-register {
+  background: linear-gradient(230deg, var(--laranja-terciario, #ffcf95), var(--laranja-primario, #fe9920));
+  color: #12334a;
+  font-weight: 600;
+  padding: 8px 20px;
+  border-radius: 20px;
+  text-decoration: none;
+}
+
+/* ==================== LAYOUT PRINCIPAL (MAIN) ==================== */
 main {
   display: flex;
   flex-direction: row;
@@ -17,14 +84,15 @@ main {
 }
 
 .imagemlogo img {
-  max-width: 300px;
+  max-width: 320px;
   height: auto;
 }
 
+/* ==================== FORMULÁRIO DE LOGIN ==================== */
 .formulario {
-  background-color: var(--deep-blue);
+  background-color: var(--deep-blue, #12334a);
   width: 100%;
-  max-width: 400px;
+  max-width: 420px;
   padding: 40px 35px;
   border-radius: 20px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
@@ -53,12 +121,13 @@ main {
   color: #e2e8f0;
 }
 
+/* Campos de entrada com o formato arredondado original */
 .input-group input {
   width: 100%;
-  padding: 12px 16px;
-  border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  background-color: rgba(0, 0, 0, 0.25);
+  padding: 12px 18px;
+  border-radius: 25px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  background-color: rgba(0, 0, 0, 0.2);
   color: #ffffff;
   font-size: 15px;
   box-sizing: border-box;
@@ -66,7 +135,7 @@ main {
 
 .input-group input:focus {
   outline: none;
-  border-color: var(--laranja-primario);
+  border-color: var(--laranja-primario, #fe9920);
 }
 
 .action-group {
@@ -74,24 +143,27 @@ main {
   width: 100%;
 }
 
+/* Botão de Login com a cor Laranja Original e Texto Escuro */
 #bttn-cad {
   width: 100%;
   padding: 12px;
-  border-radius: 20px;
+  border-radius: 25px;
   border: none;
-  background-color: #0066ff;
-  color: #ffffff;
+  background: linear-gradient(230deg, var(--laranja-terciario, #ffcf95), var(--laranja-primario, #fe9920));
+  color: #12334a;
   font-weight: bold;
   font-size: 16px;
   cursor: pointer;
-  transition: transform 0.2s, background-color 0.2s;
+  transition: transform 0.2s, opacity 0.2s;
+  box-shadow: 0 1 1 white;
 }
 
 #bttn-cad:hover {
-  background-color: #0052cc;
+  opacity: 0.9;
   transform: translateY(-2px);
 }
 
+/* Divisor "ou" */
 .divider {
   display: flex;
   align-items: center;
@@ -118,7 +190,7 @@ main {
   background-color: #ffffff;
   color: #000000;
   border: none;
-  border-radius: 20px;
+  border-radius: 25px;
   font-weight: 600;
   cursor: pointer;
   margin-bottom: 15px;
@@ -131,7 +203,50 @@ main {
 }
 
 .link a {
-  color: var(--cool-sky);
+  color: var(--cool-sky, #67b0eb);
   font-weight: 600;
   text-decoration: none;
+}
+
+/* ==================== RODAPÉ (FOOTER) ==================== */
+footer, .main-footer {
+  width: 100%;
+  padding: 20px;
+  text-align: center;
+  background-color: #12334a !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer-links {
+  display: flex;
+  list-style: none;
+  gap: 20px;
+}
+
+.footer-links a {
+  color: #94a3b8;
+  font-size: 14px;
+  text-decoration: none;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  main {
+    flex-direction: column;
+    gap: 30px;
+  }
+
+  .header-container,
+  .footer-container {
+    flex-direction: column;
+    gap: 15px;
+  }
 }

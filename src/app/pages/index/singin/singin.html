@@ -1,0 +1,74 @@
+<main>
+  <section class="imagemlogo">
+    <img src="/imagens/Vetores/MiniLogoVetor.svg" alt="Logo" width="300" height="300" />
+  </section>
+
+  <form class="formulario" id="form-cadastro" (ngSubmit)="onSubmit()">
+    <h1>Sign In</h1>
+
+    <div class="input-group">
+      <label for="username">Nome de usuário:</label>
+      <input 
+        type="text" 
+        id="username" 
+        name="username" 
+        [(ngModel)]="username" 
+        required 
+      />
+    </div>
+
+    <div class="input-group">
+      <label for="email">Email:</label>
+      <input 
+        type="email" 
+        id="email" 
+        name="email" 
+        [(ngModel)]="email" 
+        required 
+      />
+    </div>
+
+    <div class="input-group">
+      <label for="password">Senha:</label>
+      <input 
+        type="password" 
+        id="password" 
+        name="password" 
+        [(ngModel)]="password" 
+        required 
+      />
+    </div>
+
+    <div class="input-group">
+      <label for="repeatpassword">Repetir senha:</label>
+      <input
+        type="password"
+        id="repeatpassword"
+        name="repeatpassword"
+        [(ngModel)]="repeatPassword"
+        required
+      />
+    </div>
+
+    <p 
+      *ngIf="mensagemStatus" 
+      [style.color]="mensagemCor" 
+      style="font-weight: bold; margin-top: 10px; text-align: center;"
+    >
+      {{ mensagemStatus }}
+    </p>
+
+    <div class="action-group">
+      <input 
+        type="submit" 
+        [value]="isLoading ? 'Enviando...' : 'Sign In'" 
+        id="bttn-cad" 
+        [disabled]="isLoading" 
+      />
+    </div>
+
+    <div class="link">
+      <p>Já tem uma conta? <a routerLink="/login">Entre</a></p>
+    </div>
+  </form>
+</main>

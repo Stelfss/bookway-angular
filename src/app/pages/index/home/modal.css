@@ -1,0 +1,189 @@
+/* modal.css (exclusivo do modal) */
+:root {
+  --bw-bg: #000716;
+  --bw-panel: #011733;
+  --bw-soft: #f5f5dc;
+  --bw-accent: #3b82f6;
+}
+
+.bw-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 7, 22, 0.82);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+
+.bw-modal-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.bw-modal {
+  width: 100%;
+  max-width: 560px;
+  margin: 18px;
+  background: #010f22;
+  border: 1px solid rgba(59, 130, 246, 0.25);
+  border-radius: 22px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.55);
+  padding: 26px;
+  transform: translateY(10px) scale(0.98);
+  transition: transform 0.25s ease;
+}
+
+.bw-modal-overlay.active .bw-modal {
+  transform: translateY(0) scale(1);
+}
+
+.bw-modal-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 14px;
+  margin-bottom: 18px;
+}
+
+.bw-modal-kicker {
+  font-family: "Bricolage Grotesque", Inter, sans-serif;
+  letter-spacing: 0.4px;
+  color: rgba(245, 245, 220, 0.85);
+  font-size: 12px;
+  margin-bottom: 6px;
+}
+
+.bw-modal-title {
+  font-family: "Bricolage Grotesque", Inter, sans-serif;
+  font-size: 24px;
+  color: #fff;
+}
+
+.bw-modal-close {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  background: rgba(255, 255, 255, 0.06);
+  color: #94a3b8;
+  display: grid;
+  place-items: center;
+  transition: background 0.15s ease, color 0.15s ease, transform 0.15s ease;
+}
+
+.bw-modal-close:hover {
+  background: rgba(239, 68, 68, 0.18);
+  color: #ef4444;
+  transform: scale(1.04);
+}
+
+.bw-modal-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.bw-label {
+  font-size: 13px;
+  font-weight: 700;
+  color: rgba(148, 163, 184, 1);
+}
+
+.bw-modal-form input[type='text'],
+.bw-modal-form input[type='url'],
+.bw-modal-form textarea {
+  width: 100%;
+  border-radius: 14px;
+  background: rgba(0, 6, 17, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 12px 14px;
+  color: #fff;
+  outline: none;
+  font-family: Inter, sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.bw-modal-form textarea {
+  min-height: 92px;
+  resize: vertical;
+}
+
+.bw-modal-form input:focus,
+.bw-modal-form textarea:focus {
+  border-color: rgba(59, 130, 246, 0.65);
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.22);
+}
+
+.bw-grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+@media (max-width: 560px) {
+  .bw-grid-2 {
+    grid-template-columns: 1fr;
+  }
+}
+
+.bw-color-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  border-radius: 14px;
+  background: rgba(0, 6, 17, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+#bw-comm-color {
+  width: 44px;
+  height: 34px;
+  border: none;
+  padding: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.bw-hex {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  color: #cbd5e1;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.bw-primary-btn {
+  width: 100%;
+  border: none;
+  border-radius: 14px;
+  padding: 14px 16px;
+  cursor: pointer;
+  background: linear-gradient(90deg, #1e40af, #3b82f6);
+  color: white;
+  font-family: "Bricolage Grotesque", Inter, sans-serif;
+  font-weight: 900;
+  font-size: 15px;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  box-shadow: 0 10px 30px rgba(59, 130, 246, 0.25);
+}
+
+.bw-primary-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 44px rgba(59, 130, 246, 0.35);
+}
+
+.bw-help {
+  margin-top: 2px;
+  font-size: 12.5px;
+  color: rgba(148, 163, 184, 0.9);
+  line-height: 1.45;
+}
+

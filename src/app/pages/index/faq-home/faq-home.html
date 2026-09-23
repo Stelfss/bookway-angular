@@ -1,0 +1,67 @@
+<main class="conteudo-publico">
+    
+  <div class="faq-header">
+    <span class="faq-tag">Central de Ajuda</span>
+    <h1 class="faq-title">Perguntas Frequentes</h1>
+    <p class="faq-subtitle">Tire suas dúvidas e descubra como aproveitar ao máximo o universo do Bookway.</p>
+  </div>
+
+  <div class="faq-container">
+      
+    <!-- Item 1 -->
+    <div class="faq-item" [class.active]="openIndex === 0">
+      <button class="faq-question" (click)="toggleFaq(0, $event)">
+        O que é o Bookway?
+        <span class="faq-icon">{{ openIndex === 0 ? '−' : '+' }}</span>
+      </button>
+      <div class="faq-answer">
+        <p>O Bookway é uma plataforma social voltada para os amantes da leitura. Aqui, você pode gerenciar sua estante virtual, acompanhar suas metas diárias, manter ofensivas de leitura ativas e interagir com comunidades focadas em livros, mangás, audiobooks e HQs.</p>
+      </div>
+    </div>
+
+    <!-- Item 2 -->
+    <div class="faq-item" [class.active]="openIndex === 1">
+      <button class="faq-question" (click)="toggleFaq(1, $event)">
+        A plataforma é gratuita?
+        <span class="faq-icon">{{ openIndex === 1 ? '−' : '+' }}</span>
+      </button>
+      <div class="faq-answer">
+        <p>Sim! O cadastro e os recursos principais do Bookway são 100% gratuitos. Temos também um plano Premium que oferece vantagens exclusivas, como personalização avançada de perfil e estatísticas detalhadas de leitura.</p>
+      </div>
+    </div>
+
+    <!-- Item 3 -->
+    <div class="faq-item" [class.active]="openIndex === 2">
+      <button class="faq-question" (click)="toggleFaq(2, $event)">
+        Como funcionam os desafios de leitura?
+        <span class="faq-icon">{{ openIndex === 2 ? '−' : '+' }}</span>
+      </button>
+      <div class="faq-answer">
+        <p>Ao criar sua conta, você pode definir metas diárias e participar de desafios temáticos. Cada dia que você bate sua meta, sua "ofensiva" (o ícone de fogo) aumenta, gamificando e incentivando seu hábito de leitura.</p>
+      </div>
+    </div>
+
+    <!-- Item 4 -->
+    <div class="faq-item" [class.active]="openIndex === 3">
+      <button class="faq-question" (click)="toggleFaq(3, $event)">
+        Posso criar minha própria comunidade?
+        <span class="faq-icon">{{ openIndex === 3 ? '−' : '+' }}</span>
+      </button>
+      <div class="faq-answer">
+        <p>Com certeza. Se você não encontrar uma comunidade que seja a sua cara, basta acessar sua conta, ir na aba lateral e clicar em "Criar Comunidade". Você pode escolher o nome, a cor principal, a imagem e convidar outras pessoas.</p>
+      </div>
+    </div>
+
+    <!-- Item 5 -->
+    <div class="faq-item" [class.active]="openIndex === 4">
+      <button class="faq-question" (click)="toggleFaq(4, $event)">
+        Como posso entrar em contato com o suporte?
+        <span class="faq-icon">{{ openIndex === 4 ? '−' : '+' }}</span>
+      </button>
+      <div class="faq-answer">
+        <p>Você pode acessar nossa <a routerLink="/contacts-home" style="color: #3b82f6;">Página de Contato</a>. Nosso e-mail de suporte é BookWay2025@gmail.com e também oferecemos atendimento via chat para usuários logados.</p>
+      </div>
+    </div>
+
+  </div>
+</main>

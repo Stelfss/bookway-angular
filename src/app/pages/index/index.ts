@@ -1,8 +1,7 @@
 import { Component, ElementRef, ViewChild, HostListener, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
-// Interfaces declaradas fora da classe
 interface Recurso {
   icon: string;
   titulo: string;
@@ -64,6 +63,8 @@ export class Index implements AfterViewInit {
   ];
 
   @ViewChild('booksWrapper') booksWrapper!: ElementRef;
+
+  constructor(private router: Router) {}
 
   setSection(section: string): void {
     this.currentSection = section;

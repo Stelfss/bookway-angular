@@ -1,0 +1,145 @@
+/* ==========================================================================
+   RESET E CONFIGURAÇÃO DO CONTAINER PÚBLICO
+   ========================================================================== */
+.conteudo-publico {
+    margin-top: 100px;
+    width: 100%;
+    flex: 1; /* Mágica do Sticky Footer */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 60px 20px;
+    box-sizing: border-box;
+}
+
+/* ==========================================================================
+   CABEÇALHO DA PÁGINA FAQ
+   ========================================================================== */
+.faq-header {
+    text-align: center;
+    margin-bottom: 50px;
+    max-width: 600px;
+}
+
+.faq-tag {
+    background-color: rgba(59, 130, 246, 0.15);
+    color: #3b82f6;
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    display: inline-block;
+    margin-bottom: 15px;
+}
+
+.faq-title {
+    font-family: "Chonburi", serif;
+    font-size: 38px;
+    color: #f5f5dc;
+    margin-bottom: 15px;
+    line-height: 1.2;
+}
+
+.faq-subtitle {
+    font-family: "Inter", sans-serif;
+    font-size: 16px;
+    color: #cbd5e1;
+    line-height: 1.6;
+}
+
+/* ==========================================================================
+   ESTRUTURA DO ACORDEÃO (PERGUNTAS E RESPOSTAS)
+   ========================================================================== */
+.faq-container {
+    width: 100%;
+    max-width: 800px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.faq-item {
+    background-color: #011733; /* Cor dos cards da sua dashboard */
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.faq-item:hover {
+    border-color: rgba(59, 130, 246, 0.4);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* O Botão da Pergunta */
+.faq-question {
+    width: 100%;
+    background: transparent;
+    border: none;
+    padding: 20px 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: "Inter", sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: #f5f5dc;
+    cursor: pointer;
+    text-align: left;
+    transition: background-color 0.2s ease;
+}
+
+.faq-question:hover {
+    background-color: rgba(255, 255, 255, 0.03);
+}
+
+/* Ícone de Mais (+) e Menos (-) */
+.faq-icon {
+    font-size: 24px;
+    color: #3b82f6;
+    font-weight: 300;
+    transition: transform 0.3s ease;
+}
+
+/* A Resposta Oculta */
+.faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease, padding 0.4s ease;
+    background-color: rgba(0, 0, 0, 0.15); /* Leve escurecida para destacar da pergunta */
+}
+
+.faq-answer p {
+    padding: 0 25px 20px 25px; /* O padding top é zero para a animação ficar fluida */
+    margin: 0;
+    font-family: "Inter", sans-serif;
+    font-size: 15px;
+    color: #e2e8f0;
+    line-height: 1.6;
+}
+
+/* ==========================================================================
+   ESTADOS ATIVOS (Quando a pergunta está aberta via JS)
+   ========================================================================== */
+.faq-item.active .faq-question {
+    color: #3b82f6;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.faq-item.active .faq-icon {
+    transform: rotate(45deg); /* Transforma o + em um X */
+    color: #f5f5dc;
+}
+
+.faq-item.active .faq-answer {
+    padding-top: 20px; /* Adiciona o espaço superior quando abre */
+}
+
+/* Responsividade */
+@media (max-width: 600px) {
+    .faq-title { font-size: 30px; }
+    .faq-question { font-size: 16px; padding: 15px 20px; }
+    .faq-answer p { padding: 0 20px 15px 20px; font-size: 14px; }
+}

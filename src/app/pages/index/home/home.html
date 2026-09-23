@@ -1,0 +1,400 @@
+<!-- Barra Lateral -->
+<aside class="blateral">
+  <div class="side-bttns">
+    <ul>
+      <li class="active">
+        <a routerLink="/home">
+          <img src="./imagens/Vetores/PaginaInicialVetor.svg" class="sidebar-icon4" alt="Inicial" />
+          <span>Inicial</span>
+        </a>
+      </li>
+      <li class="nav-mobile">
+        <a routerLink="/quests">
+          <img src="./imagens/Vetores/DesafiosVetor.svg" class="sidebar-icon" alt="Desafios" />
+          <span>Desafios</span>
+        </a>
+      </li>
+      <li>
+        <a routerLink="/chat">
+          <img src="./imagens/Vetores/ChatVetor.svg" class="sidebar-icon" alt="Chat" />
+          <span>Chat</span>
+        </a>
+      </li>
+      <li class="nav-mobile">
+        <a routerLink="/comunity">
+          <img src="./imagens/Vetores/ComunidadeVetor.svg" class="sidebar-icon" alt="Comunidade" />
+          <span>Comunidade</span>
+        </a>
+      </li>
+      <li>
+        <a routerLink="/user">
+          <img src="./imagens/Vetores/UsuarioVetor.svg" class="sidebar-icon" alt="Meu Perfil" />
+          <span>Perfil</span>
+        </a>
+      </li>
+      <li>
+        <a routerLink="/settings">
+          <img src="./imagens/Vetores/ConfiguracoesVetor.svg" class="sidebar-icon" alt="Configurações" />
+          <span>Configurações</span>
+        </a>
+      </li>
+      <li class="expand-only">
+        <a routerLink="/bookshelf">
+          <img src="./imagens/Vetores/EstanteVetor.svg" class="sidebar-icon" alt="Estante" />
+          <span>Estante</span>
+        </a>
+      </li>
+      <li class="nav-mobile">
+        <a routerLink="/premium">
+          <img src="./imagens/Vetores/CoroaVetor.svg" class="sidebar-icon" alt="Premium" />
+          <span>Premium</span>
+        </a>
+      </li>
+      <li class="expand-only">
+        <a routerLink="/xpway">
+          <img src="./imagens/Vetores/XpWayVetor.png" class="sidebar-icon" alt="XP Way" />
+          <span>XP Way</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+
+  <div class="create-comunity expand-only">
+    <a href="#" (click)="openCreateCommunityModal($event)" class="create-comunity" style="position: relative; z-index: 999999">
+      <img src="./imagens/Vetores/ComunidadeVetor.svg" class="sidebar-icon" alt="Ícone" />
+      <div class="comunity-info">
+        <span class="comunity-title">Criar Comunidade</span>
+        <span class="comunity-subtitle">Crie suas conexões</span>
+      </div>
+    </a>
+  </div>
+
+  <div class="logout">
+    <button class="bttn-logout" id="btn-logout">
+      <img src="./imagens/Vetores/SignOutVetor.svg" alt="Sair" class="sidebar-icon4" />
+    </button>
+  </div>
+</aside>
+
+<!-- Conteúdo Principal -->
+<main class="container">
+  <header class="header">
+    <div class="btns-logo" style="display: flex; justify-content: space-between; align-items: center;">
+      <div class="open-close">
+        <button id="bttn-oc" class="bttn-oc">☰</button>
+      </div>
+      <div class="logo">
+        <a routerLink="/home" id="logo">
+          <img src="/Site/imagens/Vetores/logovetorizada2.svg" alt="Logo" height="55px" id="imglogo" />
+        </a>
+      </div>
+    </div>
+
+    <div class="ul-nav">
+      <ul>
+        <li><a routerLink="/premium"><span>Premium</span></a></li>
+        <li><a routerLink="/comunity">Comunidades</a></li>
+        <li><a routerLink="/quests">Desafios</a></li>
+        <li><a routerLink="/about"><span>Quem Somos</span></a></li>
+      </ul>
+    </div>
+
+    <div id="sec-user">
+      <div class="barra-pesquisa">
+        <form id="barrapesquisa">
+          <input type="text" placeholder="Search" id="s-header" />
+          <button type="submit" id="b-header" name="Pesquisar"></button>
+        </form>
+      </div>
+      <div id="seq">
+        <a href="#" (click)="openStreakModal($event)" id="txt-user">
+          <p id="streak-user">0</p>
+          <img src="./imagens/Vetores/FireVetor.svg" alt="Fogo" width="20" height="20" id="seq-fire" class="fire-icon" />
+        </a>
+      </div>
+      <div id="g-icon-user">
+        <a routerLink="/user">
+          <img src="./imagens/padrao.jpg" class="user-avatar" alt="Meu Perfil" />
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <section class="conteudo">
+    <!-- Carrossel Hero -->
+    <div class="hero-carousel" id="hero-carousel" (mouseenter)="stopHeroAutoPlay()" (mouseleave)="startHeroAutoPlay()">
+      <div class="hero-carousel-track" id="hero-track">
+        <div *ngFor="let slide of heroSlides; let i = index" 
+             class="hero-slide" 
+             [class.active]="i === currentHeroIndex"
+             [class.prev]="i === getPrevIndex()"
+             [class.next]="i === getNextIndex()"
+             (click)="i === getPrevIndex() ? goHeroPrev() : (i === getNextIndex() ? goHeroNext() : null)">
+          <img [src]="slide.imagem" [alt]="slide.titulo" />
+          <div class="hero-content">
+            <span class="hero-badge">{{ slide.badge }}</span>
+            <h2>{{ slide.titulo }}</h2>
+            <p>{{ slide.descricao }}</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-controls">
+        <button class="hero-arrow" id="hero-prev" (click)="goHeroPrev()">
+          <img src="./imagens/Vetores/SetaEsquerdaVetor.svg" alt="Anterior" class="sidebar-icon" />
+        </button>
+
+        <div class="hero-indicators" id="hero-indicators">
+          <div *ngFor="let slide of heroSlides; let i = index" 
+               class="hero-dot" 
+               [class.active]="i === currentHeroIndex"
+               (click)="setHeroIndex(i)">
+          </div>
+        </div>
+
+        <button class="hero-arrow" id="hero-next" (click)="goHeroNext()">
+          <img src="./imagens/Vetores/SetaDireitaVetor.svg" alt="Próximo" class="sidebar-icon" />
+        </button>
+      </div>
+    </div>
+
+    <!-- Vistos Recentemente -->
+    <div class="row">
+      <h1>Vistos Recentemente</h1>
+      <section class="secao-horizontal">
+        <button class="btn-scroll-left" (click)="scrollLeft(lendoRow)" [class.btn-oculto]="livrosEmAndamento.length <= 7">
+          <img src="./imagens/Vetores/SetaEsquerdaVetor.svg" alt="Esquerda" class="sidebar-icon" />
+        </button>
+        <div class="book-row" #lendoRow>
+          <div *ngFor="let item of livrosEmAndamento" class="book" (click)="openBookModal(item.livro)">
+            <img class="card-top" [src]="item.livro.capa" [alt]="item.livro.titulo" />
+            <div class="card-overlay">
+              <div class="user-book-progress">
+                <p class="card-text text-pages">Progresso: {{ item.maior_pagina_lida }}/{{ item.paginas_totais }}</p>
+                <div class="book-progress">
+                  <div class="progress-bar fill-bar" [style.width.%]="item.porcentagem"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button class="btn-scroll-right" (click)="scrollRight(lendoRow)" [class.btn-oculto]="livrosEmAndamento.length <= 7">
+          <img src="./imagens/Vetores/SetaDireitaVetor.svg" alt="Direita" class="sidebar-icon" />
+        </button>
+      </section>
+    </div>
+
+    <!-- Comunidades Famosas -->
+    <div class="row">
+      <div class="titulocomunidade">
+        <h1>Comunidades famosas</h1>
+      </div>
+      <div class="comunidade-row" id="comunidades-container">
+        <div *ngFor="let comm of comunidades" class="comunidade" (click)="openCommunityModal(comm)">
+          <img [src]="comm.capa" [alt]="'Foto da comunidade ' + comm.titulo" />
+          <div class="comunidade-overlay">
+            <h2 class="comunidade-text">{{ comm.titulo }}</h2>
+            <p class="comunidade-text">{{ comm.membros }} membros</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Recomendações -->
+    <div class="row">
+      <h1>Recomendações</h1>
+      <section class="secao-horizontal">
+        <button class="btn-scroll-left" (click)="scrollLeft(recomendacoesRow)" [class.btn-oculto]="livrosRecomendados.length <= 7">
+          <img src="./imagens/Vetores/SetaEsquerdaVetor.svg" alt="Esquerda" class="sidebar-icon" />
+        </button>
+        <div class="book-row" #recomendacoesRow>
+          <div *ngFor="let livro of livrosRecomendados" class="book" (click)="openBookModal(livro)">
+            <img class="card-top" [src]="livro.capa" [alt]="livro.titulo" />
+          </div>
+        </div>
+        <button class="btn-scroll-right" (click)="scrollRight(recomendacoesRow)" [class.btn-oculto]="livrosRecomendados.length <= 7">
+          <img src="./imagens/Vetores/SetaDireitaVetor.svg" alt="Direita" class="sidebar-icon" />
+        </button>
+      </section>
+    </div>
+
+    <!-- MODAL DO LIVRO -->
+    <div id="book-modal" class="modal-overlay" [class.active]="showBookModal" [style.display]="showBookModal ? 'flex' : 'none'">
+      <div class="modal-container" *ngIf="selectedBook">
+        <button class="modal-close-btn" (click)="closeAllModals()">&times;</button>
+        <div class="modal-left-col">
+          <div class="book-cover-wrapper">
+            <img [src]="selectedBook.capa" [alt]="selectedBook.titulo" class="modal-book-cover" />
+          </div>
+        </div>
+        <div class="modal-right-col">
+          <h2 class="modal-book-title">{{ selectedBook.titulo }}</h2>
+          <p class="modal-book-author">por {{ selectedBook.autor }}</p>
+          <div class="modal-rating">
+            <span class="rating-number">4.6</span>
+            <div class="stars">
+              <span class="star">&#9733;</span><span class="star">&#9733;</span><span class="star">&#9733;</span><span class="star">&#9733;</span><span class="star">&#9734;</span>
+            </div>
+          </div>
+          <p class="modal-synopsis">{{ selectedBook.descricao }}</p>
+          <div class="div-bttns">
+            <button class="modal-btn-read">LER</button>
+            <button class="modal-btn-bs">
+              <img class="estante" src="./imagens/Vetores/EstanteVetor.svg" alt="Estante" />
+            </button>
+          </div>
+          <hr class="modal-divider" />
+          <div class="modal-comments-section">
+            <h3>Comentários e recomendações</h3>
+            <div class="comentar">
+              <img src="./imagens/padrao.jpg" class="user-avatar comentar-img" alt="Meu Perfil" />
+              <form id="box-comment" (submit)="$event.preventDefault()">
+                <input type="text" placeholder="O que achou da obra?" id="input-comment" required autocomplete="off" />
+                <button type="submit" id="end-comment">
+                  <img src="./imagens/Vetores/EnviarVetor.svg" class="sidebar-icon" />
+                </button>
+              </form>
+            </div>
+            <div id="lista-comentarios">
+              <p style="color: #64748b; font-size: 13px">Seja o primeiro a comentar!</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODAL DA COMUNIDADE -->
+    <div id="community-modal" class="comm-modal-overlay" [class.active]="showCommunityModal" [style.display]="showCommunityModal ? 'flex' : 'none'">
+      <div class="comm-modal-container" *ngIf="selectedCommunity">
+        <button type="button" (click)="closeAllModals()" class="comm-close-btn">&times;</button>
+        <div class="comm-modal-scrollable-content">
+          <div class="comm-modal-banner">
+            <img [src]="selectedCommunity.capa" [alt]="'Banner da comunidade ' + selectedCommunity.titulo" />
+          </div>
+          <div class="comm-modal-body">
+            <h2 class="comm-title">{{ selectedCommunity.titulo }}</h2>
+            <div class="comm-members-count">
+              <i class="fa-solid fa-users"></i>
+              <span>{{ selectedCommunity.membros }} membros</span>
+            </div>
+            <p class="comm-description">{{ selectedCommunity.descricao }}</p>
+            <div class="comm-actions">
+              <button type="button" class="btn-visit">
+                <span>&rarr;</span> Visitar Comunidade
+              </button>
+              <button type="button" class="btn-subscribe" (click)="toggleInscricaoComunidade()" [style.backgroundColor]="isSubscribedToCommunity ? '#e11d48' : ''">
+                <span class="icon-sub">{{ isSubscribedToCommunity ? '-' : '+' }}</span> 
+                {{ isSubscribedToCommunity ? 'Sair' : 'Inscrever-se' }}
+              </button>
+            </div>
+            <div class="comm-comments-section">
+              <h3>Comentários da comunidade</h3>
+              <div class="comentar" style="margin-bottom: 15px">
+                <img src="./imagens/padrao.jpg" class="user-avatar comentar-img" alt="Meu Perfil" />
+                <form id="box-comment-comm" (submit)="$event.preventDefault()" style="display: flex; gap: 8px; width: 100%">
+                  <input type="text" placeholder="Escreva algo para a comunidade..." id="input-comment-comm" required autocomplete="off" style="flex: 1; padding: 8px 12px; border-radius: 8px; border: 1px solid #334155; background: #0f172a; color: #fff;" />
+                  <button type="submit" id="end-comment-comm" style="background: #2563eb; border: none; border-radius: 8px; padding: 8px 12px; cursor: pointer; color: white; display: flex; align-items: center; justify-content: center;">
+                    <img src="./imagens/Vetores/EnviarVetor.svg" class="sidebar-icon" alt="Enviar" />
+                  </button>
+                </form>
+              </div>
+              <div id="lista-comentarios-comunidade" class="comm-comments-list">
+                <p style="color: #64748b; font-size: 13px">Seja o primeiro a comentar nesta comunidade!</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- MODAL DE CRIAR COMUNIDADE -->
+<div id="bw-create-modal" class="bw-modal-overlay" [style.display]="showCreateCommunityModal ? 'flex' : 'none'">
+  <div class="bw-modal" role="dialog">
+    <div class="bw-modal-header">
+      <div>
+        <div class="bw-modal-kicker">BookWay</div>
+        <h2 class="bw-modal-title">Criar Nova Comunidade</h2>
+      </div>
+      <button type="button" (click)="closeAllModals()" class="bw-modal-close" aria-label="Fechar">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="3">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+    <form (submit)="criarComunidade(); $event.preventDefault()" class="bw-modal-form">
+      <label class="bw-label" for="bw-comm-name">Nome da comunidade</label>
+      <input id="bw-comm-name" [(ngModel)]="newComm.name" name="name" type="text" required placeholder="Ex: Círculo de Leitores" />
+
+      <label class="bw-label" for="bw-comm-desc">Descrição curta</label>
+      <textarea id="bw-comm-desc" [(ngModel)]="newComm.desc" name="desc" required placeholder="O que você discute aqui?"></textarea>
+
+      <div class="bw-grid-2">
+        <div>
+          <label class="bw-label" for="bw-comm-color">Cor principal</label>
+          <div class="bw-color-row">
+            <input id="bw-comm-color" [(ngModel)]="newComm.color" name="color" type="color" />
+            <span class="bw-hex">{{ newComm.color }}</span>
+          </div>
+        </div>
+
+        <div>
+          <label class="bw-label" for="bw-comm-image">URL da imagem (ícone/avatar)</label>
+          <input id="bw-comm-image" [(ngModel)]="newComm.image" name="image" type="url" placeholder="https://..." />
+        </div>
+      </div>
+
+      <button type="submit" class="bw-primary-btn">Criar comunidade</button>
+      <p class="bw-help">Dica: a imagem pode ser vazia. Nesse caso, usamos um ícone interno em SVG.</p>
+    </form>
+  </div>
+</div>
+
+<!-- MODAL STREAK -->
+<div class="streak-modal-overlay" id="streak-modal" [style.display]="showStreakModal ? 'flex' : 'none'">
+  <div class="streak-modal-card">
+    <div class="streak-modal-header">
+      <div class="streak-badge">
+        <span class="streak-text-day">0</span>
+        <img src="./imagens/Vetores/FireVetor2.svg" class="streak-badge-icon" />
+      </div>
+      <div class="streak-close" (click)="closeAllModals()" style="cursor: pointer">
+        <img src="./imagens/Vetores/FecharVetor.svg" class="streak-close-icon" />
+      </div>
+    </div>
+    <div class="streak-modal-content">
+      <section class="streak-today-section">
+        <p class="streak-today-label streak-espaco">Lido Hoje:</p>
+        <div class="streak-espaco"></div>
+        <div class="streak-today-value">
+          <div class="streak-number-wrapper">
+            <span class="streak-big-number">0</span>
+          </div>
+          <span class="streak-unit">PÁGINAS</span>
+        </div>
+      </section>
+      <hr class="streak-separator-max" />
+      <section class="streak-milestones-bar">
+        <div class="streak-milestone"><span class="streak-text">1</span><img src="./imagens/Vetores/FireVetor.svg" class="streak-icon" /></div>
+        <hr class="streak-separator" />
+        <div class="streak-milestone"><span class="streak-text">15</span><img src="./imagens/Vetores/FireVetor.svg" class="streak-icon" /></div>
+        <hr class="streak-separator" />
+        <div class="streak-milestone"><span class="streak-text">30</span><img src="./imagens/Vetores/FireVetor.svg" class="streak-icon" /></div>
+        <hr class="streak-separator" />
+        <div class="streak-milestone"><span class="streak-text">45</span><img src="./imagens/Vetores/FireVetor.svg" class="streak-icon" /></div>
+        <hr class="streak-separator" />
+        <div class="streak-milestone"><span class="streak-text">60</span><img src="./imagens/Vetores/FireVetor.svg" class="streak-icon" /></div>
+        <hr class="streak-separator" />
+        <div class="streak-milestone"><span class="streak-text">90</span><img src="./imagens/Vetores/FireVetor.svg" class="streak-icon" /></div>
+      </section>
+      <hr class="streak-separator-max" />
+      <p class="streak-text" style="color: #f8f8f8">Objetivos:</p>
+      <div class="streak-modal-footer">
+        <img src="./imagens/Vetores/CheckVazioVetor.svg" class="streak-icon check-streak" />
+        <span class="streak-text3">Ler 20 páginas</span>
+      </div>
+    </div>
+  </div>
+</div>

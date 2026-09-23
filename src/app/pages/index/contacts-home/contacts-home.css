@@ -1,0 +1,162 @@
+/* ==========================================================================
+   RESET E AJUSTES DO CONTAINER PÚBLICO (STICKY FOOTER ATIVADO)
+   ========================================================================== */
+.conteudo-publico {
+    margin-top: 100px; /* Evita que o topo seja coberto pela navbar fixa */
+    width: 100%;
+    
+    /* Mágica do Sticky Footer: Estica a div principal */
+    flex: 1; 
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+    box-sizing: border-box;
+}
+
+/* ==========================================================================
+   WRAPPER DA PÁGINA DE CONTATO (Substitui as larguras antigas da sidebar)
+   ========================================================================== */
+.contact-wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 80px; /* Espaço entre a imagem e os textos */
+    width: 100%;
+    max-width: 1000px;
+    flex-wrap: wrap; /* Permite que os itens caiam para a linha de baixo em telas menores */
+}
+
+/* Imagem Vetorial */
+.contact-image-section .img-contato {
+    height: auto;
+    max-height: 450px;
+    width: 100%;
+    max-width: 400px;
+}
+
+/* Agrupamento dos blocos de texto para ficarem juntos à direita */
+.contact-info-section {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+/* ==========================================================================
+   TEXTOS, INFORMAÇÕES E BOTÕES (Baseado no seu layout original)
+   ========================================================================== */
+.contact-container1 {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+    max-width: 400px;
+    text-align: left;
+}
+
+.contact-container1 h1 {
+    font-family: "Chonburi", serif;
+    font-size: 38px;
+    color: #f5f5dc;
+    margin-bottom: 5px;
+}
+
+.info-group p {
+    margin-bottom: 8px;
+    font-family: "Inter", sans-serif;
+    color: #e2e8f0;
+    font-size: 16px;
+}
+
+.info-group strong {
+    color: #f5f5dc;
+}
+
+.chat-link {
+    color: #3b82f6; /* Azul moderno */
+    text-decoration: none;
+    font-weight: bold;
+    font-family: "Inter", sans-serif;
+    transition: color 0.2s ease;
+}
+
+.chat-link:hover {
+    color: #60a5fa;
+    text-decoration: underline;
+}
+
+/* Botão de Perguntas Frequentes */
+.contact-bttn {
+    background-color: #0154da;
+    border: none;
+    color: #ffffff;
+    padding: 15px 25px;
+    text-decoration: none;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 10px;
+    font-family: "Inter", sans-serif;
+    font-size: 15px;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+    margin-top: 10px;
+}
+
+.contact-bttn:hover {
+    background-color: #0033aa;
+    transform: scale(1.02);
+}
+
+/* ==========================================================================
+   REDES SOCIAIS (Outras Formas)
+   ========================================================================== */
+.contact-container2 h3 {
+    font-size: 18px;
+    color: #f5f5dc;
+    font-weight: normal;
+    margin-bottom: 15px;
+    font-family: "Inter", sans-serif;
+}
+
+.info-vetor {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
+}
+
+.info-vetor img {
+    width: 30px;
+    height: 30px;
+    transition: all 0.2s ease;
+}
+
+.trocarcor {
+    filter: brightness(0) saturate(100%) invert(98%) sepia(8%) saturate(614%) hue-rotate(323deg) brightness(103%) contrast(93%);
+}
+
+.info-vetor img:hover {
+    filter: brightness(0) saturate(100%) invert(75%) sepia(13%) saturate(464%) hue-rotate(42deg) brightness(94%) contrast(85%);
+    transform: translateY(-3px);
+}
+
+/* ==========================================================================
+   RESPONSIVIDADE (Tablets e Celulares)
+   ========================================================================== */
+@media (max-width: 850px) {
+    .contact-wrapper {
+        flex-direction: column;
+        text-align: center;
+        gap: 40px;
+    }
+    
+    .contact-container1 {
+        align-items: center;
+        text-align: center;
+    }
+    
+    .info-vetor {
+        justify-content: center;
+    }
+}

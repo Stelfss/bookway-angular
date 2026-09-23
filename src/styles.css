@@ -66,12 +66,12 @@ a {
 .main-header {
   width: 100%;
   padding: 15px 40px;
-  background-color: rgba(7, 20, 30, 0.85);
+  background-color: rgba(7, 20, 30, 0.6); 
   backdrop-filter: blur(10px);
   position: sticky;
   top: 0;
   z-index: 100;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .header-container {

@@ -1,0 +1,727 @@
+/* ==========================================================================
+   PALETA DE CORES E VARIÁVEIS
+   ========================================================================== */
+:root {
+  --cool-sky: #67b0eb;
+  --secondary-color: #1e40af;
+  --cinza-escuro: #191923;
+  --creme-bookway: #ffffc7;
+
+  /* Laranjas */
+  --laranja-primario: #fe9920;
+  --laranja-secundario: #d47500;
+  --laranja-terciario: #ffcf95;
+
+  /* Deep Blue */
+  --deep-blue-ultra-claro: #e8eff4;
+  --deep-blue-muito-claro: #c8d7e3;
+  --deep-blue-claro: #668aa8;
+  --deep-blue-medio: #365d7c;
+  --deep-blue: #12334a;
+  --deep-blue-escuro: #0e293c;
+  --deep-blue-muito-escuro: #0b1f2d;
+  --deep-blue-ultra-escuro: #07141e;
+  --deep-blue-profundo: #040a0f;
+}
+
+/* ==========================================================================
+   ESTRUTURA GERAL DO LAYOUT
+   ========================================================================== */
+.app-layout {
+  display: flex;
+  min-height: 100vh;
+  width: 100%;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  margin-top: 60px;
+  margin-left: 100px;
+  width: calc(100% - 100px);
+  max-width: calc(100% - 100px);
+  min-height: 100vh;
+  padding: 30px;
+  overflow-y: hidden;
+  overflow-x: hidden;
+}
+
+body.sidebar-expanded .container {
+  margin-left: 220px;
+  width: calc(100% - 220px);
+  max-width: calc(100% - 220px);
+}
+
+/* ==========================================================================
+   CABEÇALHO (HEADER) E PESQUISA
+   ========================================================================== */
+header {
+  height: 70px;
+  background-color: var(--deep-blue);
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 100%;
+  z-index: 1000;
+  justify-content: space-between;
+  transition: width 0.1s cubic-bezier(0.4, 0, 0.2, 1);
+  border-bottom: 1px solid var(--laranja-secundario);
+}
+
+.btns-logo {
+  display: flex;
+  align-items: center;
+}
+
+.btns-logo .bttn-oc {
+  margin-left: -8px;
+  margin-right: -40px;
+  padding: 10px 15px;
+}
+
+.btns-logo .logo {
+  margin-left: 60px;
+}
+
+.open-close {
+  background-color: transparent;
+}
+
+.bttn-oc {
+  font-size: 30px;
+  background: transparent;
+  border: none;
+  color: #f5f5dc;
+  padding: 10px 15px;
+  cursor: pointer;
+  align-items: flex-start;
+  margin-right: 50px;
+  margin-left: -48px;
+}
+
+#imglogo {
+  margin-top: 3px;
+}
+
+/* Menu de Navegação do Header */
+.ul-nav ul {
+  display: flex;
+  list-style: none;
+  gap: 10px;
+}
+
+.ul-nav li {
+  display: block;
+  background: none;
+}
+
+.ul-nav li.active a {
+  color: #f5f5dc;
+}
+
+.ul-nav a {
+  display: inline-block;
+  text-decoration: none;
+  color: #9f9f9f;
+  padding: 8px 16px;
+  border-radius: 10px;
+  background: transparent;
+  transition: all 0.2s ease;
+}
+
+.ul-nav a:hover {
+  color: #f5f5dc;
+  transform: scale(1.02);
+}
+
+/* Área do Usuário e Busca */
+#sec-user {
+  display: flex;
+  align-items: center;
+}
+
+#sec-user #g-icon-user {
+  align-items: center;
+}
+
+#sec-user #seq {
+  margin-right: 15px;
+}
+
+#sec-user #txt-user {
+  font-weight: bold;
+  font-size: 15px;
+  margin-right: 0;
+  display: flex;
+  text-decoration: none;
+  color: #f5f5dc;
+}
+
+#barrapesquisa {
+  display: flex;
+  align-items: center;
+  border: 1px solid transparent;
+  border-radius: 30px;
+  width: fit-content;
+  margin-right: 15px;
+  background-color: transparent;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+#barrapesquisa.active {
+  background-color: #f5f5dc;
+  border-color: #f5f5dc;
+}
+
+#s-header {
+  width: 0;
+  opacity: 0;
+  padding: 0;
+  border: none;
+  outline: none;
+  background-color: transparent;
+  color: #011733;
+  font-family: inter, sans-serif;
+  transition: width 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.25s ease;
+  pointer-events: none;
+}
+
+#s-header.active {
+  display: flex !important;
+  width: 180px;
+  opacity: 1;
+  padding: 5px 7px;
+  pointer-events: auto;
+}
+
+#s-header:focus {
+  outline: none;
+  background-color: transparent;
+}
+
+#b-header {
+  background-color: transparent;
+  width: 36px;
+  height: 36px;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  outline: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  transition: background-color 0.2s ease;
+}
+
+#b-header::before {
+  content: "";
+  background-image: url("/imagens/Vetores/PesquisaVetor.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  width: 16px;
+  height: 16px;
+  transform: rotate(90deg);
+  filter: brightness(0) saturate(100%) invert(98%) sepia(8%) saturate(614%)
+    hue-rotate(323deg) brightness(103%) contrast(93%);
+  transition: filter 0.2s ease;
+}
+
+#b-header:hover {
+  background-color: #f5f5dc !important;
+}
+
+#b-header:hover::before {
+  filter: brightness(0) saturate(100%) !important;
+}
+
+#barrapesquisa.active #b-header::before {
+  filter: brightness(0) saturate(100%) !important;
+}
+
+#barrapesquisa.active #b-header {
+  background-color: transparent !important;
+}
+
+#barrapesquisa.active #b-header:hover {
+  background-color: rgba(0, 0, 0, 0.06) !important;
+}
+
+/* ==========================================================================
+   BARRA LATERAL (SIDEBAR / ASIDE)
+   ========================================================================== */
+.blateral {
+  width: 80px;
+  height: calc(100% - 69px);
+  background-color: var(--deep-blue);
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  left: 0;
+  top: 69px;
+  padding: 10px 5px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  font-family: "Bricolage Grotesque", sans-serif;
+  justify-content: center;
+  align-items: center;
+  z-index: 1001;
+  border-right: 1px solid var(--laranja-secundario);
+}
+
+.blateral::-webkit-scrollbar {
+  width: 6px;
+}
+
+.blateral::-webkit-scrollbar-track {
+  background: #07192f;
+}
+
+.blateral::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.15);
+  border-radius: 10px;
+  border: 1px solid #07192f;
+}
+
+.blateral::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+.blateral ul {
+  list-style: none;
+  padding: 0;
+  align-items: center;
+  width: 100%;
+}
+
+.blateral li {
+  list-style: none;
+  margin-bottom: 15px;
+  width: 100%;
+  margin-left: 5%;
+}
+
+.blateral li a {
+  justify-content: center !important;
+  align-items: center !important;
+  padding: 17px 20px !important;
+  width: 90%;
+  margin-left: 0;
+  color: #f5f5dc;
+  text-decoration: none;
+  border-radius: 12px;
+  transition: all 0.2s ease;
+  display: flex;
+}
+
+.blateral li a span {
+  display: none;
+  font-weight: 400;
+}
+
+.blateral li.active a {
+  background: linear-gradient(
+    45deg,
+    var(--laranja-terciario),
+    var(--laranja-primario),
+    var(--laranja-secundario)
+  );
+  border: 1px solid #fe9920;
+  color: var(--deep-blue);
+}
+
+.blateral li.active a span {
+  font-weight: 600;
+}
+
+.blateral a:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  transform: scale(1.03);
+}
+
+.nav-mobile {
+  display: none;
+}
+
+.create-comunity {
+  display: none;
+}
+
+.expand-only {
+  display: none;
+}
+
+.blateral .logout {
+  position: relative;
+  margin-top: auto;
+  margin-left: 20px;
+  transition: all 0.2s ease;
+  justify-content: center;
+  width: 100%;
+  bottom: auto;
+}
+
+.blateral .logout button:hover {
+  transform: scale(1.03);
+}
+
+.blateral .logout a {
+  text-decoration: none !important;
+}
+
+.bttn-logout {
+  background: linear-gradient(
+    45deg,
+    var(--laranja-terciario),
+    var(--laranja-primario),
+    var(--laranja-secundario)
+  );
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 16px;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px !important;
+  height: 48px !important;
+  border-radius: 12px;
+  border: 1px solid #fe9920;
+  padding: 10px 20px;
+}
+
+/* Sidebar Expandida (body.sidebar-expanded) */
+body.sidebar-expanded .blateral {
+  width: 220px;
+  padding: 15px 0;
+  justify-content: flex-start;
+  align-items: center;
+  transition: 0.1s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+body.sidebar-expanded .blateral ul {
+  align-items: center;
+}
+
+body.sidebar-expanded .blateral li {
+  margin-left: 0;
+}
+
+body.sidebar-expanded .blateral li a {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  padding: 17px 20px !important;
+  gap: 15px !important;
+  width: 100% !important;
+  margin-left: 0;
+}
+
+body.sidebar-expanded .blateral li a span {
+  display: inline !important;
+}
+
+body.sidebar-expanded .blateral li.item-usuario a {
+  width: 100% !important;
+  padding-left: 10px !important;
+  margin-left: -1px;
+}
+
+body.sidebar-expanded .create-comunity {
+  display: flex;
+}
+
+body.sidebar-expanded .create-comunity a {
+  text-decoration: none;
+  width: 100%;
+  margin-top: 5px;
+  margin-bottom: 30px;
+  border: 1px solid #00358a;
+  background: linear-gradient(45deg, #14004d, #67b0eb);
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 30px;
+  gap: 12px;
+  box-sizing: border-box;
+  transition: all 0.2s ease;
+}
+
+body.sidebar-expanded .expand-only {
+  display: block;
+}
+
+body.sidebar-expanded .blateral .logout {
+  justify-content: flex-end;
+  bottom: auto;
+  margin-left: 30px;
+}
+
+body.sidebar-collapsed .blateral li:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  padding: 0;
+}
+
+.comunity-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.comunity-title {
+  font-size: 16px;
+  font-weight: bold;
+  color: #f5f5dc;
+  font-family: inter, sans-serif;
+}
+
+.comunity-subtitle {
+  font-size: 13px;
+  color: #8a99ad;
+}
+
+/* ==========================================================================
+   ÍCONES E AVATARES
+   ========================================================================== */
+.sidebar-icon {
+  object-fit: cover;
+  width: 27px;
+  height: 27px;
+  filter: brightness(0) saturate(100%) invert(98%) sepia(8%) saturate(614%)
+    hue-rotate(323deg) brightness(103%) contrast(93%);
+}
+
+.sidebar-icon4 {
+  object-fit: cover;
+  width: 27px;
+  height: 27px;
+  filter: brightness(0) saturate(100%) invert(18%) sepia(35%) saturate(1750%)
+    hue-rotate(167deg) brightness(97%) contrast(97%);
+}
+
+.fire-icon {
+  filter: invert(58%) sepia(98%) saturate(2560%) hue-rotate(1deg)
+    brightness(106%) contrast(105%);
+}
+
+.user-avatar {
+  filter: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid #f5f5dc;
+}
+
+/* ==========================================================================
+   RODAPÉ (FOOTER)
+   ========================================================================== */
+footer {
+  position: relative;
+  background-color: var(--deep-blue);
+  display: flex;
+  gap: 100px;
+  margin: 0;
+  width: calc(100% - 80px);
+  left: 80px;
+  padding: 30px;
+  justify-content: center;
+  transition: 0.17s ease;
+}
+
+body.sidebar-expanded footer {
+  width: calc(100% - 220px);
+  left: 220px;
+}
+
+footer p {
+  margin-top: 10px;
+  margin-bottom: 15px;
+}
+
+.footerbusca {
+  display: flex;
+  flex-direction: column;
+}
+
+.footerbusca .footer-links {
+  margin-bottom: 13px;
+}
+
+.footerbusca a,
+.footerbusca button {
+  text-decoration: none;
+  color: #f5f5dc;
+  margin-bottom: 10px;
+  background: transparent;
+  border: none;
+  padding: 0;
+  font-family: inherit;
+  font-size: inherit;
+  cursor: pointer;
+  text-align: left;
+}
+
+.footerbusca a:hover,
+.footerbusca button:hover {
+  color: #afaf8e;
+}
+
+.footerbusca button {
+  margin-bottom: 0;
+}
+
+.redes-sociais {
+  justify-content: center;
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+
+.redes-sociais img:hover {
+  filter: brightness(0) saturate(100%) invert(75%) sepia(13%) saturate(464%)
+    hue-rotate(42deg) brightness(94%) contrast(85%);
+}
+
+.imagem {
+  justify-content: center;
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+
+.txt-redes {
+  text-align: center;
+  color: #f5f5dc;
+  font-family: "Bricolage Grotesque", sans-serif;
+}
+
+.negrito {
+  font-weight: 700;
+}
+
+.trocarcor {
+  filter: brightness(0) saturate(100%) invert(98%) sepia(8%) saturate(614%)
+    hue-rotate(323deg) brightness(103%) contrast(93%);
+}
+
+/* ==========================================================================
+   RESPONSIVIDADE (TABLETS E CELULARES)
+   ========================================================================== */
+
+/* TABLETS (769px a 1024px) */
+@media screen and (min-width: 769px) and (max-width: 1025px) {
+  .ul-nav {
+    display: none !important;
+  }
+
+  .nav-mobile,
+  .blateral .nav-mobile {
+    display: flex !important;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  footer {
+    gap: 40px;
+    padding: 20px;
+  }
+}
+
+/* CELULARES (até 768px) */
+@media screen and (max-width: 768px) {
+  .blateral {
+    position: fixed !important;
+    top: 70px;
+    left: -260px;
+    width: 250px !important;
+    height: calc(100vh - 70px) !important;
+    z-index: 999 !important;
+    transition: left 0.3s ease !important;
+    box-shadow: 4px 0 12px rgba(0, 0, 0, 0.3);
+  }
+
+  body.sidebar-expanded .blateral {
+    left: 0 !important;
+  }
+
+  header {
+    height: 70px;
+    padding: 0 12px;
+    justify-content: space-between;
+  }
+
+  .bttn-oc {
+    display: flex !important;
+    cursor: pointer;
+  }
+
+  .btns-logo .logo {
+    margin-left: 30px !important;
+    align-items: center;
+  }
+
+  #imglogo {
+    height: 48px;
+  }
+
+  .ul-nav {
+    display: none !important;
+  }
+
+  #sec-user {
+    gap: 10px;
+  }
+
+  #barrapesquisa {
+    margin-right: 5px;
+  }
+
+  #s-header.active {
+    width: 160px;
+  }
+
+  .user-avatar {
+    width: 34px;
+    height: 34px;
+  }
+
+  footer,
+  body.sidebar-expanded footer {
+    width: 100% !important;
+    left: 0 !important;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 30px;
+    padding: 35px 20px;
+  }
+
+  .footerbusca {
+    align-items: center;
+  }
+
+  .footerbusca .footer-links button,
+  .footerbusca .footer-links a {
+    text-align: left;
+  }
+
+  .redes-sociais {
+    justify-content: center;
+  }
+
+  .nav-mobile,
+  .blateral .nav-mobile {
+    display: flex !important;
+    flex-direction: column;
+    width: 100%;
+  }
+}
