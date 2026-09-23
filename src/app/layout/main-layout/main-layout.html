@@ -80,7 +80,7 @@
     <header class="header">
       <div class="btns-logo">
         <div class="open-close">
-          <button id="bttn-oc" class="bttn-oc">☰</button>
+          <button id="bttn-oc" class="bttn-oc" (click)="toggleSidebar()">☰</button>
         </div>
         <div class="logo">
           <a routerLink="/home" id="logo">
@@ -98,25 +98,28 @@
         </ul>
       </div>
 
-      <div id="sec-user">
-        <div class="barra-pesquisa">
-          <form id="barrapesquisa">
-            <input type="text" placeholder="Search" id="s-header" />
-            <button type="submit" id="b-header" name="Pesquisar"></button>
-          </form>
-        </div>
-        <div id="seq">
-          <a href="#" id="txt-user" data-open-modal="streak-modal">
-            <p id="streak-user">0</p>
-            <img src="./imagens/Vetores/FireVetor.svg" alt="Fogo" width="20" height="20" id="seq-fire" class="fire-icon" />
-          </a>
-        </div>
-        <div id="g-icon-user">
-          <a routerLink="/user">
-            <img src="./imagens/padrao.jpg" class="user-avatar" alt="Meu Perfil" />
-          </a>
-        </div>
-      </div>
+     <div id="sec-user">
+ <div class="barra-pesquisa" [class.active]="buscaAtiva">
+  <form id="barrapesquisa" (ngSubmit)="pesquisar()">
+    <input
+      type="text"
+      placeholder="Search"
+      id="s-header"
+      name="pesquisa"
+      [class.active]="buscaAtiva"
+      [(ngModel)]="termoPesquisa"
+      #searchInput
+    />
+    <button type="button" id="b-header" name="Pesquisar" (click)="toggleBusca()"></button>
+  </form>
+</div>
+  <div id="seq">
+    <a href="#" id="txt-user" (click)="abrirModalStreak($event)">
+      <p id="streak-user">{{ sequencia }}</p>
+      <img src="./imagens/Vetores/FireVetor.svg" alt="Fogo" width="20" height="20" id="seq-fire" class="fire-icon" />
+    </a>
+  </div>
+  </div>
     </header>
 
     <!-- PONTO ONDE AS PÁGINAS (HOME, CHAT, PERFIL) SERÃO INJETADAS -->

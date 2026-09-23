@@ -329,23 +329,17 @@ footer {
   background-color: var(--deep-blue);
   display: flex;
   gap: 100px;
-  margin: 0;
-  width: calc(100% - 80px);
-  left: 80px;
+  margin: auto -30px -30px;   /* era "auto -30px 0" — agora come o padding de baixo também */
+  width: calc(100% + 60px);
   padding: 30px;
   justify-content: center;
   transition: 0.17s ease;
-
-  body.sidebar-expanded & {
-    width: calc(100% - 220px);
-    left: 220px;
-  }
-
+}
   p {
     margin-top: 10px;
     margin-bottom: 15px;
   }
-}
+
 
 .footerbusca {
   display: flex;
@@ -647,11 +641,6 @@ body.sidebar-expanded .container {
   margin-left: 220px;
   width: calc(100% - 220px);
   max-width: calc(100% - 220px);
-}
-
-body.sidebar-expanded footer {
-  width: calc(100% - 220px);
-  left: 220px;
 }
 
 body.sidebar-expanded .leitura-header {

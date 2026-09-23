@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { SupabaseService } from '../../../core/supabase';
+import { ModalService } from '../../../core/services/modal.service';
+import { Subscription } from 'rxjs';
 
 interface HeroSlide {
   imagem: string;
@@ -46,7 +48,8 @@ interface Comunidade {
 export class Home implements OnInit, OnDestroy {
   private supabaseService = inject(SupabaseService);
   private cdr = inject(ChangeDetectorRef);
-
+  private modalService = inject(ModalService);
+  private modalSub?: Subscription;
   heroSlides: HeroSlide[] = [
     {
       imagem: './imagens/LendoLivro.webp',
@@ -105,13 +108,24 @@ export class Home implements OnInit, OnDestroy {
   @ViewChild('lendoRow') lendoRow!: ElementRef<HTMLDivElement>;
   @ViewChild('recomendacoesRow') recomendacoesRow!: ElementRef<HTMLDivElement>;
 
-  ngOnInit(): void {
+   ngOnInit(): void {
     this.startHeroAutoPlay();
     this.carregarDadosSupabase();
+    this.modalSub = this.modalService.activeModal$.subscribe(modal => {
+      if (modal?.id === 'streak-modal') {
+        this.showStreakModal = true;
+        document.body.style.overflow = 'hidden';
+      }
+      if (modal?.id === 'criar-comunidade') {
+        this.showCreateCommunityModal = true;
+        document.body.style.overflow = 'hidden';
+      }
+    });
   }
 
   ngOnDestroy(): void {
     this.stopHeroAutoPlay();
+    this.modalSub?.unsubscribe();
   }
 
   // --- CARREGAMENTO VIA SUPABASE SERVICE ---

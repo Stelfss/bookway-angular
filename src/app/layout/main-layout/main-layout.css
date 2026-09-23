@@ -39,9 +39,9 @@
   display: flex;
   flex-direction: column;
   margin-top: 60px;
-  margin-left: 100px;
-  width: calc(100% - 100px);
-  max-width: calc(100% - 100px);
+  margin-left: 80px;              /* era 100px */
+  width: calc(100% - 80px);       /* era calc(100% - 100px) */
+  max-width: calc(100% - 80px);   /* era calc(100% - 100px) */
   min-height: 100vh;
   padding: 30px;
   overflow-y: hidden;
@@ -49,7 +49,7 @@
 }
 
 body.sidebar-expanded .container {
-  margin-left: 220px;
+  margin-left: 220px;   /* essa já bate com a largura da sidebar expandida, não mexe */
   width: calc(100% - 220px);
   max-width: calc(100% - 220px);
 }
@@ -531,19 +531,12 @@ footer {
   background-color: var(--deep-blue);
   display: flex;
   gap: 100px;
-  margin: 0;
-  width: calc(100% - 80px);
-  left: 80px;
+  margin: auto -30px -30px;   /* era "auto -30px 0" — agora come o padding de baixo também */
+  width: calc(100% + 60px);
   padding: 30px;
   justify-content: center;
   transition: 0.17s ease;
 }
-
-body.sidebar-expanded footer {
-  width: calc(100% - 220px);
-  left: 220px;
-}
-
 footer p {
   margin-top: 10px;
   margin-bottom: 15px;
@@ -696,17 +689,17 @@ footer p {
     height: 34px;
   }
 
-  footer,
-  body.sidebar-expanded footer {
-    width: 100% !important;
-    left: 0 !important;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    gap: 30px;
-    padding: 35px 20px;
-  }
-
+ footer,
+body.sidebar-expanded footer {
+  width: 100% !important;
+  left: 0 !important;
+  margin: 0 !important;   /* adicionar esta linha */
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 30px;
+  padding: 35px 20px;
+}
   .footerbusca {
     align-items: center;
   }

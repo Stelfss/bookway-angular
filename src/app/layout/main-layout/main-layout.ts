@@ -1,10 +1,11 @@
-import { Component, OnInit, inject, ViewEncapsulation } from '@angular/core'; // 1. Importe ViewEncapsulation
+import { Component, OnInit, inject, ViewEncapsulation, ViewChild, ElementRef } from '@angular/core';
 import { Router, RouterOutlet, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ModalService } from '../../core/services/modal.service';
 import { BaseService } from '../../core/services/base.service';
 import { SupabaseService } from '../../core/supabase';
+
 
 @Component({
   selector: 'app-main-layout',
@@ -30,6 +31,22 @@ export class MainLayout implements OnInit {
     await this.carregarDadosUsuario();
   }
 
+   buscaAtiva = false;
+  @ViewChild('searchInput') searchInputRef?: ElementRef<HTMLInputElement>;
+
+  toggleBusca() {
+    if (!this.buscaAtiva) {
+      this.buscaAtiva = true;
+      setTimeout(() => this.searchInputRef?.nativeElement.focus());
+      return;
+    }
+    if (this.termoPesquisa.trim()) {
+      this.pesquisar();
+    } else {
+      this.buscaAtiva = false;
+    }
+  }
+  
   async carregarDadosUsuario() {
     const foto = await this.baseService.carregarFotoGlobal();
     if (foto) {
