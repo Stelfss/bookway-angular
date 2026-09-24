@@ -8,6 +8,7 @@ import { AboutLogin } from './pages/index/about-login/about-login';
 import { FaqHome } from './pages/index/faq-home/faq-home';
 import { ContactsHome } from './pages/index/contacts-home/contacts-home';
 import { Home } from './pages/index/home/home';
+ import { Premium } from './pages/index/premium/premium';
 
 export const routes: Routes = [
   // Rotas Públicas (Landing Page e Visitantes)
@@ -29,7 +30,8 @@ export const routes: Routes = [
     path: '',
     component: MainLayout,
     children: [
-      { path: 'home', component: Home }
+      { path: 'home', component: Home },
+      { path: 'premium', component: Premium } 
       // As novas páginas internas (chat, perfil, etc.) entram aqui como filhas
     ]
   },

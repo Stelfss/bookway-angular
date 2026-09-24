@@ -1,0 +1,260 @@
+
+/* ==========================================================================
+   NOVA ÁREA PREMIUM EXCLUSIVA
+   ========================================================================== */
+
+.container {
+  align-items: center;
+}
+   .conteudo-premium {
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  gap: 90px;
+}
+
+/* --- BLOCO HERO PRINCIPAL (Estilo assimétrico fluido) --- */
+.premium-hero {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 50px;
+  align-items: center;
+  width: 100%;
+}
+
+/* Mosaico de fotos com encaixe dinâmico puro (Conserta invasão de texto) */
+.mosaico-galeria {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 200px);
+  gap: 16px;
+  width: 100%;
+  max-width: 1000px;
+}
+
+.foto-box {
+  border-radius: 16px;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+}
+
+.foto-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Variação de tamanhos sem colapsar a estrutura */
+.pos-1 { 
+  grid-row: span 2; 
+  height: 100%; 
+  min-width: 200px;
+}
+.pos-4 { 
+  grid-column: span 2; 
+  height: 120px; 
+}
+
+/* Info Textual do Topo */
+.hero-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+.label-premium {
+  color: #1e62ff;
+  font-weight: 800;
+  font-size: 13px;
+  letter-spacing: 3px;
+}
+
+.titulo-premium {
+  font-size: clamp(36px, 5vw, 64px);
+  font-family: 'Chonburi', serif;
+  color: #f5f5dc;
+  line-height: 1.1;
+}
+
+.desc-premium {
+  font-size: 15px;
+  line-height: 1.7;
+  color: rgba(245, 245, 220, 0.85);
+  text-align: justify;
+}
+
+.btn-premium-cta {
+  display: inline-block;
+  background: linear-gradient(135deg, #1e62ff, #0044cc);
+  color: #f5f5dc;
+  text-decoration: none;
+  font-weight: 700;
+  padding: 16px 32px;
+  border-radius: 30px;
+  box-shadow: 0 4px 20px rgba(30, 98, 255, 0.4);
+  transition: transform 0.2s, box-shadow 0.2s;
+  margin-top: 10px;
+}
+
+.btn-premium-cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 25px rgba(30, 98, 255, 0.6);
+}
+
+/* --- BLOCO SECUNDÁRIO (Texto corrido central e fotos suspensas) --- */
+.premium-detalhes {
+  display: flex;
+  flex-direction: row;
+  gap: 40px;
+  width: 100%;
+  align-items: center;
+}
+
+.bloco-texto-centro {
+  max-width: 850px;
+  margin: 0 auto;
+  text-align: justify;
+}
+
+.bloco-texto-centro p {
+  font-size: 16px;
+  line-height: 1.8;
+  color: rgba(245, 245, 220, 0.9);
+}
+
+.mosaico-inferior {
+  display: flex;
+  gap: 25px;
+  width: 100%;
+  min-width: 500px;
+  max-width: 1000px;
+  height: 350px;
+}
+
+.foto-suporte {
+  flex: 1;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.foto-suporte img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* --- SEÇÃO DE COMPARAR PLANOS --- */
+.premium-planos-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+  width: 100%;
+  padding: 20px 0;
+  margin-left: 100px;
+}
+
+.titulo-secao-planos {
+  font-size: 36px;
+  font-family: 'Chonburi', serif;
+  color: #f5f5dc;
+}
+
+.grid-cards-planos {
+  display: flex;
+  gap: 30px;
+  width: 100%;
+  max-width: 850px;
+  justify-content: center;
+}
+
+.card-plano {
+  background-color: #051329;
+  border: 2px solid #07192f;
+  border-radius: 20px;
+  padding: 40px 30px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  transition: transform 0.2s, border-color 0.2s;
+}
+
+/* Destaque do plano pago */
+.card-destaque {
+  background: linear-gradient(145deg, #021127, #0d2c5e);
+  border-color: #1e62ff;
+}
+
+.tag-popular {
+  position: absolute;
+  top: -12px;
+  right: 25px;
+  background-color: #1e62ff;
+  color: #f5f5dc;
+  font-size: 11px;
+  font-weight: 800;
+  padding: 4px 12px;
+  border-radius: 20px;
+  letter-spacing: 1px;
+}
+
+.nome-plano {
+  font-size: 26px;
+  font-family: 'Chonburi', serif;
+  color: #f5f5dc;
+  margin-bottom: 4px;
+}
+
+.sub-plano {
+  color: #9f9f9f;
+  font-size: 13px;
+  margin-bottom: 25px;
+}
+
+.preco-plano {
+  font-size: 40px;
+  font-weight: 800;
+  color: #f5f5dc;
+  margin-bottom: 30px;
+}
+
+.periodo-plano {
+  font-size: 15px;
+  color: #9f9f9f;
+  font-weight: 400;
+}
+
+.lista-vantagens {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-bottom: 35px;
+}
+
+.lista-vantagens li { font-size: 14px; }
+.lista-vantagens li.p-sim { color: #f5f5dc; }
+.lista-vantagens li.p-nao { color: #475569; }
+
+.btn-card-plano {
+  width: 100%;
+  background-color: #1e62ff;
+  color: #f5f5dc;
+  border: none;
+  padding: 14px;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 15px;
+  cursor: pointer;
+  margin-top: auto;
+  transition: background-color 0.2s;
+}
+
+.btn-card-plano:hover { background-color: #1e62ff; }
+.card-plano:hover { transform: scale(1.03); }
+.card-destaque:hover { border-color: #1e62ff;   box-shadow: 0 0 15px rgba(0, 68, 204, 0.6);
+  transform: scale(1.03);}
