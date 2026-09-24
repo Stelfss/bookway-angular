@@ -98,28 +98,33 @@
         </ul>
       </div>
 
-     <div id="sec-user">
- <div class="barra-pesquisa" [class.active]="buscaAtiva">
-  <form id="barrapesquisa" (ngSubmit)="pesquisar()">
-    <input
-      type="text"
-      placeholder="Search"
-      id="s-header"
-      name="pesquisa"
-      [class.active]="buscaAtiva"
-      [(ngModel)]="termoPesquisa"
-      #searchInput
-    />
-    <button type="button" id="b-header" name="Pesquisar" (click)="toggleBusca()"></button>
-  </form>
-</div>
+    <div id="sec-user">
+  <div class="barra-pesquisa">
+    <form id="barrapesquisa" [class.active]="buscaAtiva" (ngSubmit)="pesquisar()">
+      <input
+        type="text"
+        placeholder="Search"
+        id="s-header"
+        name="pesquisa"
+        [class.active]="buscaAtiva"
+        [(ngModel)]="termoPesquisa"
+        #searchInput
+      />
+      <button type="button" id="b-header" name="Pesquisar" (click)="toggleBusca()"></button>
+    </form>
+  </div>
   <div id="seq">
     <a href="#" id="txt-user" (click)="abrirModalStreak($event)">
       <p id="streak-user">{{ sequencia }}</p>
       <img src="./imagens/Vetores/FireVetor.svg" alt="Fogo" width="20" height="20" id="seq-fire" class="fire-icon" />
     </a>
   </div>
+  <div id="g-icon-user">
+    <a routerLink="/user">
+      <img [src]="avatarUrl" class="user-avatar" alt="Meu Perfil" />
+    </a>
   </div>
+</div>
     </header>
 
     <!-- PONTO ONDE AS PÁGINAS (HOME, CHAT, PERFIL) SERÃO INJETADAS -->
@@ -175,4 +180,100 @@
       </div>
     </footer>
   </main>
-</div>
+     <!-- MODAL DE CRIAR COMUNIDADE -->
+  <div id="bw-create-modal" class="bw-modal-overlay" [class.active]="showCreateCommunityModal" [style.display]="showCreateCommunityModal ? 'flex' : 'none'" (click)="fecharModais()">
+    <div class="bw-modal" role="dialog" (click)="$event.stopPropagation()">
+      <div class="bw-modal-header">
+        <div>
+          <div class="bw-modal-kicker">BookWay</div>
+          <h2 class="bw-modal-title">Criar Nova Comunidade</h2>
+        </div>
+        <button type="button" (click)="fecharModais()" class="bw-modal-close" aria-label="Fechar">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="3">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+      <form (submit)="criarComunidade(); $event.preventDefault()" class="bw-modal-form">
+        <label class="bw-label" for="bw-comm-name">Nome da comunidade</label>
+        <input id="bw-comm-name" [(ngModel)]="newComm.name" name="name" type="text" required placeholder="Ex: Círculo de Leitores" />
+
+        <label class="bw-label" for="bw-comm-desc">Descrição curta</label>
+        <textarea id="bw-comm-desc" [(ngModel)]="newComm.desc" name="desc" required placeholder="O que você discute aqui?"></textarea>
+
+        <div class="bw-grid-2">
+          <div>
+            <label class="bw-label" for="bw-comm-color">Cor principal</label>
+            <div class="bw-color-row">
+              <input id="bw-comm-color" [(ngModel)]="newComm.color" name="color" type="color" />
+              <span class="bw-hex">{{ newComm.color }}</span>
+            </div>
+          </div>
+          <div>
+            <label class="bw-label" for="bw-comm-image">URL da imagem (ícone/avatar)</label>
+            <input id="bw-comm-image" [(ngModel)]="newComm.image" name="image" type="url" placeholder="https://..." />
+          </div>
+        </div>
+
+        <button type="submit" class="bw-primary-btn">Criar comunidade</button>
+        <p class="bw-help">Dica: a imagem pode ser vazia. Nesse caso, usamos um ícone interno em SVG.</p>
+      </form>
+    </div>
+  </div>
+
+  <!-- DROPDOWN DE SEQUÊNCIA (STREAK) -->
+  <div class="streak-modal-overlay" id="streak-modal" [style.display]="showStreakModal ? 'flex' : 'none'" (click)="fecharModais()">
+    <div
+  class="streak-modal-card"
+  [class.seqFeita]="estadoModal === 'seqFeita'"
+  [class.seqNaoFeita]="estadoModal === 'seqNaoFeita'"
+  [class.seqPerdida]="estadoModal === 'seqPerdida'"
+  [style.top]="streakDropdownStyle.top"
+  [style.right]="streakDropdownStyle.right"
+  style="left: auto;"
+  (click)="$event.stopPropagation()"
+>
+      <div class="streak-modal-header">
+        <div class="streak-badge">
+          <span class="streak-text-day">{{ sequencia }}</span>
+          <img src="./imagens/Vetores/FireVetor2.svg" class="streak-badge-icon" />
+        </div>
+        <div class="streak-close" (click)="fecharModais()" style="cursor: pointer">
+          <img src="./imagens/Vetores/FecharVetor.svg" class="streak-close-icon" />
+        </div>
+      </div>
+      <div class="streak-modal-content">
+        <section class="streak-today-section">
+          <p class="streak-today-label streak-espaco">Lido Hoje:</p>
+          <div class="streak-espaco"></div>
+          <div class="streak-today-value">
+            <div class="streak-number-wrapper">
+              <span class="streak-big-number">{{ paginasLidasDia }}</span>
+            </div>
+            <span class="streak-unit">PÁGINAS</span>
+          </div>
+        </section>
+        <hr class="streak-separator-max" />
+        <section class="streak-milestones-bar">
+          <div class="streak-milestone"><span class="streak-text">1</span><img src="./imagens/Vetores/FireVetor.svg" class="streak-icon" /></div>
+          <hr class="streak-separator" />
+          <div class="streak-milestone"><span class="streak-text">15</span><img src="./imagens/Vetores/FireVetor.svg" class="streak-icon" /></div>
+          <hr class="streak-separator" />
+          <div class="streak-milestone"><span class="streak-text">30</span><img src="./imagens/Vetores/FireVetor.svg" class="streak-icon" /></div>
+          <hr class="streak-separator" />
+          <div class="streak-milestone"><span class="streak-text">45</span><img src="./imagens/Vetores/FireVetor.svg" class="streak-icon" /></div>
+          <hr class="streak-separator" />
+          <div class="streak-milestone"><span class="streak-text">60</span><img src="./imagens/Vetores/FireVetor.svg" class="streak-icon" /></div>
+          <hr class="streak-separator" />
+          <div class="streak-milestone"><span class="streak-text">90</span><img src="./imagens/Vetores/FireVetor.svg" class="streak-icon" /></div>
+        </section>
+        <hr class="streak-separator-max" />
+        <p class="streak-text" style="color: #f8f8f8">Objetivos:</p>
+        <div class="streak-modal-footer">
+          <img src="./imagens/Vetores/CheckVazioVetor.svg" class="streak-icon check-streak" />
+          <span class="streak-text3">Ler 20 páginas</span>
+        </div>
+      </div>
+    </div>
+  </div>
