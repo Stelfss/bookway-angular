@@ -1,0 +1,114 @@
+<section class="conteudo about-page">
+  <section class="about-section">
+    <div class="about-media-grid">
+      <div class="photo-card img-1">
+        <img src="./imagens/imagemlivro2.webp" alt="Livros empilhados" width="200" height="180" />
+      </div>
+      <div class="photo-card img-2">
+        <img src="./imagens/livros.webp" alt="Prateleira de biblioteca" width="200" height="180" />
+      </div>
+
+      <div class="metric-card books-card">
+        <h3>30,000+</h3>
+        <p>Livros disponíveis</p>
+      </div>
+
+      <div class="metric-card rating-card">
+        <div class="stars">★★★★★</div>
+        <h3>4.8/5</h3>
+        <p>Avaliação média</p>
+      </div>
+    </div>
+
+    <div class="about-content">
+      <h1 class="about-title">
+        Um Pouco Sobre o <span class="highlight">BookWay</span>
+      </h1>
+      <p class="about-text">
+        O BookWay nasceu com a missão de democratizar o acesso à leitura e
+        criar uma comunidade vibrante de leitores apaixonados. Nossa
+        plataforma conecta pessoas através do poder transformador dos
+        livros.
+      </p>
+      <button type="button" class="btn-more" (click)="openModal($event)">Saiba Mais</button>
+
+      <div class="modal" *ngIf="showModal" [style.display]="'flex'" (click)="onOverlayClick($event)">
+        <div class="modal-conteudo animate-modal">
+          <span class="fechar-modal" (click)="closeModal()">&times;</span>
+
+          <h2 class="modal-titulo">Nosso Objetivo</h2>
+          <p class="modal-texto">
+            Queremos ser mais do que uma plataforma de leitura. O BookWay
+            é um espaço onde leitores se conectam, compartilham
+            experiências e crescem juntos através da literatura.
+          </p>
+          <p class="modal-texto">
+            Com ferramentas de comunidade, desafios de leitura e metas
+            personalizadas, transformamos a leitura em uma experiência
+            social e motivadora.
+          </p>
+
+          <div class="modal-divisor"></div>
+
+          <h3 class="modal-subtitulo">Precisa de Ajuda?</h3>
+          <div class="modal-contatos">
+            <p>
+              📧 Email:
+              <a href="mailto:BookWay2025@gmail.com">BookWay2025@gmail.com</a>
+            </p>
+            <p>📞 Telefone: +55 71 94279-0263</p>
+          </div>
+
+          <div class="modal-botoes-rodape">
+            <a routerLink="/about" class="modal-link-secundario" (click)="closeModal()">Ver página completa</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="about-section">
+    <div class="about-content">
+      <h1 class="about-title">Descubra novos mundos</h1>
+      <p class="about-text">
+        Nossa curadoria seleciona os melhores títulos de cada gênero para
+        oferecer uma experiência personalizada. De clássicos da literatura
+        a lançamentos contemporâneos, há sempre algo novo para explorar.
+        <br />
+        Cada livro é uma porta para um universo diferente. Com o BookWay,
+        você encontra exatamente o que precisa para sua próxima aventura
+        literária.
+      </p>
+    </div>
+    <div class="about-media-grid">
+      <div class="photo-card img-1">
+        <img src="./imagens/imagemlivro3.webp" alt="Livros empilhados" id="phc1" />
+      </div>
+      <div class="photo-card img-2">
+        <img src="./imagens/imagemlivro2.webp" alt="Prateleira de biblioteca" id="phc1" />
+      </div>
+    </div>
+  </section>
+
+  <section class="about-section">
+    <div class="about-media-grid">
+      <div class="photo-card img-1">
+        <img src="./imagens/biblioteca.webp" alt="Livros empilhados" id="phc1" />
+      </div>
+      <div class="photo-card img-2">
+        <img src="./imagens/livrosnavertical.webp" alt="Prateleira de biblioteca" id="phc1" />
+      </div>
+    </div>
+    <div class="about-content">
+      <h1 class="about-title">Nosso Objetivo</h1>
+      <p class="about-text">
+        Queremos ser mais do que uma plataforma de leitura. O BookWay é um
+        espaço onde leitores se conectam, compartilham experiências e
+        crescem juntos através da literatura. <br />
+        Com ferramentas de comunidade, desafios de leitura e metas
+        personalizadas, transformamos a leitura em uma experiência social
+        e motivadora.
+      </p>
+    </div>
+  </section>
+</section>

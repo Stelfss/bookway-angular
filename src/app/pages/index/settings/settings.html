@@ -1,0 +1,352 @@
+<div class="settings-wrapper">
+  <section class="settings-content">
+    <div class="settings-search-box">
+      <input type="text" placeholder="Search in config" id="s-config" aria-label="Pesquisar nas configurações" />
+    </div>
+    <div class="bk-titulo">
+      <h3 class="settings-main-title">Configurações do Aplicativo</h3>
+    </div>
+
+    <div id="secao-conta" class="settings-panel" [class.active]="abaAtiva === 'secao-conta'" *ngIf="abaAtiva === 'secao-conta'">
+      <div class="bk-titulo2">
+        <p class="panel-subtitle">Conta</p>
+      </div>
+      <div class="settings-card">
+        <h4>Informações Pessoais</h4>
+        <div class="settings-form">
+          <div class="form-group">
+            <label for="conta-nome">Nome completo</label>
+            <input id="conta-nome" type="text" name="contaNome" [(ngModel)]="contaNome" />
+          </div>
+          <div class="form-group">
+            <label for="conta-email">E-mail</label>
+            <input id="conta-email" type="email" name="contaEmail" [(ngModel)]="contaEmail" />
+          </div>
+          <div class="form-group">
+            <label for="conta-telefone">Telefone</label>
+            <input id="conta-telefone" type="text" name="contaTelefone" [(ngModel)]="contaTelefone" />
+          </div>
+        </div>
+      </div>
+
+      <div class="settings-card">
+        <h4>Segurança</h4>
+        <div class="settings-form">
+          <div class="form-group">
+            <label for="senha-atual">Senha atual</label>
+            <input id="senha-atual" type="password" name="senhaAtual" [(ngModel)]="senhaAtual" placeholder="••••••••" autocomplete="current-password" />
+          </div>
+          <div class="form-group">
+            <label for="nova-senha">Nova senha</label>
+            <input id="nova-senha" type="password" name="novaSenha" [(ngModel)]="novaSenha" placeholder="••••••••" autocomplete="new-password" />
+          </div>
+          <div class="toggle-row">
+            <div class="toggle-label">
+              <h5>Confirmação em duas etapas</h5>
+              <p>Adicione uma camada extra de segurança</p>
+            </div>
+            <label class="switch">
+              <input type="checkbox" name="pref2FA" [(ngModel)]="pref2FA" />
+              <span class="slider"></span>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="secao-idioma" class="settings-panel" [class.active]="abaAtiva === 'secao-idioma'" *ngIf="abaAtiva === 'secao-idioma'">
+      <div class="bk-titulo2">
+        <p class="panel-subtitle">Idioma do app</p>
+      </div>
+      <div class="settings-card">
+        <h4>Idioma e Região</h4>
+        <div class="settings-form">
+          <div class="form-group">
+            <label for="idioma">Idioma do aplicativo</label>
+            <select id="idioma" class="settings-select" name="idioma" [(ngModel)]="idioma">
+              <option value="pt-BR">Português (Brasil)</option>
+              <option value="en-US">English (US)</option>
+              <option value="es">Español</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="regiao">Região</label>
+            <select id="regiao" class="settings-select" name="regiao" [(ngModel)]="regiao">
+              <option value="Brasil">Brasil</option>
+              <option value="Portugal">Portugal</option>
+              <option value="United States">United States</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="secao-acessibilidade" class="settings-panel" [class.active]="abaAtiva === 'secao-acessibilidade'" *ngIf="abaAtiva === 'secao-acessibilidade'">
+      <div class="bk-titulo2">
+        <p class="panel-subtitle">Acessibilidade</p>
+      </div>
+      <div class="settings-card">
+        <h4>Acessibilidade</h4>
+        <div class="toggle-list">
+          <div class="toggle-row">
+            <div class="toggle-label">
+              <h5>Alto contraste</h5>
+              <p>Aumentar contraste de cores</p>
+            </div>
+            <label class="switch"><input type="checkbox" name="altoContraste" [(ngModel)]="altoContraste" /><span class="slider"></span></label>
+          </div>
+          <div class="toggle-row">
+            <div class="toggle-label">
+              <h5>Texto ampliado</h5>
+              <p>Aumentar tamanho da fonte</p>
+            </div>
+            <label class="switch"><input type="checkbox" name="textoAmpliado" [(ngModel)]="textoAmpliado" /><span class="slider"></span></label>
+          </div>
+          <div class="toggle-row">
+            <div class="toggle-label">
+              <h5>Leitor de tela</h5>
+              <p>Compatibilidade com leitores de tela</p>
+            </div>
+            <label class="switch"><input type="checkbox" name="leitorTela" [(ngModel)]="leitorTela" /><span class="slider"></span></label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="secao-notificacoes" class="settings-panel" [class.active]="abaAtiva === 'secao-notificacoes'" *ngIf="abaAtiva === 'secao-notificacoes'">
+      <div class="bk-titulo2">
+        <p class="panel-subtitle">Notificações</p>
+      </div>
+      <div class="settings-card">
+        <h4>Notificações</h4>
+        <div class="toggle-list">
+          <div class="toggle-row">
+            <div class="toggle-label">
+              <h5>Notificações push</h5>
+              <p>Receba alertas no seu dispositivo</p>
+            </div>
+            <label class="switch"><input type="checkbox" name="push" [(ngModel)]="push" /><span class="slider"></span></label>
+          </div>
+          <div class="toggle-row">
+            <div class="toggle-label">
+              <h5>E-mails de novidades</h5>
+              <p>Fique por dentro dos lançamentos</p>
+            </div>
+            <label class="switch"><input type="checkbox" name="emailsNovidades" [(ngModel)]="emailsNovidades" /><span class="slider"></span></label>
+          </div>
+          <div class="toggle-row">
+            <div class="toggle-label">
+              <h5>Lembretes de leitura</h5>
+              <p>Lembre-se de ler diariamente</p>
+            </div>
+            <label class="switch"><input type="checkbox" name="lembretes" [(ngModel)]="lembretes" /><span class="slider"></span></label>
+          </div>
+          <div class="toggle-row">
+            <div class="toggle-label">
+              <h5>Atividade da comunidade</h5>
+              <p>Quando alguém interagir com você</p>
+            </div>
+            <label class="switch"><input type="checkbox" name="atividadeComunidade" [(ngModel)]="atividadeComunidade" /><span class="slider"></span></label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="secao-privacidade" class="settings-panel" [class.active]="abaAtiva === 'secao-privacidade'" *ngIf="abaAtiva === 'secao-privacidade'">
+      <div class="bk-titulo2">
+        <p class="panel-subtitle">Privacidade</p>
+      </div>
+      <div class="settings-card">
+        <h4>Privacidade</h4>
+        <div class="toggle-list">
+          <div class="toggle-row">
+            <div class="toggle-label">
+              <h5>Perfil público</h5>
+              <p>Outros usuários podem ver seu perfil</p>
+            </div>
+            <label class="switch"><input type="checkbox" name="perfilPublico" [(ngModel)]="perfilPublico" /><span class="slider"></span></label>
+          </div>
+          <div class="toggle-row">
+            <div class="toggle-label">
+              <h5>Mostrar progresso de leitura</h5>
+              <p>Exibir seus livros em andamento</p>
+            </div>
+            <label class="switch"><input type="checkbox" name="mostrarProgresso" [(ngModel)]="mostrarProgresso" /><span class="slider"></span></label>
+          </div>
+          <div class="toggle-row">
+            <div class="toggle-label">
+              <h5>Mostrar na comunidade</h5>
+              <p>Aparecer nas buscas de membros</p>
+            </div>
+            <label class="switch"><input type="checkbox" name="mostrarBuscas" [(ngModel)]="mostrarBuscas" /><span class="slider"></span></label>
+          </div>
+          <div class="toggle-row">
+            <div class="toggle-label">
+              <h5>Compartilhar estatísticas</h5>
+              <p>Permitir ver suas metas e conquistas</p>
+            </div>
+            <label class="switch"><input type="checkbox" name="compartilharStats" [(ngModel)]="compartilharStats" /><span class="slider"></span></label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="secao-preferencias" class="settings-panel" [class.active]="abaAtiva === 'secao-preferencias'" *ngIf="abaAtiva === 'secao-preferencias'">
+      <div class="bk-titulo2">
+        <p class="panel-subtitle">Preferências</p>
+      </div>
+      <div class="settings-card">
+        <h4>Preferências de Leitura</h4>
+        <div class="toggle-list">
+          <div class="toggle-row">
+            <div class="toggle-label">
+              <h5>Modo noturno automático</h5>
+              <p>Ativar automaticamente à noite</p>
+            </div>
+            <label class="switch"><input type="checkbox" name="noturnoAuto" [(ngModel)]="noturnoAuto" /><span class="slider"></span></label>
+          </div>
+          <div class="toggle-row">
+            <div class="toggle-label">
+              <h5>Continuar de onde parou</h5>
+              <p>Abrir livro na última página lida</p>
+            </div>
+            <label class="switch"><input type="checkbox" name="continuarLeitura" [(ngModel)]="continuarLeitura" /><span class="slider"></span></label>
+          </div>
+          <div class="toggle-row">
+            <div class="toggle-label">
+              <h5>Sugestões personalizadas</h5>
+              <p>Receber recomendações baseadas no seu histórico</p>
+            </div>
+            <label class="switch"><input type="checkbox" name="sugestoes" [(ngModel)]="sugestoes" /><span class="slider"></span></label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="secao-admin" class="settings-panel" [class.active]="abaAtiva === 'secao-admin'" *ngIf="abaAtiva === 'secao-admin'">
+      <div class="bk-titulo2">
+        <p class="panel-subtitle">Modo Administrador</p>
+      </div>
+      <div class="settings-card">
+        <h4>Modo Administrador</h4>
+        <p style="color: #64748b; font-size: 14px">
+          Painel restrito para controle de logs e gerenciamento global do sistema Bookway.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <aside class="settings-menu">
+    <div class="settings-user-card" id="btn-edit-profile" role="button" tabindex="0" (click)="abrirModalPerfil()" (keydown.enter)="abrirModalPerfil()">
+      <img [src]="userAvatar" alt="Avatar" class="user-avatar settings-avatar" />
+      <div class="settings-user-info">
+        <h5>{{ userDisplayName }}</h5>
+        <p>{{ userEmail }}</p>
+      </div>
+    </div>
+
+    <nav class="settings-nav">
+      <button
+        *ngFor="let aba of abas"
+        type="button"
+        class="settings-btn"
+        [class.active]="abaAtiva === aba.id"
+        (click)="trocarAba(aba.id)"
+      >
+        <img [src]="aba.icone" class="sidebar-icon1" alt="" aria-hidden="true" />
+        <h4 class="fonte">{{ aba.rotulo }}</h4>
+      </button>
+    </nav>
+  </aside>
+</div>
+
+<div class="profile-modal-overlay" id="profile-modal" *ngIf="showProfileModal" (click)="$event.target === $event.currentTarget && fecharModalPerfil()">
+  <div class="wide-discord-modal" role="dialog" aria-modal="true" aria-label="Editar perfil">
+    <button type="button" class="wide-close-btn" id="close-profile-modal" aria-label="Fechar" (click)="fecharModalPerfil()">&times;</button>
+
+    <div class="wide-banner">
+      <div class="banner-actions">
+        <button type="button" class="btn-banner-action" id="btn-mudar-banner" (click)="bannerEmBreve()">Mudar Banner</button>
+      </div>
+    </div>
+
+    <div class="wide-profile-header">
+      <div class="wide-avatar-wrapper">
+        <img [src]="userAvatar" class="user-avatar avatar-grande" alt="Meu Perfil Grande" />
+        <div class="status-indicator" aria-hidden="true"></div>
+      </div>
+      <div class="wide-user-title">
+        <h2>{{ userDisplayName }}</h2>
+      </div>
+    </div>
+
+    <div class="wide-modal-body">
+      <form id="edit-profile-form" (ngSubmit)="salvarPerfil()">
+        <div class="discord-inner-card">
+          <h4 class="card-title">Informações da Conta</h4>
+          <div class="grid-3-cols">
+            <div class="form-group-m">
+              <label for="modal-nome">Nome de Usuário</label>
+              <input id="modal-nome" type="text" name="formNome" [(ngModel)]="formNome" required />
+            </div>
+            <div class="form-group-m">
+              <label for="modal-email">E-mail</label>
+              <input id="modal-email" type="email" name="formEmail" [(ngModel)]="formEmail" readonly />
+            </div>
+            <div class="form-group-m">
+              <label for="modal-telefone">Telefone</label>
+              <input id="modal-telefone" type="text" name="formTelefone" [(ngModel)]="formTelefone" />
+            </div>
+          </div>
+        </div>
+
+        <div class="grid-2-cols-uneven">
+          <div class="discord-inner-card">
+            <h4 class="card-title">Sobre Mim</h4>
+            <div class="form-group-m">
+              <textarea name="formBio" [(ngModel)]="formBio" rows="3" maxlength="280" placeholder="Conte um pouco sobre você e seus livros favoritos..."></textarea>
+            </div>
+          </div>
+          <div class="discord-inner-card">
+            <h4 class="card-title">Membro desde</h4>
+            <div class="member-date">
+              <p>{{ memberSinceText }}</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="discord-inner-card">
+          <h4 class="card-title">Obras Favoritas</h4>
+          <div class="connections-grid">
+            <div class="connection-item">
+              <div class="book">
+                <img class="card-top" src="/imagens/Frieren.webp" alt="Frieren e a Jornada Para o Além" />
+              </div>
+              <div class="book">
+                <img class="card-top" src="/imagens/Hellsing.webp" alt="Hellsing" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="discord-inner-card">
+          <h4 class="card-title">Títulos</h4>
+          <div class="roles-container">
+            <span class="role-badge"><span class="dot dot-blue"></span> Membro da Comunidade</span>
+            <span class="role-badge"><span class="dot dot-green"></span> Leitor Assíduo</span>
+            <span class="role-badge"><span class="dot dot-orange"></span> Colaborador</span>
+          </div>
+        </div>
+
+        <p *ngIf="profileFeedback" class="modal-feedback" [class.is-error]="profileFeedbackError" role="status">{{ profileFeedback }}</p>
+      </form>
+    </div>
+
+    <div class="wide-modal-footer">
+      <button type="button" class="btn-cancel" id="btn-cancel-modal" (click)="fecharModalPerfil()">Cancelar</button>
+      <button type="submit" form="edit-profile-form" class="btn-save" [disabled]="savingProfile">
+        {{ savingProfile ? 'Salvando...' : 'Salvar Alterações' }}
+      </button>
+    </div>
+  </div>
+</div>

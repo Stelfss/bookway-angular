@@ -614,28 +614,6 @@ body.sidebar-expanded .blateral {
   align-items: center;
 }
 
-body.sidebar-expanded .contatos-section {
-  margin-left: 220px;
-  width: 26%;
-  max-width: calc(100% - 220px);
-  transition: all 0.01s ease;
-}
-
-body.sidebar-expanded .header-chat {
-  left: auto;
-  right: 0;
-  width: calc(100% - 39%);
-  max-width: calc(100% - 39%);
-  transition: all 0.01s ease;
-}
-
-body.sidebar-expanded .chat {
-  left: auto;
-  right: 0;
-  width: calc(100% - 39%);
-  max-width: calc(100% - 39%);
-  transition: all 0.01s ease;
-}
 
 body.sidebar-expanded .container {
   margin-left: 220px;
@@ -2035,6 +2013,26 @@ body.sidebar-collapsed .blateral li:hover {
     width: 100%;
     left: 0;
   }
+  @media screen and (max-width: 768px) {
+  .contatos-section {
+    width: 100%;
+    max-height: 260px;
+    transition: max-height .3s ease, padding .3s ease, opacity .25s ease;
+  }
+
+  .contatos-section > * {
+    min-width: 0;
+  }
+
+  .contatos-section.oculto {
+    width: 100%;          /* cancela o width:0 do desktop */
+    max-height: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    opacity: 0;
+    border-bottom: none;
+  }
+}
 }
 /* Modal fixo ocupando a tela toda por cima de tudo */
 /* Atualização no base.css */
@@ -2330,3 +2328,34 @@ body.sidebar-collapsed .blateral li:hover {
   font-weight: bold;
   font-size: 1rem;
 }
+.contatos-section {
+  width: 300px;
+  flex-shrink: 0;
+  background: rgba(4,10,15,.55);
+  border-right: 1px solid rgba(255,255,255,.08);
+  display: flex;
+  flex-direction: column;
+  padding: 18px 14px;
+  gap: 12px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  transition: width .3s ease, padding .3s ease, opacity .25s ease, border-color .3s ease;
+}
+
+/* Mantém o conteúdo com largura fixa enquanto a lista encolhe,
+   pra o texto não ficar quebrando durante a animação */
+.contatos-section > * {
+  min-width: 272px; /* 300px - 28px de padding */
+}
+
+/* Estado recolhido (desktop) */
+.contatos-section.oculto {
+  width: 0;
+  padding-left: 0;
+  padding-right: 0;
+  opacity: 0;
+  border-right-color: transparent;
+  overflow: hidden;
+  pointer-events: none;
+}
+

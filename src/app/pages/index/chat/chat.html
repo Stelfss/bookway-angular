@@ -1,0 +1,163 @@
+<section class="chat-layout">
+  <!-- Lista de contatos -->
+  <aside class="contatos-section" [class.oculto]="contatosOcultos">
+    <div class="contatos-topo">
+      <h2>Conversas</h2>
+      <span class="contatos-count" *ngIf="amigos.length > 0">{{ amigos.length }}</span>
+    </div>
+    <section id="contatos-section">
+      <div class="contatos">
+        <div class="box-add-amigo">
+          <form id="form-add-amigo" (ngSubmit)="enviarSolicitacao()">
+            <input
+              type="text"
+              id="input-username-add"
+              placeholder="Adicionar @usuario..."
+              required
+              autocomplete="off"
+              [(ngModel)]="addUsername"
+              name="addUsername"
+            />
+            <button type="submit" id="btn-add-submit" title="Enviar Pedido">+</button>
+          </form>
+          <span id="msg-status-add" class="status-inline" [class.erro]="addStatusErro" [class.sucesso]="!addStatusErro && addStatus">{{ addStatus }}</span>
+        </div>
+
+        <div class="secao-pedidos" *ngIf="solicitacoes.length > 0">
+          <span class="titulo-secao">Pedidos de Amizade ({{ solicitacoes.length }})</span>
+          <div class="item-pedido" *ngFor="let sol of solicitacoes">
+            <span class="nome-pedido">{{ nomeAmigo(sol) }} <span class="handle-pedido">@{{ sol.username }}</span></span>
+            <div class="acoes-pedido">
+              <button class="btn-aceitar" title="Aceitar" (click)="aceitarSolicitacao(sol)">✓</button>
+              <button class="btn-recusar" title="Recusar" (click)="recusarSolicitacao(sol)">✕</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="aviso-vazio" *ngIf="amigos.length === 0">
+          <p style="margin:0; font-weight:600; color:#cbd5e1; font-size:13px;">Nenhum amigo</p>
+          <span style="font-size:11px; opacity:0.7;">Digite um username acima para enviar um pedido!</span>
+        </div>
+
+        <ul class="contatos" *ngIf="amigos.length > 0">
+          <li
+            *ngFor="let amigo of amigos"
+            [attr.data-id]="amigo.id"
+            [class.active]="contatoAtivo?.id === amigo.id"
+            (click)="abrirConversa(amigo)"
+          >
+            <div class="contato-info">
+              <img [src]="avatarAmigo(amigo)" class="contato-avatar" [alt]="nomeAmigo(amigo)" />
+              <span class="contato-nome">{{ nomeAmigo(amigo) }}</span>
+              <span class="status-badge" [class.online]="isOnline(amigo.id)" [title]="isOnline(amigo.id) ? 'Online' : 'Offline'"></span>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </section>
+  </aside>
+
+  <!-- Conversa ativa -->
+  <div class="container-chat">
+    <div class="chat">
+      <div class="header-chat">
+        <button class="btn-hamburguer-chat" type="button" aria-label="Abrir Menu" (click)="toggleSidebar()">☰</button>
+
+        <div class="user-chat">
+          <img [src]="avatarAmigo(contatoAtivo)" class="contato-avatar" id="header-avatar" alt="Avatar" />
+          <div class="user-chat-text">
+            <h3 class="contato-nome" id="header-nome">
+              {{ contatoAtivo ? nomeAmigo(contatoAtivo) : (amigos.length === 0 ? 'Nenhuma conversa ativa' : 'Selecione um amigo') }}
+            </h3>
+            <span class="contato-status status-header" id="header-status" *ngIf="contatoAtivo" [class.online]="isOnline(contatoAtivo.id)">
+              {{ isOnline(contatoAtivo.id) ? 'Online' : 'Offline' }}
+            </span>
+          </div>
+        </div>
+
+        <div class="chat-buttons">
+          <button
+            *ngIf="contatoAtivo"
+            type="button"
+            id="btn-remover-amigo"
+            class="btn-perigo"
+            (click)="clicarRemoverAmigo()"
+          >{{ removerConfirmando ? 'Confirmar remoção?' : 'Remover Amigo' }}</button>
+         <button type="button" class="btn-contatos-mobile" (click)="toggleContatos()">
+  {{ contatosOcultos ? 'Mostrar Amizades' : 'Ocultar Amizades' }}
+</button>
+        </div>
+      </div>
+
+      <div class="historico-mensagens" id="historico-mensagens" #historico>
+        <div
+          *ngFor="let msg of mensagens"
+          class="balao-msg"
+          [class.enviada]="ehMinha(msg)"
+          [class.recebida]="!ehMinha(msg)"
+        >
+          <div class="msg-corpo">
+            <ng-container *ngIf="ehImagem(msg.conteudo); else naoImagem">
+              <img [src]="msg.conteudo" alt="Imagem" class="midia-anexo-img" (click)="abrirAnexo(msg.conteudo)" />
+            </ng-container>
+            <ng-template #naoImagem>
+              <ng-container *ngIf="ehAudio(msg.conteudo); else textoOuArquivo">
+                <audio controls [src]="msg.conteudo" class="midia-audio-player"></audio>
+              </ng-container>
+            </ng-template>
+            <ng-template #textoOuArquivo>
+              <a
+                *ngIf="ehUrl(msg.conteudo); else textoSimples"
+                [href]="msg.conteudo"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="link-anexo-arquivo"
+              >📎 Baixar Arquivo Anexo</a>
+              <ng-template #textoSimples><span class="msg-texto">{{ msg.conteudo }}</span></ng-template>
+            </ng-template>
+            <div class="msg-meta">
+              <span class="hora">{{ formatarHora(msg.created_at) }}</span>
+              <span *ngIf="ehMinha(msg)" class="status-check" [class.lido]="msg.lido" [title]="msg.lido ? 'Visualizada' : 'Enviada'">
+                {{ msg.lido ? '✓✓' : '✓' }}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="aviso-digitando" [style.display]="digitando ? 'block' : 'none'">está digitando...</div>
+
+      <div class="pesquisas">
+        <div class="fundo-form">
+          <form id="send-msg" (ngSubmit)="enviarMensagem()">
+            <button id="anexar-button" type="button" (click)="clicarAnexar()">
+              <img src="./imagens/Vetores/AnexarVetor.svg" alt="Anexar" />
+            </button>
+            <input
+              type="text"
+              placeholder="Digite sua mensagem..."
+              id="msg-input"
+              autocomplete="off"
+              [(ngModel)]="mensagemTexto"
+              name="mensagemTexto"
+              (input)="onDigitando()"
+            />
+            <button type="button" id="btn-audio-rec" class="btn-audio-rec" [class.gravando]="gravandoAudio" title="Gravar mensagem de voz" (click)="alternarGravacaoAudio()">
+              {{ gravandoAudio ? '⏹️' : '🎙️' }}
+            </button>
+            <button type="submit" id="send-button">
+              <img src="./imagens/Vetores/EnviarVetor.svg" alt="Enviar" />
+            </button>
+          </form>
+        </div>
+      </div>
+      <input type="file" #fileInput style="display: none" (change)="onArquivoSelecionado($event)" />
+    </div>
+  </div>
+
+  <div class="toast-layer">
+    <div *ngFor="let t of toasts" class="toast-item" [class.toast-erro]="t.erro" [class.toast-sucesso]="!t.erro">
+      {{ t.texto }}
+    </div>
+  </div>
+</section>

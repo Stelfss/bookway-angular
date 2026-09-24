@@ -116,11 +116,12 @@
         </div>
         <p class="modal-synopsis">{{ selectedBook.descricao }}</p>
         <div class="div-bttns">
-          <button class="modal-btn-read">LER</button>
-          <button class="modal-btn-bs">
+          <button class="modal-btn-read" (click)="lerLivro()">LER</button>
+          <button class="modal-btn-bs" id="btn-add-estante" (click)="adicionarNaEstante()" [disabled]="addingToShelf" title="Adicionar à estante">
             <img class="estante" src="./imagens/Vetores/EstanteVetor.svg" alt="Estante" />
           </button>
         </div>
+        <p *ngIf="shelfFeedback" style="margin: 8px 0 0; font-size: 13px; color: #86efac">{{ shelfFeedback }}</p>
         <hr class="modal-divider" />
         <div class="modal-comments-section">
           <h3>Comentários e recomendações</h3>

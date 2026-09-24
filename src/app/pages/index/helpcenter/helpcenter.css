@@ -1,0 +1,22 @@
+:host{display:block;min-width:0}
+.hch{width:100%;max-width:800px;margin:0 auto;padding:40px 20px;display:flex;flex-direction:column;align-items:center}
+.hch-header{text-align:center;margin-bottom:40px;width:100%}
+.hch-header h3{font-family:Chonburi,serif;font-size:36px;color:#f5f5dc;margin:0 0 5px}
+.hch-brand{font-family:Inter,sans-serif;font-size:32px;font-weight:800;color:#0062ff;margin:0 0 25px}
+.hch-search-container{position:relative;width:100%;max-width:600px;margin:0 auto}
+#hch-inner-search{width:100%;background-color:#f5f5dc;border:none;border-radius:8px;padding:12px 20px;padding-right:45px;font-family:Inter,sans-serif;font-size:15px;color:#011733;box-sizing:border-box}
+#hch-inner-search:focus{outline:2px solid #0062ff}
+#hch-search-btn{position:absolute;right:5px;top:50%;transform:translateY(-50%) scaleX(-1);background-image:url("/imagens/Vetores/PesquisaVetor.svg");background-repeat:no-repeat;background-position:center;background-size:contain;width:20px;height:20px;background-color:transparent;border:none;margin-right:10px;cursor:pointer}
+.hch-section{width:100%;max-width:750px;margin-bottom:20px}
+.hch-section h4{font-family:Inter,sans-serif;font-size:24px;color:#f5f5dc;margin:0 0 20px;text-align:left}
+.accordion-group{width:100%;display:flex;flex-direction:column;gap:12px}
+.accordion-group details{width:100%;background:transparent;border-bottom:1px solid rgba(245,245,220,.15)}
+.accordion-group summary{list-style:none;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:18px 5px;font-size:16px;font-weight:500;color:#e2e8f0;cursor:pointer;user-select:none}
+.accordion-group summary::-webkit-details-marker{display:none}
+.accordion-group summary:hover{color:#f5f5dc}
+.accordion-group details[open] summary .arrow{transform:rotate(180deg);color:#0062ff}
+.accordion-group .arrow{font-size:12px;color:#a0aec0;transition:transform .2s ease;flex-shrink:0}
+.accordion-group .details-content{padding:0 5px 20px 5px;color:#a0aec0;font-size:15px;line-height:1.6}
+.accordion-group .details-content p{margin:0}
+.hch-empty{color:#a0aec0;font-size:14px;text-align:center;padding:20px 0}
+@media (max-width:768px){.hch{padding:24px 12px}.hch-header h3{font-size:28px}.hch-brand{font-size:26px}.hch-section h4{font-size:20px}}

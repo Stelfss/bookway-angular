@@ -1,0 +1,201 @@
+<section class="conteudo search-page">
+  <div id="pesquisa">
+    <h1>O que deseja buscar?</h1>
+  </div>
+
+  <div class="barra-pesquisa">
+    <form id="barrapesquisa" (ngSubmit)="atualizarResultados()">
+      <div id="filtro">
+        <select id="f-header" [(ngModel)]="filtro" name="filtro" (ngModelChange)="onFiltroChange()">
+          <option value="todos">Todos</option>
+          <option value="comunidades">Comunidades</option>
+          <option value="livros">Livros</option>
+          <option value="mangas">Mangás</option>
+          <option value="autores">Autores</option>
+        </select>
+      </div>
+      <input
+        type="text"
+        placeholder="Search"
+        id="s-header"
+        name="pesquisa"
+        [(ngModel)]="termo"
+        autocomplete="off"
+      />
+      <button type="submit" id="b-header" name="Pesquisar" aria-label="Pesquisar"></button>
+    </form>
+  </div>
+
+  <div class="search-results">
+    <h2>Resultados da pesquisa:</h2>
+
+    <p *ngIf="loading" class="buscando-status">Buscando no acervo...</p>
+    <p *ngIf="!loading && erro" style="color: red;">{{ erro }}</p>
+    <p *ngIf="!loading && !erro && buscaExecutada && totalResultados === 0" class="sem-resultados">
+      Nenhum item encontrado para esta pesquisa.
+    </p>
+
+    <!-- Livros -->
+    <ng-container *ngIf="!loading && !erro && mostrarSecao('livros') && livrosFiltrados.length > 0">
+      <h3>Livros</h3>
+      <section class="secao-horizontal">
+        <button type="button" class="btn-scroll-left" (click)="scrollLeft(livrosRow)" [class.btn-oculto]="livrosFiltrados.length <= 5">
+          <img src="./imagens/Vetores/SetaEsquerdaVetor.svg" alt="Esquerda" class="sidebar-icon" />
+        </button>
+        <div class="book-row" #livrosRow>
+          <div *ngFor="let livro of livrosFiltrados" class="book" (click)="openBookModal(livro)">
+            <img class="card-top" [src]="livro.capa" [alt]="livro.titulo" />
+          </div>
+        </div>
+        <button type="button" class="btn-scroll-right" (click)="scrollRight(livrosRow)" [class.btn-oculto]="livrosFiltrados.length <= 5">
+          <img src="./imagens/Vetores/SetaDireitaVetor.svg" alt="Direita" class="sidebar-icon" />
+        </button>
+      </section>
+    </ng-container>
+
+    <!-- Mangás -->
+    <ng-container *ngIf="!loading && !erro && mostrarSecao('mangas') && mangas.length > 0">
+      <h3>Mangás</h3>
+      <section class="secao-horizontal">
+        <button type="button" class="btn-scroll-left" (click)="scrollLeft(mangasRow)" [class.btn-oculto]="mangas.length <= 5">
+          <img src="./imagens/Vetores/SetaEsquerdaVetor.svg" alt="Esquerda" class="sidebar-icon" />
+        </button>
+        <div class="book-row" #mangasRow>
+          <div *ngFor="let livro of mangas" class="book" (click)="openBookModal(livro)">
+            <img class="card-top" [src]="livro.capa" [alt]="livro.titulo" />
+          </div>
+        </div>
+        <button type="button" class="btn-scroll-right" (click)="scrollRight(mangasRow)" [class.btn-oculto]="mangas.length <= 5">
+          <img src="./imagens/Vetores/SetaDireitaVetor.svg" alt="Direita" class="sidebar-icon" />
+        </button>
+      </section>
+    </ng-container>
+
+    <!-- Comunidades -->
+    <ng-container *ngIf="!loading && !erro && mostrarSecao('comunidades') && comunidades.length > 0">
+      <h3>Comunidades</h3>
+      <section class="secao-horizontal">
+        <button type="button" class="btn-scroll-left" (click)="scrollLeft(commsRow)" [class.btn-oculto]="comunidades.length <= 2">
+          <img src="./imagens/Vetores/SetaEsquerdaVetor.svg" alt="Esquerda" class="sidebar-icon" />
+        </button>
+        <div class="comunidade-row search-comms" #commsRow>
+          <div *ngFor="let comm of comunidades" class="comunidade" (click)="openCommunityModal(comm)">
+            <img [src]="comm.capa" [alt]="comm.titulo" />
+            <div class="comunidade-overlay">
+              <h2 class="comunidade-text">{{ comm.titulo }}</h2>
+              <p class="comunidade-text">{{ comm.membros }} membros</p>
+            </div>
+          </div>
+        </div>
+        <button type="button" class="btn-scroll-right" (click)="scrollRight(commsRow)" [class.btn-oculto]="comunidades.length <= 2">
+          <img src="./imagens/Vetores/SetaDireitaVetor.svg" alt="Direita" class="sidebar-icon" />
+        </button>
+      </section>
+    </ng-container>
+
+    <!-- Autores -->
+    <ng-container *ngIf="!loading && !erro && mostrarSecao('autores') && autores.length > 0">
+      <h3>Autores</h3>
+      <div class="autores-row">
+        <button
+          *ngFor="let autor of autores"
+          type="button"
+          class="autor-card"
+          (click)="buscarPorAutor(autor.nome)"
+        >
+          <strong>{{ autor.nome }}</strong>
+          <span>{{ autor.obras }} {{ autor.obras === 1 ? 'obra' : 'obras' }}</span>
+        </button>
+      </div>
+    </ng-container>
+  </div>
+
+  <!-- MODAL DO LIVRO (mesmo padrão do home) -->
+  <div id="book-modal" class="modal-overlay" [class.active]="showBookModal" [style.display]="showBookModal ? 'flex' : 'none'">
+    <div class="modal-container" *ngIf="selectedBook">
+      <button class="modal-close-btn" (click)="closeAllModals()">&times;</button>
+      <div class="modal-left-col">
+        <div class="book-cover-wrapper">
+          <img [src]="selectedBook.capa" [alt]="selectedBook.titulo" class="modal-book-cover" />
+        </div>
+      </div>
+      <div class="modal-right-col">
+        <h2 class="modal-book-title">{{ selectedBook.titulo }}</h2>
+        <p class="modal-book-author">por {{ selectedBook.autor }}</p>
+        <div class="modal-rating">
+          <span class="rating-number">4.6</span>
+          <div class="stars">
+            <span class="star">&#9733;</span><span class="star">&#9733;</span><span class="star">&#9733;</span><span class="star">&#9733;</span><span class="star">&#9734;</span>
+          </div>
+        </div>
+        <p class="modal-synopsis">{{ selectedBook.descricao }}</p>
+        <div class="div-bttns">
+          <button class="modal-btn-read" (click)="lerLivro()">LER</button>
+          <button class="modal-btn-bs" (click)="adicionarNaEstante()" [disabled]="addingToShelf" title="Adicionar à estante">
+            <img class="estante" src="./imagens/Vetores/EstanteVetor.svg" alt="Estante" />
+          </button>
+        </div>
+        <p *ngIf="shelfFeedback" style="margin: 8px 0 0; font-size: 13px; color: #86efac">{{ shelfFeedback }}</p>
+        <hr class="modal-divider" />
+        <div class="modal-comments-section">
+          <h3>Comentários e recomendações</h3>
+          <div class="comentar">
+            <img src="./imagens/padrao.jpg" class="user-avatar comentar-img" alt="Meu Perfil" />
+            <form id="box-comment" (submit)="$event.preventDefault()">
+              <input type="text" placeholder="O que achou da obra?" id="input-comment" required autocomplete="off" />
+              <button type="submit" id="end-comment">
+                <img src="./imagens/Vetores/EnviarVetor.svg" class="sidebar-icon" />
+              </button>
+            </form>
+          </div>
+          <div id="lista-comentarios">
+            <p style="color: #64748b; font-size: 13px">Seja o primeiro a comentar!</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL DA COMUNIDADE (mesmo padrão do home) -->
+  <div id="community-modal" class="comm-modal-overlay" [class.active]="showCommunityModal" [style.display]="showCommunityModal ? 'flex' : 'none'">
+    <div class="comm-modal-container" *ngIf="selectedCommunity">
+      <button type="button" (click)="closeAllModals()" class="comm-close-btn">&times;</button>
+      <div class="comm-modal-scrollable-content">
+        <div class="comm-modal-banner">
+          <img [src]="selectedCommunity.capa" [alt]="'Banner da comunidade ' + selectedCommunity.titulo" />
+        </div>
+        <div class="comm-modal-body">
+          <h2 class="comm-title">{{ selectedCommunity.titulo }}</h2>
+          <div class="comm-members-count">
+            <span>{{ selectedCommunity.membros }} membros</span>
+          </div>
+          <p class="comm-description">{{ selectedCommunity.descricao }}</p>
+          <div class="comm-actions">
+            <button type="button" class="btn-visit">
+              <span>&rarr;</span> Visitar Comunidade
+            </button>
+            <button type="button" class="btn-subscribe" (click)="toggleInscricaoComunidade()" [style.backgroundColor]="isSubscribedToCommunity ? '#e11d48' : ''">
+              <span class="icon-sub">{{ isSubscribedToCommunity ? '-' : '+' }}</span>
+              {{ isSubscribedToCommunity ? 'Sair' : 'Inscrever-se' }}
+            </button>
+          </div>
+          <div class="comm-comments-section">
+            <h3>Comentários da comunidade</h3>
+            <div class="comentar" style="margin-bottom: 15px">
+              <img src="./imagens/padrao.jpg" class="user-avatar comentar-img" alt="Meu Perfil" />
+              <form id="box-comment-comm" (submit)="$event.preventDefault()" style="display: flex; gap: 8px; width: 100%">
+                <input type="text" placeholder="Escreva algo para a comunidade..." id="input-comment-comm" required autocomplete="off" style="flex: 1; padding: 8px 12px; border-radius: 8px; border: 1px solid #334155; background: #0f172a; color: #fff;" />
+                <button type="submit" id="end-comment-comm" style="background: #2563eb; border: none; border-radius: 8px; padding: 8px 12px; cursor: pointer; color: white; display: flex; align-items: center; justify-content: center;">
+                  <img src="./imagens/Vetores/EnviarVetor.svg" class="sidebar-icon" alt="Enviar" />
+                </button>
+              </form>
+            </div>
+            <div id="lista-comentarios-comunidade" class="comm-comments-list">
+              <p style="color: #64748b; font-size: 13px">Seja o primeiro a comentar nesta comunidade!</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

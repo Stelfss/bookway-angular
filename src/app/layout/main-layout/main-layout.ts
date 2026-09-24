@@ -1,4 +1,4 @@
-import { Component, OnInit, inject, ViewEncapsulation, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, inject, ViewEncapsulation, ViewChild, ElementRef } from '@angular/core';
 import { Router, RouterOutlet, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -14,7 +14,7 @@ import { SupabaseService } from '../../core/supabase';
   styleUrls: ['./main-layout.css'],
   encapsulation: ViewEncapsulation.None 
 })
-export class MainLayout implements OnInit {
+export class MainLayout implements OnInit, OnDestroy {
 
   private baseService = inject(BaseService);
   private supabaseService = inject(SupabaseService);
@@ -45,8 +45,18 @@ export class MainLayout implements OnInit {
   buscaAtiva = false;
   @ViewChild('searchInput') searchInputRef?: ElementRef<HTMLInputElement>;
 
+  private readonly avatarUpdatedListener = (event: Event): void => {
+    const url = (event as CustomEvent<{ url?: string }>).detail?.url;
+    if (url) this.avatarUrl = url;
+  };
+
   async ngOnInit() {
+    window.addEventListener('bookway:avatar-updated', this.avatarUpdatedListener);
     await this.carregarDadosUsuario();
+  }
+
+  ngOnDestroy(): void {
+    window.removeEventListener('bookway:avatar-updated', this.avatarUpdatedListener);
   }
 
   async carregarDadosUsuario() {

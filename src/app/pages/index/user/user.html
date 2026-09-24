@@ -1,0 +1,128 @@
+<section class="profile-page" aria-label="Perfil do usuário">
+  <div *ngIf="loading" class="profile-state" role="status">
+    <div class="state-spinner" aria-hidden="true"></div>
+    <p>Carregando perfil...</p>
+  </div>
+
+  <ng-container *ngIf="!loading">
+    <div class="profile-header-container">
+      <div class="profile-banner-bg">
+        <img src="/imagens/Banner.webp" alt="Banner do perfil" />
+      </div>
+
+      <div class="profile-header-content">
+        <div
+          class="profile-avatar-wrapper"
+          id="btn-mudar-avatar"
+          *ngIf="isOwn; else avatarSomenteLeitura"
+          (click)="openAvatarPicker()"
+          role="button"
+          tabindex="0"
+          aria-label="Trocar foto de perfil"
+          (keydown.enter)="openAvatarPicker()"
+        >
+          <img
+            src="{{ avatar }}"
+            alt="Avatar do Usuário"
+            class="profile-avatar-img"
+            id="user-avatar-img"
+          />
+          <div class="avatar-overlay" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#ffffff" viewBox="0 0 256 256">
+              <path d="M227.31,73.37,182.63,28.68a16,16,0,0,0-22.63,0L36.69,152A15.86,15.86,0,0,0,32,163.31V208a16,16,0,0,0,16,16H92.69A15.86,15.86,0,0,0,104,219.31L227.31,96a16,16,0,0,0,0-22.63ZM92.69,208H48V163.31l88-88L180.69,120ZM192,108.68,147.31,64l24-24L216,84.68Z"></path>
+            </svg>
+          </div>
+          <input #avatarInput type="file" id="avatar-input" accept="image/*" style="display: none" (change)="onAvatarSelected($event)" />
+        </div>
+
+        <ng-template #avatarSomenteLeitura>
+          <div class="profile-avatar-wrapper is-readonly">
+            <img [src]="avatar" alt="Avatar do Usuário" class="profile-avatar-img" />
+          </div>
+        </ng-template>
+
+        <div class="profile-user-details">
+          <div class="user-content">
+            <h2 class="profile-name" id="user-display-name">{{ notFound ? errorTitle : displayName }}</h2>
+            <h3 class="profile-email" id="user-display-email">{{ handle }}</h3>
+
+            <div class="bio-edit">
+              <div id="profile-edit">
+                <p id="profile-bio" *ngIf="!editingBio">{{ bio }}</p>
+                <textarea
+                  *ngIf="editingBio"
+                  class="input-new"
+                  name="bioDraft"
+                  [(ngModel)]="bioDraft"
+                  rows="3"
+                  maxlength="280"
+                  placeholder="Conte um pouco sobre suas leituras..."
+                  (keydown.enter)="saveBio(); $event.preventDefault()"
+                ></textarea>
+              </div>
+              <img
+                *ngIf="isOwn && !editingBio"
+                src="/imagens/Vetores/EditarVetor.svg"
+                class="sidebar-icon0"
+                alt="Editar descrição"
+                role="button"
+                tabindex="0"
+                (click)="startEditingBio()"
+                (keydown.enter)="startEditingBio()"
+              />
+              <img
+                *ngIf="isOwn && editingBio"
+                src="/imagens/Vetores/CheckMarcadoVetor.svg"
+                class="sidebar-icon0"
+                alt="Salvar descrição"
+                role="button"
+                tabindex="0"
+                (click)="saveBio()"
+                (keydown.enter)="saveBio()"
+              />
+            </div>
+
+            <div class="profile-badges">
+              <span class="badge" id="membro-idade">{{ memberSince }}</span>
+              <span class="badge highlight">Leitor Assíduo</span>
+            </div>
+
+            <p *ngIf="feedback" class="profile-feedback" [class.is-error]="feedbackError" role="status">
+              {{ feedback }}
+            </p>
+          </div>
+
+          <div class="stats-grid" *ngIf="!notFound">
+            <div class="stat-card">
+              <span class="stat-number" id="all-books-read">{{ booksRead }}</span>
+              <span class="stat-label">Livros Lidos</span>
+            </div>
+            <div class="stat-card">
+              <span class="stat-number" id="all-pages-read">{{ pagesRead }}</span>
+              <span class="stat-label">Páginas Lidas</span>
+            </div>
+            <div class="stat-card">
+              <span class="stat-number">{{ reviewsCount }}</span>
+              <span class="stat-label">Resenhas</span>
+            </div>
+            <div class="stat-card">
+              <span class="stat-number" id="max-streak">{{ maxStreak }}</span>
+              <span class="stat-label">Maior Sequência</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row" *ngIf="!notFound">
+      <h1>Obras Favoritas</h1>
+      <div class="grid-livros">
+        <div class="card-livro" *ngFor="let obra of favorites">
+          <div class="capa-wrapper">
+            <img [src]="obra.src" [alt]="obra.alt" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</section>

@@ -1,0 +1,175 @@
+/* search.css — port fiel do Site/css/search.css, responsivo.
+   Cards/carrossel/modal vêm do base.css global (igual ao home). */
+
+.search-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+#pesquisa h1 {
+  font-family: "Bricolage Grotesque", sans-serif;
+  color: #f5f5dc;
+  font-weight: 600;
+  font-size: 30px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.search-page .barra-pesquisa {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+#barrapesquisa {
+  display: flex;
+  align-items: center;
+  border: 3px solid #f5f5dc;
+  border-radius: 12px;
+  background-color: var(--creme-bookway, #ffffc7);
+  width: min(1000px, 100%);
+}
+
+#barrapesquisa #s-header {
+  background: var(--creme-bookway, #ffffc7);
+  padding: 5px;
+  width: 100%;
+  border: none;
+  font-family: inter, sans-serif;
+  margin-left: 5px;
+  outline: none;
+  color: #011733;
+}
+
+#barrapesquisa #b-header {
+  background-image: url("/imagens/Vetores/PesquisaVetor.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  width: 20px;
+  height: 20px;
+  background-color: #f5f5dc;
+  padding: 5px;
+  border: none;
+  transform: rotate(90deg);
+  margin-right: 10px;
+  margin-left: 8px;
+  font-family: inter, sans-serif;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+#barrapesquisa #f-header {
+  background: var(--creme-bookway, #ffffc7);
+  padding: 5px;
+  border: none;
+  font-family: inter, sans-serif;
+  margin-right: 5px;
+  outline: none;
+  cursor: pointer;
+}
+
+#barrapesquisa #filtro {
+  border-right: 1px solid #011733;
+  display: flex;
+  flex-shrink: 0;
+}
+
+.search-results {
+  align-self: flex-start;
+  width: 100%;
+  text-align: left;
+  margin: 20px 0 0 10px;
+}
+
+.search-results h2 {
+  color: #f5f5dc;
+  font-family: "Bricolage Grotesque", sans-serif;
+  font-size: 20px;
+}
+
+.search-results h3 {
+  color: #f5f5dc;
+  font-family: "Bricolage Grotesque", sans-serif;
+  margin: 20px 0 10px 0;
+}
+
+.buscando-status,
+.sem-resultados {
+  color: #f5f5dc;
+  font-family: inter, sans-serif;
+  margin-top: 12px;
+}
+
+/* Comunidades no search viram carrossel horizontal (igual ao original),
+   não o grid 3-col do home */
+.search-comms {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  gap: 20px;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  width: 100%;
+  padding: 10px;
+}
+
+.search-comms::-webkit-scrollbar {
+  display: none;
+}
+
+.search-comms .comunidade {
+  width: 300px;
+  height: 180px;
+  flex-shrink: 0;
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+  cursor: pointer;
+  margin: 0;
+}
+
+.autores-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  width: 100%;
+}
+
+.autor-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  padding: 10px 16px;
+  color: #fbf4d9;
+  font-family: inter, sans-serif;
+  background: #365c7d;
+  border: 1.5px solid #d9822b;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.autor-card:hover {
+  background: #2e4e6b;
+}
+
+.autor-card span {
+  font-size: 12px;
+  color: #d9822b;
+  opacity: 0.9;
+}
+
+@media (max-width: 768px) {
+  #pesquisa h1 {
+    font-size: 22px;
+  }
+
+  #barrapesquisa #f-header {
+    max-width: 110px;
+  }
+}

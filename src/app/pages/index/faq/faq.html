@@ -1,0 +1,35 @@
+<div class="hch">
+  <div class="hch-header">
+    <h3>Central de Atendimento</h3>
+    <h2 class="hch-brand">Bookway</h2>
+
+    <div class="hch-search-container">
+      <input
+        type="text"
+        placeholder="Pesquisar"
+        id="hch-inner-search"
+        name="filtro"
+        [(ngModel)]="filtro"
+        autocomplete="off"
+      />
+      <button type="button" id="hch-search-btn" aria-label="Pesquisar"></button>
+    </div>
+  </div>
+
+  <div class="hch-section">
+    <h4>Artigos de ajuda</h4>
+
+    <div class="accordion-group">
+      <details *ngFor="let artigo of artigosFiltrados">
+        <summary>{{ artigo.pergunta }} <span class="arrow">▼</span></summary>
+        <div class="details-content">
+          <p>{{ artigo.resposta }}</p>
+        </div>
+      </details>
+
+      <p *ngIf="artigosFiltrados.length === 0" class="hch-empty">
+        Nenhum artigo encontrado para "{{ filtro }}".
+      </p>
+    </div>
+  </div>
+</div>

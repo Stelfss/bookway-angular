@@ -1,0 +1,46 @@
+:host{display:block;min-width:0}
+.profile-page{width:100%;max-width:1440px;margin:0 auto}
+.profile-state{display:flex;min-height:320px;flex-direction:column;align-items:center;justify-content:center;gap:12px;border:1px solid #1a2942;border-radius:10px;background:#12334a;color:#f5f5dc}
+.profile-state p{margin:0;font:400 14px/1.5 Inter,sans-serif}
+.state-spinner{width:28px;height:28px;border:3px solid rgba(255,255,255,.2);border-top-color:#fe9920;border-radius:50%;animation:profile-spin .8s linear infinite}
+@keyframes profile-spin{to{transform:rotate(360deg)}}
+.profile-header-container{background-color:#12334a;border-radius:10px;border:1px solid #1a2942;overflow:hidden;margin-bottom:40px}
+.profile-banner-bg{object-fit:cover;height:180px;position:relative}
+.profile-banner-bg img{width:100%;height:100%;object-fit:cover;display:block}
+.profile-header-content{display:flex;padding:0 40px 40px 40px;position:relative;gap:30px;align-items:flex-start}
+.profile-avatar-wrapper{margin-top:-80px;flex-shrink:0;z-index:2;position:relative;display:inline-block;cursor:pointer;border-radius:50%;overflow:hidden}
+.profile-avatar-wrapper.is-readonly{cursor:default}
+.profile-avatar-img{display:block;width:150px;height:150px;border-radius:1000px;border:6px solid #12334a;background-color:#12334a;object-fit:cover}
+.profile-avatar-wrapper:hover .avatar-overlay{opacity:1}
+.avatar-overlay{position:absolute;top:0;left:0;width:100%;height:100%;background-color:rgba(0,0,0,.6);display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .3s ease}
+.profile-user-details{margin-top:15px;color:#f5f5dc;display:flex;gap:30px;min-width:0}
+.user-content{min-width:0}
+.profile-name{font-size:30px;font-family:"Bricolage Grotesque",sans-serif;font-weight:700;margin:0 0 5px 0;color:#f5f5dc;overflow-wrap:anywhere}
+#profile-edit{font-size:14px;font-family:"Bricolage Grotesque",sans-serif;font-weight:200;color:#f5f5dc;display:flex;line-height:1.5}
+.profile-email{font-size:18px;font-family:"Bricolage Grotesque",sans-serif;font-weight:200;color:#c5c3c3;margin:0 0 15px 0;overflow-wrap:anywhere}
+#profile-bio{font-size:14px;font-family:"Bricolage Grotesque",sans-serif;font-weight:200;color:#f5f5dc;display:flex;line-height:1.5;min-width:0;text-align:justify;align-items:center;margin:0;white-space:pre-wrap;overflow-wrap:anywhere}
+.bio-edit{padding:5px;margin:0 0 20px 0;border:1px solid #12334a;display:flex;align-items:end;gap:8px}
+.sidebar-icon0{object-fit:cover;width:15px;height:15px;flex-shrink:0;cursor:pointer;filter:brightness(0) saturate(100%) invert(98%) sepia(8%) saturate(614%) hue-rotate(323deg) brightness(103%) contrast(93%)}
+.sidebar-icon0:hover{filter:brightness(0) saturate(100%) invert(89%) sepia(5%) saturate(530%) hue-rotate(164deg) brightness(92%) contrast(102%)}
+.input-new{background-color:rgba(255,255,199,.1);border:1px solid #191923;outline:none;width:100%;min-width:0;resize:vertical;min-height:64px;box-sizing:border-box;font-size:14px;font-family:"Bricolage Grotesque",sans-serif;font-weight:200;color:#f5f5dc}
+.input-new:focus{outline:none;border:1px solid #191923}
+.profile-badges{display:flex;gap:10px;flex-wrap:wrap}
+.badge{background-color:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);color:#c5c3c3;padding:6px 14px;border-radius:10px;font-size:12px;font-family:"Bricolage Grotesque",sans-serif;white-space:nowrap}
+.badge.highlight{background-color:rgba(254,153,32,.1);border-color:#d47500;color:#d47500}
+.profile-feedback{margin:0 0 18px;font:600 13px/1.4 Inter,sans-serif;color:#86efac}
+.profile-feedback.is-error{color:#fca5a5}
+.grid-livros{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:20px;width:100%}
+.card-livro{display:flex;flex-direction:column;transition:transform .2s ease}
+.card-livro:hover{transform:translateY(-4px)}
+.capa-wrapper{width:100%;max-width:220px;aspect-ratio:2/3;border-radius:12px;overflow:hidden;box-shadow:0 8px 20px rgba(0,0,0,.4);margin-bottom:12px;background-color:#011733}
+.capa-wrapper img{width:100%;height:100%;object-fit:cover;transition:transform .3s ease}
+.card-livro:hover .capa-wrapper img{transform:scale(1.04)}
+.stats-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px}
+.stat-card{background-color:#12334a;border-radius:10px;padding:25px 20px;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:all .3s ease}
+.stat-number{font-family:"Bricolage Grotesque",sans-serif;font-size:36px;font-weight:700;color:#f5f5dc;margin-bottom:5px}
+.stat-label{color:#c5c3c3;font-size:10px;text-transform:uppercase;letter-spacing:1px}
+.row{margin-bottom:40px}
+.row h1{font-size:25px;font-family:"Bricolage Grotesque",sans-serif;margin-bottom:10px;color:#f5f5dc}
+@media (max-width:1024px){.profile-header-content{padding:0 20px 30px 20px;gap:20px}.grid-livros{grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}.stats-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:768px){.grid-livros{grid-template-columns:repeat(2,minmax(0,1fr));gap:15px}.profile-user-details{display:flex;flex-direction:column;gap:20px}.profile-header-content{flex-direction:column;align-items:center;text-align:center;justify-content:center;padding:0 20px 30px 20px}.profile-avatar-wrapper{margin-top:-75px}.profile-badges{justify-content:center}.bio-edit{justify-content:center}#profile-bio{text-align:center}.stats-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px;margin-top:0}.stat-card{padding:15px 10px}}
+@media (max-width:480px){.grid-livros{grid-template-columns:repeat(2,minmax(0,1fr))}.profile-avatar-img{width:120px;height:120px}.profile-name{font-size:24px}}

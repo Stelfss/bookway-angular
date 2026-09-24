@@ -1,0 +1,43 @@
+<div class="leitura-page" [class.ui-oculta]="uiOculta">
+  <header class="leitura-header" *ngIf="!uiOculta">
+    <button type="button" class="btn-voltar" (click)="voltar()">❮ Voltar</button>
+
+    <div class="controles-paginacao">
+      <button type="button" id="btn-ant" class="btn-ferramenta" (click)="mudarPagina(-1)" [disabled]="paginaAtual <= 1">❮</button>
+      <span id="indicador-pagina">{{ indicadorTexto }}</span>
+      <button type="button" id="btn-prox" class="btn-ferramenta" (click)="mudarPagina(1)" [disabled]="totalPaginas === 0 || paginaAtual >= totalPaginas">❯</button>
+    </div>
+
+    <div class="info-leitura">
+      <span id="relogio">{{ horaTexto }}</span>
+    </div>
+  </header>
+
+  <div class="leitura-page-container">
+    <section class="conteudo">
+      <div class="leitura-conteudo">
+        <div *ngIf="loading" class="leitura-status" role="status">
+          <div class="state-spinner" aria-hidden="true"></div>
+          <p>Carregando livro...</p>
+        </div>
+
+        <p *ngIf="!loading && erro" class="leitura-erro" role="alert">{{ erro }}</p>
+
+        <div id="texto-da-historia" class="leitura-texto-container" #textoHistoria [innerHTML]="conteudoHtml"></div>
+      </div>
+    </section>
+  </div>
+
+  <div id="ocultar-ui">
+    <button type="button" class="bttn-oui" (click)="alternarUI()">
+      <img
+        [src]="uiOculta ? '/imagens/Vetores/OlhoFechadoVetor.svg' : '/imagens/Vetores/OlhoAbertoVetor.svg'"
+        class="sidebar-icon"
+        alt="Alternar interface"
+      />
+      <span *ngIf="!uiOculta">Ocultar UI</span>
+    </button>
+  </div>
+
+  <div class="leitura-aviso-tempo" *ngIf="avisoTempo" aria-live="polite">{{ avisoTempo }}</div>
+</div>

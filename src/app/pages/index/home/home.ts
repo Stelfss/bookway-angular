@@ -1,8 +1,9 @@
 import { Component, OnInit, OnDestroy, ElementRef, ViewChild, inject, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { SupabaseService } from '../../../core/supabase';
+import { EstanteService } from '../../../core/services/estante.service';
 import { ModalService } from '../../../core/services/modal.service';
 import { Subscription } from 'rxjs';
 
@@ -47,6 +48,8 @@ interface Comunidade {
 })
 export class Home implements OnInit, OnDestroy {
   private supabaseService = inject(SupabaseService);
+  private router = inject(Router);
+  private estanteService = inject(EstanteService);
   private cdr = inject(ChangeDetectorRef);
   private modalService = inject(ModalService);
   private modalSub?: Subscription;
@@ -88,6 +91,8 @@ export class Home implements OnInit, OnDestroy {
   // Estado dos Modais
   showBookModal = false;
   selectedBook: Livro | null = null;
+  shelfFeedback = '';
+  addingToShelf = false;
 
   showCommunityModal = false;
   selectedCommunity: Comunidade | null = null;
@@ -237,7 +242,36 @@ export class Home implements OnInit, OnDestroy {
   openBookModal(livro: Livro): void {
     this.selectedBook = livro;
     this.showBookModal = true;
+    this.shelfFeedback = '';
     document.body.style.overflow = 'hidden';
+  }
+
+  // Equivale ao irParaLeitura() do original: abre o leitor com id/título.
+  lerLivro(): void {
+    if (!this.selectedBook) return;
+    const livro = this.selectedBook;
+    this.closeAllModals();
+    void this.router.navigate(['/ler'], {
+      queryParams: { id: String(livro.id ?? ''), titulo: livro.titulo ?? '' }
+    });
+  }
+
+  // Portado de estante.js: salva o livro do modal na tabela "estante".
+  async adicionarNaEstante(): Promise<void> {
+    if (!this.selectedBook || this.addingToShelf) return;
+
+    this.addingToShelf = true;
+    this.shelfFeedback = 'Salvando na estante...';
+
+    const resultado = await this.estanteService.adicionar(
+      this.selectedBook.titulo,
+      this.selectedBook.autor ?? '',
+      this.selectedBook.capa ?? ''
+    );
+
+    this.addingToShelf = false;
+    this.shelfFeedback = resultado.mensagem;
+    this.cdr.detectChanges();
   }
 
   async openCommunityModal(comm: Comunidade): Promise<void> {
